@@ -1,0 +1,29 @@
+.collapse_all {
+  .collapse_check {
+    .item {
+      p {
+        display: inline-block;
+        position: relative;
+
+        &:hover {
+          font-weight: 600;
+        }
+
+        &::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, #444444, #444444);
+            transition: width 0.3s;
+        }
+      }
+
+      p.active {
+        font-weight: 600;
+      }
+    }
+  }
+}
