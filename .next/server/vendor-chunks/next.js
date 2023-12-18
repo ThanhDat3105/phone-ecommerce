@@ -1781,6 +1781,16 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({\n    value: true\n}));
 
 /***/ }),
 
+/***/ "(ssr)/./node_modules/next/navigation.js":
+/*!*****************************************!*\
+  !*** ./node_modules/next/navigation.js ***!
+  \*****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("\nmodule.exports = __webpack_require__(/*! ./dist/client/components/navigation */ \"(ssr)/./node_modules/next/dist/client/components/navigation.js\");\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHNzcikvLi9ub2RlX21vZHVsZXMvbmV4dC9uYXZpZ2F0aW9uLmpzIiwibWFwcGluZ3MiOiI7QUFBQUEsaUpBQXlCIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vcGhvbmUtZWNvbW1lcmNlLy4vbm9kZV9tb2R1bGVzL25leHQvbmF2aWdhdGlvbi5qcz9hMDk5Il0sInNvdXJjZXNDb250ZW50IjpbIm1vZHVsZS5leHBvcnRzID0gcmVxdWlyZSgnLi9kaXN0L2NsaWVudC9jb21wb25lbnRzL25hdmlnYXRpb24nKVxuIl0sIm5hbWVzIjpbIm1vZHVsZSIsImV4cG9ydHMiLCJyZXF1aXJlIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///(ssr)/./node_modules/next/navigation.js\n");
+
+/***/ }),
+
 /***/ "(rsc)/./node_modules/next/dist/build/output/log.js":
 /*!****************************************************!*\
   !*** ./node_modules/next/dist/build/output/log.js ***!
@@ -2068,16 +2078,6 @@ eval("\nif (false) {} else {\n    if (false) {} else {\n        if (true) {\n   
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 eval("\nmodule.exports = __webpack_require__(/*! ../../module.compiled */ \"(ssr)/./node_modules/next/dist/server/future/route-modules/app-page/module.compiled.js?5bc9\").vendored[\"react-rsc\"].ReactDOM; //# sourceMappingURL=react-dom.js.map\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9ub2RlX21vZHVsZXMvbmV4dC9kaXN0L3NlcnZlci9mdXR1cmUvcm91dGUtbW9kdWxlcy9hcHAtcGFnZS92ZW5kb3JlZC9yc2MvcmVhY3QtZG9tLmpzIiwibWFwcGluZ3MiOiJBQUFhO0FBQ2JBLCtMQUFnRixFQUVoRixxQ0FBcUMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9waG9uZS1lY29tbWVyY2UvLi9ub2RlX21vZHVsZXMvbmV4dC9kaXN0L3NlcnZlci9mdXR1cmUvcm91dGUtbW9kdWxlcy9hcHAtcGFnZS92ZW5kb3JlZC9yc2MvcmVhY3QtZG9tLmpzP2RmYjEiXSwic291cmNlc0NvbnRlbnQiOlsiXCJ1c2Ugc3RyaWN0XCI7XG5tb2R1bGUuZXhwb3J0cyA9IHJlcXVpcmUoXCIuLi8uLi9tb2R1bGUuY29tcGlsZWRcIikudmVuZG9yZWRbXCJyZWFjdC1yc2NcIl0uUmVhY3RET007XG5cbi8vIyBzb3VyY2VNYXBwaW5nVVJMPXJlYWN0LWRvbS5qcy5tYXAiXSwibmFtZXMiOlsibW9kdWxlIiwiZXhwb3J0cyIsInJlcXVpcmUiLCJ2ZW5kb3JlZCIsIlJlYWN0RE9NIl0sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///(rsc)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/rsc/react-dom.js\n");
-
-/***/ }),
-
-/***/ "(rsc)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js":
-/*!***********************************************************************************************************!*\
-  !*** ./node_modules/next/dist/server/future/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js ***!
-  \***********************************************************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("\nmodule.exports = __webpack_require__(/*! ../../module.compiled */ \"(ssr)/./node_modules/next/dist/server/future/route-modules/app-page/module.compiled.js?5bc9\").vendored[\"react-rsc\"].ReactJsxDevRuntime; //# sourceMappingURL=react-jsx-dev-runtime.js.map\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKHJzYykvLi9ub2RlX21vZHVsZXMvbmV4dC9kaXN0L3NlcnZlci9mdXR1cmUvcm91dGUtbW9kdWxlcy9hcHAtcGFnZS92ZW5kb3JlZC9yc2MvcmVhY3QtanN4LWRldi1ydW50aW1lLmpzIiwibWFwcGluZ3MiOiJBQUFhO0FBQ2JBLHlNQUEwRixFQUUxRixpREFBaUQiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly9waG9uZS1lY29tbWVyY2UvLi9ub2RlX21vZHVsZXMvbmV4dC9kaXN0L3NlcnZlci9mdXR1cmUvcm91dGUtbW9kdWxlcy9hcHAtcGFnZS92ZW5kb3JlZC9yc2MvcmVhY3QtanN4LWRldi1ydW50aW1lLmpzPzJiNGUiXSwic291cmNlc0NvbnRlbnQiOlsiXCJ1c2Ugc3RyaWN0XCI7XG5tb2R1bGUuZXhwb3J0cyA9IHJlcXVpcmUoXCIuLi8uLi9tb2R1bGUuY29tcGlsZWRcIikudmVuZG9yZWRbXCJyZWFjdC1yc2NcIl0uUmVhY3RKc3hEZXZSdW50aW1lO1xuXG4vLyMgc291cmNlTWFwcGluZ1VSTD1yZWFjdC1qc3gtZGV2LXJ1bnRpbWUuanMubWFwIl0sIm5hbWVzIjpbIm1vZHVsZSIsImV4cG9ydHMiLCJyZXF1aXJlIiwidmVuZG9yZWQiLCJSZWFjdEpzeERldlJ1bnRpbWUiXSwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///(rsc)/./node_modules/next/dist/server/future/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js\n");
 
 /***/ }),
 

@@ -1,0 +1,50 @@
+.item {
+  .info_item {
+    animation: none;
+  }
+
+  .price {
+    width: 100%;
+    animation: increaseWidthPrice 0.3s ease-in-out;
+  }
+
+  &:hover {
+    .info_item {
+      bottom: 0%;
+      animation: openSlideDetail 0.3s ease-in;
+    }
+
+    .sale_off {
+      .status {
+        background-color: white;
+        color: black;
+      }
+      .reduced_price {
+        background-color: white;
+      }
+    }
+  }
+
+  &:not(:hover) .info_item {
+    bottom: -65%;
+    animation: closeSlideDetail 0.3s ease-in-out;
+  }
+}
+
+@keyframes openSlideDetail {
+  0% {
+    bottom: -65%;
+  }
+  100% {
+    bottom: 0%;
+  }
+}
+
+@keyframes closeSlideDetail {
+  0% {
+    bottom: 0%;
+  }
+  100% {
+    bottom: -65%;
+  }
+}

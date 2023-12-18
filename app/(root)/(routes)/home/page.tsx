@@ -9,7 +9,7 @@ import News from "./news/News";
 export default function HomePage() {
   return (
     <MainLayout>
-      <div className="home bg-[#f5f5f5]">
+      <div className="home bg-white">
         <Banner />
         <Brand />
         <Product />

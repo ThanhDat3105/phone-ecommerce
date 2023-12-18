@@ -1,0 +1,22 @@
+.productCarousel {
+  .carousel {
+    .thumbs-wrapper {
+      .thumbs {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+
+  .carousel-slider {
+    .slider-wrapper {
+      .slider {
+        .slide.selected {
+          img {
+            border-radius: 12px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,5 +4,7 @@ export const formatPrice = (price: number) => {
     currency: "VND",
   });
 
-  return formatDone.replace("₫", "");
+  const priceWithoutSymbol = formatDone.replace("₫", "");
+
+  return priceWithoutSymbol;
 };

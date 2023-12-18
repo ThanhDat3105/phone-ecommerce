@@ -166,3 +166,32 @@ img {
   max-width: 100%;
   display: block;
 }
+
+.ant-tooltip {
+  display: none;
+}
+
+.ant-slider {
+  padding-block: 5px;
+
+  .ant-slider-track {
+    background-color: #444444;
+  }
+  .ant-slider-rail {
+    background-color: #aaaaaa !important;
+    height: 1px !important;
+  }
+
+  .ant-slider-handle {
+    &::after {
+      background-color: #000000;
+      box-shadow: 0 0 0 2px #000000 !important;
+    }
+  }
+
+  &:hover {
+    .ant-slider-track {
+      background-color: #444444;
+    }
+  }
+}

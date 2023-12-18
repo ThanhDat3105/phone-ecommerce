@@ -1,54 +1,42 @@
-import { FaApple } from "react-icons/fa";
-import ItemProduct from "./item_product/ItemProduct";
-import { productItem } from "@/interface/product";
-import { Button } from "@/components/ui/button";
-
-import { IoIosArrowForward } from "react-icons/io";
+"use client";
+import React, { useEffect } from "react";
+import { Product } from "@/interface/product";
+import ListItemProduct from "@/app/components/ListItemProduct/ListItemProduct";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { fetchListBrandAction, fetchListPhoneAction } from "@/redux/features/phoneSlice";
 
 export default function Product() {
-  const item = [
-    {
-      id: 1,
-      title: "iPhone 15 Pro max 256GB",
-      price: 32990000,
-      originalPrice: 37990000,
-    },
-    {
-      id: 2,
-      title: "iPhone 15 Pro max 256GB",
-      price: 32990000,
-      originalPrice: 37990000,
-    },
-    {
-      id: 3,
-      title: "iPhone 15 Pro max 256GB",
-      price: 32990000,
-      originalPrice: 37990000,
-    },
-    {
-      id: 4,
-      title: "iPhone 15 Pro max 256GB",
-      price: 32990000,
-      originalPrice: 37990000,
-    },
-  ];
+  const dispatch = useDispatch<AppDispatch>();
+  const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
+
+  const fetchListBrand = () => {
+    dispatch(fetchListBrandAction());
+  };
+
+  const fetchListPhone = () => {
+    dispatch(fetchListPhoneAction());
+  };
+
+  useEffect(() => {
+    fetchListBrand();
+    fetchListPhone();
+  }, []);
+
+  const filterPhoneHome = (id: number) => {
+    const result = phoneReducer.phoneList.filter(
+      (ele: Product) => ele.categoryBrandMapping.id_brand === id
+    );
+    return result;
+  };
+
   return (
     <div className="product pt-[45px] pb-[20px]">
-      <div className="container_all">
-        <div className="title flex justify-center items-center gap-[2px]">
-          <FaApple className="text-[36px] pb-[5px]" />
-          <p className="xl:text-[32px] md:text-2xl">IPHONE</p>
-        </div>
-        <div className="product_thumbnail grid xl:grid-cols-4 gap-[45px] pt-11 md:grid-cols-2">
-          {item.map((ele: productItem) => {
-            return <ItemProduct key={ele.id} ele={ele} />;
-          })}
-        </div>
-        <div className="button_more flex justify-center pt-11 items-center">
-          <Button className="rounded-[15px] py-3 px-5 text-xl gap-2 bg-transparent text-black border-[1px] border-solid border-[black] hover:bg-transparent">
-            See more <IoIosArrowForward className="" />
-          </Button>
-        </div>
+      <div className="container_all flex flex-col gap-[50px]">
+        <ListItemProduct title="Iphone" ele={filterPhoneHome(6).slice(0, 4)} />
+        <ListItemProduct title="Samsung" ele={filterPhoneHome(5).slice(0, 4)} />
+        <ListItemProduct title="Vivo" ele={filterPhoneHome(7).slice(0, 4)} />
+        <ListItemProduct title="Oppo" ele={filterPhoneHome(8).slice(0, 4)} />
       </div>
     </div>
   );
