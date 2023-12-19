@@ -11,6 +11,9 @@ import { Button } from "@/components/ui/button";
 import "./header.scss";
 import Logo from "../icons/icon/Logo";
 import { toast } from "sonner";
+import { LogOut } from "lucide-react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export default function Header() {
   const [login, setLogin] = useState<boolean>(false);
@@ -20,6 +23,8 @@ export default function Header() {
   const [value, setValue] = useState<string>("");
   const [presentHeight, setPresentHeight] = useState<number>(0);
   const [inputFocus, setInputFocus] = useState<boolean>(false);
+
+  const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", function () {
@@ -82,19 +87,19 @@ export default function Header() {
         </div>
         <div className="header_menu flex gap-[55px] text-black">
           <div className="item_menu category flex cursor-pointer relative items-center">
-            <p
+            <div role="button"
               onClick={() => router.push("/product")}
               className="font-normal text-base"
             >
               All Categories
-            </p>
+            </div>
           </div>
           <div className="item_menu relative">
-            <p className="font-normal text-base">News</p>
+            <div role="button" className="font-normal text-base">News</div>
           </div>
-          <div className="item_menu relative">
+          {/* <div className="item_menu relative">
             <p className="font-normal text-base">Service</p>
-          </div>
+          </div> */}
         </div>
         <div className="header_info flex gap-[30px]">
           <div
@@ -119,7 +124,7 @@ export default function Header() {
               <HiOutlineMagnifyingGlass className="text-xl text-black" />
             </Button>
           </div>
-          <div className="header_cart">
+          <div className="header_cart relative">
             <Button
               onClick={() => router.push("/cart")}
               size={"icon"}
@@ -127,6 +132,11 @@ export default function Header() {
             >
               <FaShoppingBag className="icon_bag text-[20px]" />
             </Button>
+            {phoneReducer.cartList.length > 0 && (
+              <span className="absolute bg-black text-white rounded-full w-auto text-center text-[12px] left-[22px] top-[3px] leading-[12px] p-[4px] min-w-[20px]">
+                {phoneReducer.cartList.length}
+              </span>
+            )}
           </div>
           <div className="header_user relative">
             <Button
@@ -138,34 +148,35 @@ export default function Header() {
             </Button>
             <div
               ref={elRef}
-              className="dropdown_user absolute h-0 overflow-hidden w-[100px] top-[125%] rounded-b-[15px] right-[50%] translate-x-[50%] transition-all duration-300"
+              className="dropdown_user absolute h-0 overflow-hidden w-[150px] top-[140%] rounded-b-[5px] right-[50%] translate-x-[50%] transition-all duration-300"
             >
               {!login ? (
                 <>
-                  <p
-                    className="px-5 py-3 cursor-pointer bg-black hover:bg-[#0000008b] transition-all duration-300"
+                  <div
+                    className="px-5 py-3 cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
                     onClick={() => {
                       router.push("/sign_in"), checkHeight(elRef);
                     }}
                   >
                     Login
-                  </p>
-                  <p
-                    className="px-5 py-3 bg-black cursor-pointer hover:bg-[#0000008b] transition-all duration-300"
+                  </div>
+                  <div
+                    className="px-5 py-3 bg-white text-black cursor-pointer hover:opacity-80 transition-all duration-300"
                     onClick={() => {
                       router.push("/sign_up"), checkHeight(elRef);
                     }}
                   >
                     Register
-                  </p>
+                  </div>
                 </>
               ) : (
-                <p
-                  className="px-5 py-3 cursor-pointer bg-black hover:bg-[#0000008b] transition-all duration-300"
+                <div
+                  className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
                   onClick={() => handleLogOut()}
                 >
                   Log out
-                </p>
+                  <LogOut size={15} />
+                </div>
               )}
             </div>
           </div>

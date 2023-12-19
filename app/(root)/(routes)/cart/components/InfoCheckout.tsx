@@ -152,7 +152,7 @@ export default function InfoCheckout(props: Props) {
           <p className="font-bold">Ship Code</p>
         </div>
       </div>
-      <input
+      {/* <input
         type="text"
         placeholder="Card Number"
         className="w-full p-5 rounded-[10px] focus-visible:outline-none border-[1px] border-[#444444] placeholder:text-black"
@@ -164,12 +164,12 @@ export default function InfoCheckout(props: Props) {
           placeholder="CVC Code"
           className="w-full p-5 rounded-[10px] focus-visible:outline-none border-[1px] border-[#444444] placeholder:text-black"
         />
-      </div>
+      </div> */}
       <Button
         onClick={() => pay()}
         type="button"
         placeholder="Place Order"
-        className="w-full text-white text-xl h-[65px] uppercase mt-[70px] rounded-[10px] bg-[#444444] focus-visible:outline-none"
+        className="w-full text-white text-base h-[65px] mt-[30px] rounded-[10px] bg-[#000] hover:opacity-90 focus-visible:outline-none"
       >
         Place Order
       </Button>

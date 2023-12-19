@@ -3,53 +3,56 @@ import React, { useEffect, useState } from "react";
 import MainLayout from "../../MainLayout";
 import ProductLeft from "./product_left/ProductLeft";
 import ProductRight from "./product_right/ProductRight";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
 import {
   fetchListBrandAction,
   fetchListCategoryAction,
   fetchListPhoneAction,
 } from "@/redux/features/phoneSlice";
+import Loading from "@/app/components/loading/Loading";
 
 export default function page() {
   const [filterBrand, setFilterBrand] = useState<string>("");
   const [filterType, setFilterType] = useState<string>("");
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
+  const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
-  const fetchListBrand = () => {
+  const handleFetchApi = () => {
+    setIsLoading(true);
     dispatch(fetchListBrandAction());
-  };
-
-  const fetchListPhone = () => {
     dispatch(fetchListPhoneAction());
-  };
-
-  const fetchListCategory = () => {
     dispatch(fetchListCategoryAction());
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1200);
   };
 
   useEffect(() => {
-    fetchListBrand();
-    fetchListPhone();
-    fetchListCategory();
+    handleFetchApi();
   }, []);
 
   return (
     <MainLayout>
-      <div className="filter pt-[130px] bg-white pb-[130px]">
-        <div className="container_all">
-          <div className="content flex gap-10">
-            <ProductLeft
-              setFilterBrand={setFilterBrand}
-              setFilterType={setFilterType}
-              filterBrand={filterBrand}
-              filterType={filterType}
-            />
-            <ProductRight  filterBrand={filterBrand} filterType={filterType} />
+      {isLoading && <Loading />}
+      {isLoading ? (
+        <div className="min-h-[600px]"></div>
+      ) : (
+        <div className="filter pt-[130px] bg-white pb-[130px]">
+          <div className="container_all">
+            <div className="content flex gap-10">
+              <ProductLeft
+                setFilterBrand={setFilterBrand}
+                setFilterType={setFilterType}
+                filterBrand={filterBrand}
+                filterType={filterType}
+              />
+              <ProductRight filterBrand={filterBrand} filterType={filterType} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </MainLayout>
   );
 }

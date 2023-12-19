@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { User } from "@/interface/user";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { addToCart } from "@/redux/features/phoneSlice";
@@ -102,8 +101,8 @@ export default function InfoDetail(props: Props) {
               return (
                 <Button
                   onClick={() => handleClick(ele.name)}
-                  className={`px-2 w-[60px] max-w-[60px] bg-[#D9D9D9] border-[1px] rounded-[5px] text-[#5D5D5D] hover:bg-[#d9d9d9d4] ${
-                    memoryName === ele.name ? "active border-[#5D5D5D]" : ""
+                  className={`px-2 w-[60px] max-w-[60px] bg-[#D9D9D9] border-[1px] transition-all duration-200 rounded-[5px] text-[#5D5D5D] hover:bg-[#d9d9d9d4] ${
+                    memoryName === ele.name ? " bg-[#000] text-white" : ""
                   }`}
                   key={ele.name}
                 >
@@ -126,7 +125,7 @@ export default function InfoDetail(props: Props) {
                   className={`max-w-[30px] max-h-[30px] w-[30px] h-[30px] block rounded-full cursor-pointer
                   ${
                     color === ele.hex
-                      ? "active shadow-[0_5px_10px_0_rgb(0,0,0,0.4)]"
+                      ? "active border-[5px]"
                       : ""
                   }
                   `}
@@ -137,7 +136,7 @@ export default function InfoDetail(props: Props) {
           </div>
         </div>
         <div className="preferential border-[1px] rounded-[10px]">
-          <div className="title px-10 py-5">
+          <div className="title text-xl font-semibold px-10 py-5">
             <p>Preferential</p>
           </div>
           <div className="separate h-[1px] bg-[#AAAAAA] " />
@@ -177,17 +176,17 @@ export default function InfoDetail(props: Props) {
         <div className="button_buy mt-[45px] mb-8">
           <Button
             onClick={() => handleAddToCart()}
-            className="transition-all duration-300 w-full py-[40px] rounded-[20px] text-2xl font-semibold bg-[#5D5D5D] hover:bg-[white] hover:text-[#5D5D5D] border-[#5D5D5D] border-[1px]"
+            className="transition-all duration-300 w-full py-[30px] rounded-[15px] text-xl   font-medium bg-[#000] hover:bg-[#5d5d5d] hover:text-[#fff] border-[#5D5D5D] border-[1px]"
           >
-            ADD TO CART
+            Add to cart
           </Button>
         </div>
         <div className="buy flex gap-10 mb-8">
-          <Button className="transition-all duration-300 w-[50%] py-[40px] rounded-[20px] text-2xl border-[1px] border-[#5D5D5D] text-[#5D5D5D] bg-white font-semibold hover:bg-[#5D5D5D] hover:text-[white]">
-            INSTALLMENT
+          <Button className="transition-all duration-300 w-[50%] py-[30px] rounded-[15px] text-xl border-[1px] border-[#5D5D5D] text-[#5D5D5D] bg-white font-medium hover:bg-[#5D5D5D] hover:text-[white]">
+            Installment
           </Button>
-          <Button className="transition-all duration-300 w-[50%] py-[40px] rounded-[20px] text-2xl border-[1px] border-[#5D5D5D] text-[#5D5D5D] bg-white font-semibold hover:bg-[#5D5D5D] hover:text-[white]">
-            TRADE - IN
+          <Button className="transition-all duration-300 w-[50%] py-[30px] rounded-[15px] text-xl border-[1px] border-[#5D5D5D] text-[#5D5D5D] bg-white font-medium hover:bg-[#5D5D5D] hover:text-[white]">
+            Trade - In
           </Button>
         </div>
         <div className="hotline border-[1px] border-[#5D5D5D] rounded-[10px] px-10 py-5">

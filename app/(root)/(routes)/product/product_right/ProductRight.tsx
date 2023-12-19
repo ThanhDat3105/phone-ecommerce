@@ -97,8 +97,8 @@ export default function ProductRight(props: Props) {
   };
 
   return (
-    <div className="product_right w-[70%] ml-auto">
-      <div className="logo_company  flex justify-between items-center">
+    <div className="product_right min-h-[800px] w-[70%] ml-auto">
+      {/* <div className="logo_company  flex justify-between items-center">
         {companyPhone.map((ele) => {
           return (
             <div
@@ -109,18 +109,17 @@ export default function ProductRight(props: Props) {
             </div>
           );
         })}
-      </div>
-      <div className="separate h-[1px] bg-[#AAAAAA] my-10" />
+      </div> */}
+      {/* <div className="separate h-[1px] bg-[#AAAAAA] my-10" /> */}
       <div className="filter_phone">
         <div className="total_phone flex justify-between items-center">
-          <p className="text-base tracking-wider text-[#AAAAAA] font-bold">
-            {dataFilter.length} Items
+          <p className="text-base tracking-wider text-[#AAAAAA] font-medium">
+            {dataFilter.length} Products
           </p>
           <div className="dropdown flex items-center gap-2">
-            <p className="text-xl tracking-wider text-[#AAAAAA]">Sort by:</p>
             <Combobox
               frameworks={frameworks}
-              title="Select Option"
+              title="sort by"
               page="product"
             />
           </div>

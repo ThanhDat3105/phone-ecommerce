@@ -100,7 +100,7 @@ export default function ProductLeft(props: Props) {
               </div>
             </div>
           </div>
-          <div className="separate" />
+          {/* <div className="separate" />
           <div className="price pt-5">
             <div className="flex flex-col gap-5">
               <div className="collapse_title flex justify-between items-center font-bold cursor-pointer">
@@ -116,17 +116,10 @@ export default function ProductLeft(props: Props) {
                 </div>
               </div>
               <div className="collapse_check px-2 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden cursor-pointer tracking-widest">
-                {/* <Slider
-                  range
-                  step={10}
-                  defaultValue={[20, 50]}
-                  onChangeComplete={onChangeComplete}
-                  max={1000000}
-                  min={0}
-                /> */}
+               
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -7,8 +7,8 @@ import { CartItem } from "@/interface/product";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import {
-  deCreaseQuantity,
-  inCreaseQuantity,
+  increaseQuantity,
+  decreaseQuantity,
 } from "@/redux/features/phoneSlice";
 
 interface Props {
@@ -21,11 +21,11 @@ export default function BuyItem(props: Props) {
   const [number, setNumber] = useState<number>(1);
 
   const handleIncrease = () => {
-    dispatch(inCreaseQuantity(props.ele));
+    dispatch(increaseQuantity(props.ele));
   };
 
   const handleDecrease = () => {
-    dispatch(deCreaseQuantity(props.ele));
+    dispatch(decreaseQuantity(props.ele));
   };
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function BuyItem(props: Props) {
     <>
       <div className="item flex">
         <div className="info_item w-[40%] flex gap-[15px]">
-          <input type="checkbox" name="" id="" />
+          {/* <input type="checkbox" name="" id="" /> */}
           <div className="image flex items-center w-[70px] h-[90px] max-w-[70px] max-h-[90px]">
             <img
               src={props.ele.thumbnail}

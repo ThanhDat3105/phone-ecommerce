@@ -14,3 +14,12 @@ export interface User {
   role: boolean;
   accessToken: string;
 }
+
+export interface UserSignIn {
+  name: string;
+  email: string;
+  password: string;
+  birthday?: string;
+  address: string;
+  phone: string;
+}

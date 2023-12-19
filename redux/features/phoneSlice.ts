@@ -88,9 +88,15 @@ export const phoneSlice = createSlice({
 
   reducers: {
     addToCart: (state, action: PayloadAction<any>) => {
+      const { id_product, color, storage } = action.payload;
+
       const item = state.cartList.find(
-        (p: CartItem) => p.id_product === action.payload.id_product
+        (p: CartItem) =>
+          p.id_product === id_product &&
+          p.color === color &&
+          p.storage === storage
       );
+
       if (item) {
         item.quantity++;
       } else {
@@ -98,22 +104,39 @@ export const phoneSlice = createSlice({
       }
     },
 
-    inCreaseQuantity: (state, action: PayloadAction<any>) => {
+    increaseQuantity: (state, action: PayloadAction<any>) => {
+      const { id_product, color, storage } = action.payload;
+
       const item = state.cartList.find(
-        (p: CartItem) => p.id_product === action.payload.id_product
+        (p: CartItem) =>
+          p.id_product === id_product &&
+          p.color === color &&
+          p.storage === storage
       );
+
       if (item) {
         item.quantity++;
       }
     },
 
-    deCreaseQuantity: (state, action: PayloadAction<any>) => {
+    decreaseQuantity: (state, action: PayloadAction<any>) => {
+      const { id_product, color, storage } = action.payload;
+
       const item = state.cartList.find(
-        (p: CartItem) => p.id_product === action.payload.id_product
+        (p: CartItem) =>
+          p.id_product === id_product &&
+          p.color === color &&
+          p.storage === storage
       );
+
       if (item) {
         if (item.quantity === 1) {
-          return;
+          state.cartList = state.cartList.filter(
+            (p: CartItem) =>
+              p.id_product !== id_product ||
+              p.color !== color ||
+              p.storage !== storage
+          );
         } else {
           item.quantity--;
         }
@@ -164,7 +187,7 @@ export const phoneSlice = createSlice({
 
 export const phoneAction = phoneSlice.actions;
 
-export const { addToCart, inCreaseQuantity, deCreaseQuantity } =
+export const { addToCart, increaseQuantity, decreaseQuantity } =
   phoneSlice.actions;
 
 export const phoneReducer = phoneSlice.reducer;

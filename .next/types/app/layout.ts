@@ -1,4 +1,4 @@
-// File: D:\BaiTap\project\phone-ecommerce\app\layout.tsx
+// File: D:\BaiTap\project\Web_Phone\phone-ecommerce\app\layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

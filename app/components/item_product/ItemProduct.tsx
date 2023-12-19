@@ -18,26 +18,11 @@ interface Props {
 }
 
 export default function ItemProduct(props: Props) {
-  const [hoverSlider, setHoverSlider] = useState<boolean>(false);
-
   const router = useRouter();
-
-  const searchParams = usePathname();
-
-  useEffect(() => {
-    if (searchParams === "/" || searchParams === "/home") {
-      setHoverSlider(true);
-    } else {
-      setHoverSlider(false);
-    }
-  }, []);
 
   return (
     <div
-      className={`item overflow-hidden cursor-pointer bg-[#FFFFFF] rounded-[20px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] px-7 pb-[30px] relative transition-all duration-300 xl:mb-0 xl:max-w-none  md:max-w-[300px] ml-auto mr-auto md:mb-7 ${
-        hoverSlider
-          ? "hover:shadow-[0_5px_10px_0_rgba(0,0,0,0.3)] hover:bg-[#d6d6d6]"
-          : "hover:scale-[1.03] hover:shadow-[0_5px_10px_0_rgba(0,0,0,0.3)]"
+      className={`item overflow-hidden cursor-pointer bg-[#FFFFFF] rounded-[20px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] px-7 pb-[30px] relative transition-all duration-300 xl:mb-0 xl:max-w-none  md:max-w-[300px] ml-auto mr-auto md:mb-7 hover:scale-[1.03] hover:shadow-[0_5px_10px_0_rgba(0,0,0,0.3)]"
       }`}
       onClick={() => router.push(`/product/${props.ele.id_product}`)}
     >
@@ -68,7 +53,7 @@ export default function ItemProduct(props: Props) {
           </div>
         </div>
       </div>
-      {hoverSlider ? (
+      {/* {hoverSlider ? (
         <div className="sale_off flex justify-between absolute w-full top-0 left-0 ">
           <div className="status rounded-tl-[20px] rounded-br-[20px] bg-black px-[6px] py-[6px] text-white transition-all duration-300">
             New
@@ -112,7 +97,7 @@ export default function ItemProduct(props: Props) {
         </div>
       ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 }

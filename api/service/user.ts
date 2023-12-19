@@ -1,11 +1,18 @@
+import { axiosRequest } from "@/configs/axios.config";
 import { userLogin } from "@/interface/user";
-import axios from "axios";
 
-const url = "https://be-phone-eu7f.onrender.com/auth/login";
-
-const loginApi = async (data: userLogin) => {
-  const response = await axios.post(url, data);
-  return response.data.content;
+export const loginApi = (data: userLogin) => {
+  return axiosRequest({
+    url: `auth/login`,
+    method: "POST",
+    data,
+  });
 };
 
-export { loginApi };
+export const registerApi = (data: userLogin) => {
+  return axiosRequest({
+    url: `auth/sign-up`,
+    method: "POST",
+    data,
+  });
+};

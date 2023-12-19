@@ -10,6 +10,7 @@ import { Product } from "@/interface/product";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { FindProductByIdAction } from "@/redux/features/phoneSlice";
+import Loading from "@/app/components/loading/Loading";
 
 interface Props {
   params: { id: number };
@@ -19,8 +20,10 @@ export default function Page(props: Props) {
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const dispatch = useDispatch<AppDispatch>();
   const [phoneInfo, setPhoneInfo] = useState<Product>();
+  const [isLoading,setIsLoading] = useState<boolean>(false)
 
   const findProductById = (id: number) => {
+    setIsLoading(true)
     dispatch(FindProductByIdAction(id));
   };
 
@@ -31,11 +34,13 @@ export default function Page(props: Props) {
   useEffect(() => {
     if (phoneReducer.phoneInfo) {
       setPhoneInfo(phoneReducer.phoneInfo);
+      setIsLoading(false)
     }
   }, [phoneReducer.phoneInfo]);
   return (
     <MainLayout>
-      <div className="product_detail pt-[120px] bg-white">
+      {isLoading && <Loading/>}
+      {isLoading ? <div className="min-h-[600px]"></div>:<div className="product_detail pt-[120px]  bg-white">
         <div className="container_all">
           <div className="menu_back flex text-[#5D5D5D] tracking-wider gap-6 ">
             <p className="cursor-pointer transition-all duration-300 hover:text-black">
@@ -55,7 +60,7 @@ export default function Page(props: Props) {
           <div className="button_information"></div>
           <InformationTable />
         </div>
-      </div>
+      </div>}
     </MainLayout>
   );
 }
