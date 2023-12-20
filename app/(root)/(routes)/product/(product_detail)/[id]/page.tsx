@@ -20,10 +20,8 @@ export default function Page(props: Props) {
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const dispatch = useDispatch<AppDispatch>();
   const [phoneInfo, setPhoneInfo] = useState<Product>();
-  const [isLoading,setIsLoading] = useState<boolean>(false)
 
   const findProductById = (id: number) => {
-    setIsLoading(true)
     dispatch(FindProductByIdAction(id));
   };
 
@@ -34,33 +32,39 @@ export default function Page(props: Props) {
   useEffect(() => {
     if (phoneReducer.phoneInfo) {
       setPhoneInfo(phoneReducer.phoneInfo);
-      setIsLoading(false)
     }
   }, [phoneReducer.phoneInfo]);
+
   return (
     <MainLayout>
-      {isLoading && <Loading/>}
-      {isLoading ? <div className="min-h-[600px]"></div>:<div className="product_detail pt-[120px]  bg-white">
-        <div className="container_all">
-          <div className="menu_back flex text-[#5D5D5D] tracking-wider gap-6 ">
-            <p className="cursor-pointer transition-all duration-300 hover:text-black">
-              Home
-            </p>
-            <IoIosArrowForward className="cursor-pointer" />
-            <p className="cursor-pointer hover:text-black transition-all duration-300">
-              Iphone
-            </p>
-            <IoIosArrowForward className="cursor-pointer" />
-            <p className="text-black cursor-pointer">IPhone 15 Pro Max 512GB</p>
+      {phoneReducer.isLoading && <Loading />}
+      {phoneReducer.isLoading ? (
+        <div className="min-h-[600px]"></div>
+      ) : (
+        <div className="product_detail pt-[120px]  bg-white">
+          <div className="container_all">
+            <div className="menu_back flex text-[#5D5D5D] tracking-wider gap-6 ">
+              <p className="cursor-pointer transition-all duration-300 hover:text-black">
+                Home
+              </p>
+              <IoIosArrowForward className="cursor-pointer" />
+              <p className="cursor-pointer hover:text-black transition-all duration-300">
+                Iphone
+              </p>
+              <IoIosArrowForward className="cursor-pointer" />
+              <p className="text-black cursor-pointer">
+                IPhone 15 Pro Max 512GB
+              </p>
+            </div>
+            <InfoDetail ele={phoneInfo} key={phoneInfo?.id_product} />
+            <RelatedProduct ele={phoneReducer.phoneList} />
           </div>
-          <InfoDetail ele={phoneInfo} key={phoneInfo?.id_product} />
-          <RelatedProduct ele={phoneReducer.phoneList} />
+          <div className="information">
+            <div className="button_information"></div>
+            <InformationTable />
+          </div>
         </div>
-        <div className="information">
-          <div className="button_information"></div>
-          <InformationTable />
-        </div>
-      </div>}
+      )}
     </MainLayout>
   );
 }

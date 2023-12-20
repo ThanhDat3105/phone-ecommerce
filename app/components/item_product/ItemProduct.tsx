@@ -3,12 +3,6 @@
 import { formatPrice } from "@/utils/price";
 
 import "./itemProduct.scss";
-import { useEffect, useState } from "react";
-
-import { FaShoppingBag } from "react-icons/fa";
-import { Button } from "@/components/ui/button";
-
-import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Product } from "@/interface/product";
 
@@ -53,51 +47,6 @@ export default function ItemProduct(props: Props) {
           </div>
         </div>
       </div>
-      {/* {hoverSlider ? (
-        <div className="sale_off flex justify-between absolute w-full top-0 left-0 ">
-          <div className="status rounded-tl-[20px] rounded-br-[20px] bg-black px-[6px] py-[6px] text-white transition-all duration-300">
-            New
-          </div>
-          <div className="reduced_price rounded-tr-[20px] rounded-bl-[20px] bg-[#D9D9D9] px-[6px] py-[6px] transition-all duration-300">
-            -13%
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
-      {hoverSlider ? (
-        <div className="info_item absolute w-full left-0 bottom-[-60%] ">
-          <div className="container_info bg-[#FFFFFF] rounded-b-[15px] text-center pb-[20px]">
-            <div className="info_top">
-              <div className="title text-base py-[15px]">{props.ele.name}</div>
-            </div>
-            <div className="separate w-[90%] h-[1px] bg-black relative left-[50%] translate-x-[-50%] " />
-            <div className="info_middle flex flex-col gap-[5px] py-5">
-              <div className="inch">
-                <p className="text-lg font-semibold tracking-widest">6,7"</p>
-              </div>
-              <div className="screen ">
-                <p className="text-sm">Super Retina XDR</p>
-              </div>
-              <div className="chip">
-                <p className="text-sm">Apple A15 Bionic</p>
-              </div>
-            </div>
-            <div className="price_sale text-base flex justify-evenly items-center">
-              <div className="border-[1px] rounded-[30px] border-solid border-[#D5D5D5] py-1 px-3">
-                {formatPrice(props.ele.price)}đ
-              </div>
-              <div className="info_bottom">
-                <Button className="rounded-[50%] p-2 h-auto">
-                  <FaShoppingBag className="text-[22px] text-white" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        ""
-      )} */}
     </div>
   );
 }

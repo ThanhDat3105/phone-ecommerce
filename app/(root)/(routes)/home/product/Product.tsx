@@ -13,7 +13,6 @@ import Loading from "@/app/components/loading/Loading";
 export default function Product() {
   const dispatch = useDispatch<AppDispatch>();
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleFetchApi = () => {
     dispatch(fetchListBrandAction());
@@ -21,11 +20,7 @@ export default function Product() {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     handleFetchApi();
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1200);
   }, []);
 
   const filterPhoneHome = (id: number) => {
@@ -37,8 +32,8 @@ export default function Product() {
 
   return (
     <>
-      {isLoading && <Loading />}
-      {isLoading ? (
+      {phoneReducer.isLoading && <Loading />}
+      {phoneReducer.isLoading ? (
         <div className="min-h-[600px]"></div>
       ) : (
         <div className="product pt-[45px] pb-[20px]">

@@ -21,4 +21,14 @@
       transform: scale(0);
     }
   }
+
+  .header_info {
+    .header_find {
+      .active {
+        &::-webkit-scrollbar {
+          width: 0;
+        }
+      }
+    }
+  }
 }

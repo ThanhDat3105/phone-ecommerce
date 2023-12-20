@@ -15,18 +15,13 @@ import Loading from "@/app/components/loading/Loading";
 export default function page() {
   const [filterBrand, setFilterBrand] = useState<string>("");
   const [filterType, setFilterType] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
   const handleFetchApi = () => {
-    setIsLoading(true);
     dispatch(fetchListBrandAction());
     dispatch(fetchListPhoneAction());
     dispatch(fetchListCategoryAction());
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1200);
   };
 
   useEffect(() => {
@@ -35,8 +30,8 @@ export default function page() {
 
   return (
     <MainLayout>
-      {isLoading && <Loading />}
-      {isLoading ? (
+      {phoneReducer.isLoading && <Loading />}
+      {phoneReducer.isLoading ? (
         <div className="min-h-[600px]"></div>
       ) : (
         <div className="filter pt-[130px] bg-white pb-[130px]">

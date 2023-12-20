@@ -87,7 +87,6 @@ export default function RegisterPage() {
                       <FormItem>
                         <FormControl>
                           <Input
-                            // disabled={isLoading}
                             placeholder="User name"
                             {...field}
                             className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
@@ -104,7 +103,6 @@ export default function RegisterPage() {
                       <FormItem>
                         <FormControl>
                           <Input
-                            // disabled={isLoading}
                             placeholder="User email"
                             {...field}
                             className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
@@ -122,7 +120,6 @@ export default function RegisterPage() {
                         <FormControl>
                           <Input
                             type="password"
-                            // disabled={isLoading}
                             placeholder="Password"
                             {...field}
                             className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
@@ -181,7 +178,6 @@ export default function RegisterPage() {
                       <FormItem>
                         <FormControl>
                           <Input
-                            // disabled={isLoading}
                             placeholder="User Address"
                             {...field}
                             className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
@@ -198,7 +194,6 @@ export default function RegisterPage() {
                       <FormItem>
                         <FormControl>
                           <Input
-                            // disabled={isLoading}
                             placeholder="User Phone"
                             {...field}
                             className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"

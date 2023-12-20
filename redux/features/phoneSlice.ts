@@ -14,6 +14,7 @@ interface phoneState {
   categoryList: Category[];
   phoneInfo: Product | undefined;
   cartList: CartItem[];
+  isLoading: boolean;
 }
 
 export const fetchListPhoneAction = createAsyncThunk(
@@ -84,6 +85,7 @@ export const phoneSlice = createSlice({
     categoryList: [],
     phoneInfo: undefined,
     cartList: [],
+    isLoading: true,
   } as phoneState,
 
   reducers: {
@@ -145,33 +147,53 @@ export const phoneSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(
-      fetchListPhoneAction.fulfilled,
-      (state, action: PayloadAction<Product[]>) => {
-        state.phoneList = action.payload;
-      }
-    );
-    builder.addCase(
-      fetchListBrandAction.fulfilled,
-      (state, action: PayloadAction<Brand[]>) => {
-        const result = action.payload;
-        state.brandList = result;
-      }
-    );
-    builder.addCase(
-      fetchListCategoryAction.fulfilled,
-      (state, action: PayloadAction<Category[]>) => {
-        const result = action.payload;
-        state.categoryList = result;
-      }
-    );
-    builder.addCase(
-      FindProductByIdAction.fulfilled,
-      (state, action: PayloadAction<Product | undefined>) => {
-        const result = action.payload;
-        state.phoneInfo = result;
-      }
-    );
+    builder
+      .addCase(fetchListPhoneAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchListPhoneAction.fulfilled,
+        (state, action: PayloadAction<Product[]>) => {
+          state.phoneList = action.payload;
+          state.isLoading = false;
+        }
+      );
+    builder
+      .addCase(fetchListBrandAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchListBrandAction.fulfilled,
+        (state, action: PayloadAction<Brand[]>) => {
+          const result = action.payload;
+          state.brandList = result;
+          state.isLoading = false;
+        }
+      );
+    builder
+      .addCase(fetchListCategoryAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchListCategoryAction.fulfilled,
+        (state, action: PayloadAction<Category[]>) => {
+          const result = action.payload;
+          state.categoryList = result;
+          state.isLoading = false;
+        }
+      );
+    builder
+      .addCase(FindProductByIdAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        FindProductByIdAction.fulfilled,
+        (state, action: PayloadAction<Product | undefined>) => {
+          const result = action.payload;
+          state.phoneInfo = result;
+          state.isLoading = false;
+        }
+      );
     builder.addCase(
       createOrderAction.fulfilled,
       (state, action: PayloadAction<Order>) => {

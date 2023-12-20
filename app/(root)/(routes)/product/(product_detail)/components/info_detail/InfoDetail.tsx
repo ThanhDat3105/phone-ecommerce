@@ -7,9 +7,8 @@ import { formatPrice } from "@/utils/price";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/redux/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
 import { addToCart } from "@/redux/features/phoneSlice";
 
 interface Props {
@@ -17,11 +16,9 @@ interface Props {
 }
 
 export default function InfoDetail(props: Props) {
-  const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const dispatch = useDispatch<AppDispatch>();
   const [memoryName, setMemoryName] = useState<string>();
   const [color, setColor] = useState<string>();
-  const router = useRouter();
 
   const renderStar = Array.from({ length: 5 }, (_, index) =>
     index < 4 ? (
@@ -43,27 +40,20 @@ export default function InfoDetail(props: Props) {
     setColor(hex);
   };
 
-  const storedUserInfo = localStorage.getItem("USER_INFO_KEY");
-
   const handleAddToCart = () => {
     if (memoryName && color) {
-      if (storedUserInfo) {
-        if (props.ele) {
-          dispatch(
-            addToCart({
-              id_product: props.ele.id_product,
-              thumbnail: props.ele.thumbnail,
-              name: props.ele.name,
-              storage: memoryName,
-              color: color,
-              price: props.ele.price,
-            })
-          );
-          toast.success("Add to cart successfully");
-        }
-      } else {
-        toast.error("Login to continue");
-        router.push("/sign_in");
+      if (props.ele) {
+        dispatch(
+          addToCart({
+            id_product: props.ele.id_product,
+            thumbnail: props.ele.thumbnail,
+            name: props.ele.name,
+            storage: memoryName,
+            color: color,
+            price: props.ele.price,
+          })
+        );
+        toast.success("Add to cart successfully");
       }
     } else {
       toast.error("Please enter information");
@@ -123,11 +113,7 @@ export default function InfoDetail(props: Props) {
                   onClick={() => handleClickColor(ele.hex)}
                   key={ele.name}
                   className={`max-w-[30px] max-h-[30px] w-[30px] h-[30px] block rounded-full cursor-pointer
-                  ${
-                    color === ele.hex
-                      ? "active border-[5px]"
-                      : ""
-                  }
+                  ${color === ele.hex ? "active border-[5px]" : ""}
                   `}
                   style={{ backgroundColor: `${ele.hex}` }}
                 />

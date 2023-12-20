@@ -14,12 +14,13 @@ import { toast } from "sonner";
 import { LogOut } from "lucide-react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { formatPrice } from "@/utils/price";
+import { Product } from "@/interface/product";
 
 export default function Header() {
   const [login, setLogin] = useState<boolean>(false);
   const elRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const storedUserInfo = localStorage.getItem("USER_INFO_KEY");
   const [value, setValue] = useState<string>("");
   const [presentHeight, setPresentHeight] = useState<number>(0);
   const [inputFocus, setInputFocus] = useState<boolean>(false);
@@ -34,6 +35,15 @@ export default function Header() {
   }
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user = localStorage.getItem("USER_INFO_KEY");
+      if (user) {
+        setLogin(true);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     if (presentHeight > 0) {
       document.querySelector(".container_header")?.classList.add("scroll");
       document.querySelector(".container_header")?.classList.remove("ani_none");
@@ -41,12 +51,6 @@ export default function Header() {
       document.querySelector(".container_header")?.classList.remove("scroll");
     }
   }, [presentHeight]);
-
-  useEffect(() => {
-    if (storedUserInfo) {
-      setLogin(true);
-    }
-  }, [storedUserInfo]);
 
   const checkHeight = (value: React.RefObject<HTMLDivElement> | null) => {
     if (value?.current) {
@@ -67,8 +71,65 @@ export default function Header() {
     setInputFocus(false);
   };
 
+  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
+  const renderPhoneSearch = () => {
+    const filterPhone = phoneReducer?.phoneList?.filter((ele) => {
+      return (
+        ele.name
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/đ/g, "d")
+          .replace(/Đ/g, "D")
+          .toLowerCase()
+          .indexOf(value?.toLowerCase()) !== -1
+      );
+    });
+
+    console.log(filterPhone.length);
+
+    return (
+      <>
+        {filterPhone && filterPhone.length > 0 ? (
+          filterPhone?.map((ele: Product) => {
+            return (
+              <div
+                onClick={() => router.push(`/product/${ele.id_product}`)}
+                className="item_phone py-4 transition-all duration-300 flex cursor-pointer gap-[10px] bg-white px-[5px] hover:bg-[rgb(0,0,0,0.5)]"
+              >
+                <div className="image w-[60px] h-[60px]">
+                  <img
+                    className="relative top-[50%] translate-y-[-50%]"
+                    src={ele.thumbnail}
+                    alt={ele.name}
+                  />
+                </div>
+                <div className="info flex flex-col justify-center">
+                  <div className="name text-xs text-black font-semibold">
+                    {ele.name}
+                  </div>
+                  <div className="price">
+                    <div className="price_sale text-sm text-black">
+                      {formatPrice(Number(ele.price))}đ
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div className="text-black text-xl font-semibold relative top-[50%] left-[50%] text-center translate-x-[-50%] translate-y-[-50%]">
+            No suitable phone found
+          </div>
+        )}
+      </>
+    );
+  };
+
   const handleLogOut = () => {
-    if (storedUserInfo) {
+    if (login) {
       localStorage.removeItem("USER_INFO_KEY");
       setLogin(false);
       checkHeight(elRef);
@@ -87,7 +148,8 @@ export default function Header() {
         </div>
         <div className="header_menu flex gap-[55px] text-black">
           <div className="item_menu category flex cursor-pointer relative items-center">
-            <div role="button"
+            <div
+              role="button"
               onClick={() => router.push("/product")}
               className="font-normal text-base"
             >
@@ -95,7 +157,9 @@ export default function Header() {
             </div>
           </div>
           <div className="item_menu relative">
-            <div role="button" className="font-normal text-base">News</div>
+            <div role="button" className="font-normal text-base">
+              News
+            </div>
           </div>
           {/* <div className="item_menu relative">
             <p className="font-normal text-base">Service</p>
@@ -103,7 +167,7 @@ export default function Header() {
         </div>
         <div className="header_info flex gap-[30px]">
           <div
-            className={`header_find flex items-center border-b-[2px]  ${
+            className={`header_find relative flex items-center border-b-[2px]  ${
               inputFocus ? "border-[#a5a7ac] border-b-2 " : "border-transparent"
             }`}
           >
@@ -111,8 +175,7 @@ export default function Header() {
               type="text"
               placeholder="Search Product"
               className="input_find pl-0 text-black focus-visible:outline-none py-[10px] w-[150px]"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={handleChangeSearch}
               onFocus={handleFocus}
               onBlur={handleBlur}
             />
@@ -123,6 +186,11 @@ export default function Header() {
             >
               <HiOutlineMagnifyingGlass className="text-xl text-black" />
             </Button>
+            {value && (
+              <div className="active absolute bg-white w-[270px] left-[-40px] h-[350px] top-[146%] rounded-b-[15px] overflow-auto">
+                {renderPhoneSearch()}
+              </div>
+            )}
           </div>
           <div className="header_cart relative">
             <Button
