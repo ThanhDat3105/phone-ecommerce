@@ -57,7 +57,10 @@ export default function Page(props: Props) {
               </p>
             </div>
             <InfoDetail ele={phoneInfo} key={phoneInfo?.id_product} />
-            <RelatedProduct ele={phoneReducer.phoneList} />
+            <RelatedProduct
+              ele={phoneReducer.phoneList}
+              brand={phoneReducer.phoneInfo?.categoryBrandMapping.brand.name}
+            />
           </div>
           <div className="information">
             <div className="button_information"></div>

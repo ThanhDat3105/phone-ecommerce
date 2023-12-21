@@ -133,15 +133,23 @@ export const phoneSlice = createSlice({
 
       if (item) {
         if (item.quantity === 1) {
-          state.cartList = state.cartList.filter(
-            (p: CartItem) =>
-              p.id_product !== id_product ||
-              p.color !== color ||
-              p.storage !== storage
-          );
+          return;
         } else {
           item.quantity--;
         }
+      }
+    },
+
+    deleteCart: (state, action: PayloadAction<any>) => {
+      const idToDelete = action.payload;
+
+      const indexToDelete = state.cartList.findIndex(
+        (p: CartItem) => p.id_product === idToDelete
+      );
+
+      if (indexToDelete !== -1) {
+        console.log(indexToDelete);
+        state.cartList.splice(indexToDelete, 1);
       }
     },
   },
@@ -209,7 +217,7 @@ export const phoneSlice = createSlice({
 
 export const phoneAction = phoneSlice.actions;
 
-export const { addToCart, increaseQuantity, decreaseQuantity } =
+export const { addToCart, increaseQuantity, decreaseQuantity, deleteCart } =
   phoneSlice.actions;
 
 export const phoneReducer = phoneSlice.reducer;

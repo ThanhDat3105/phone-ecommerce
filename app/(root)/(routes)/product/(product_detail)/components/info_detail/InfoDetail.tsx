@@ -84,7 +84,7 @@ export default function InfoDetail(props: Props) {
         </div>
         <div className="memory">
           <div className="title pb-5">
-            <p>Memory</p>
+            <p>Storage</p>
           </div>
           <div className="item flex gap-[30px]">
             {props.ele?.storage.map((ele: Storage) => {

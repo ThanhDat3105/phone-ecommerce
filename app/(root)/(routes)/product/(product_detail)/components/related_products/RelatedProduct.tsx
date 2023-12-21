@@ -5,10 +5,11 @@ import { Pagination } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import { productItem } from "@/interface/product";
+import { Product } from "@/interface/product";
 
 interface Props {
-  ele: productItem[];
+  ele: Product[];
+  brand: string | undefined;
 }
 
 export default function RelatedProduct(props: Props) {
@@ -46,9 +47,12 @@ export default function RelatedProduct(props: Props) {
           }}
         >
           {props.ele
-            .filter((ele) => ele.brand === "iphone")
-            .map((filteredEle) => (
-              <SwiperSlide key={filteredEle.id} className="m-0">
+            .filter(
+              (ele: Product) =>
+                ele.categoryBrandMapping.brand.name === props.brand
+            )
+            .map((filteredEle: Product) => (
+              <SwiperSlide key={filteredEle.id_product} className="m-0">
                 <ItemProduct ele={filteredEle} value={isRelated} />
               </SwiperSlide>
             ))}

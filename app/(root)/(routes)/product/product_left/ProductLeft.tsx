@@ -15,18 +15,9 @@ interface Props {
 }
 
 export default function ProductLeft(props: Props) {
-  const [minPrice, setMinPrice] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(0);
   const [activeIdBrand, setActiveIdBrand] = useState<number>(0);
   const [activeIdType, setActiveIdType] = useState<number>(0);
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
-
-  const onChangeComplete = (value: number | number[]) => {
-    if (Array.isArray(value)) {
-      setMinPrice(value[0]);
-      setMaxPrice(value[1]);
-    }
-  };
 
   const handleActiveType = (id: number, type: string) => {
     setActiveIdType(id);

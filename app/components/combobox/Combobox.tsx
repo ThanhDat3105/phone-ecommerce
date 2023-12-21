@@ -13,13 +13,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { frameworks } from "@/interface/combobox";
 
 interface Props {
   frameworks: frameworks[];
   title: string;
   page: string;
+  setFilterPrice: (value: string) => void;
+  filterPrice: string;
 }
 
 export default function Combobox(props: Props) {
@@ -27,6 +29,18 @@ export default function Combobox(props: Props) {
   const [value, setValue] = useState("");
 
   const { frameworks } = props;
+
+  useEffect(() => {
+    if (value) {
+      props.setFilterPrice(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
+    if (props.filterPrice === "") {
+      setValue("");
+    }
+  }, [props.filterPrice]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

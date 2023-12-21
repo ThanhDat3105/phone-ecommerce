@@ -1,7 +1,7 @@
 `use client`;
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { formatPrice } from "@/utils/price";
-
+import { FaTrash } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { CartItem } from "@/interface/product";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "@/redux/store";
 import {
   increaseQuantity,
   decreaseQuantity,
+  deleteCart,
 } from "@/redux/features/phoneSlice";
 
 interface Props {
@@ -28,6 +29,10 @@ export default function BuyItem(props: Props) {
     dispatch(decreaseQuantity(props.ele));
   };
 
+  const handleDeleteCart = () => {
+    dispatch(deleteCart(props.ele.id_product));
+  };
+
   useEffect(() => {
     const item = phoneReducer.cartList.find(
       (ele: CartItem) => ele.id_product === props.ele.id_product
@@ -41,8 +46,13 @@ export default function BuyItem(props: Props) {
   return (
     <>
       <div className="item flex">
-        <div className="info_item w-[40%] flex gap-[15px]">
-          {/* <input type="checkbox" name="" id="" /> */}
+        <div className="info_item w-[40%] flex gap-[15px] items-center">
+          <div
+            className="button_delete w-[26px] h-[26px] bg-black text-white rounded-[6px] flex justify-center items-center transition-all duration-300 cursor-pointer hover:bg-[#ff0000ca]"
+            onClick={() => handleDeleteCart()}
+          >
+            <FaTrash className="trash_delete" />
+          </div> 
           <div className="image flex items-center w-[70px] h-[90px] max-w-[70px] max-h-[90px]">
             <img
               src={props.ele.thumbnail}
@@ -54,8 +64,8 @@ export default function BuyItem(props: Props) {
             <div className="name">
               <p className="text-base tracking-wider">{props.ele.name}</p>
             </div>
-            <div className="memory text-sm tracking-widest text-[#5D5D5D] flex gap-[20px]">
-              <p className="w-[60px] max-w-[60px]">Memory:</p>
+            <div className="storage text-sm tracking-widest text-[#5D5D5D] flex gap-[20px]">
+              <p className="w-[60px] max-w-[60px]">Storage:</p>
               <p>{props.ele.storage} GB</p>
             </div>
             <div className="color flex text-sm tracking-widest text-[#5D5D5D] gap-[20px]">

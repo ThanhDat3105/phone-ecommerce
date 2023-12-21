@@ -33,10 +33,11 @@ export default function ProductRight(props: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [hasScrolled, setHasScrolled] = useState<boolean>(false);
+  const [filterPrice, setFilterPrice] = useState<string>("");
   const [dataFilter, setDataFilter] = useState<Product[]>(
     phoneReducer.phoneList
   );
-  const [dataFilterBrand, setDataFilterBrand] = useState<Product[]>();
+  const [dataFilterBrand, setDataFilterBrand] = useState<Product[]>([]);
 
   const quantityItemRender = 18;
 
@@ -48,6 +49,7 @@ export default function ProductRight(props: Props) {
 
   useEffect(() => {
     brandSearching();
+    setFilterPrice("");
   }, [props.filterBrand]);
 
   useEffect(() => {
@@ -68,6 +70,12 @@ export default function ProductRight(props: Props) {
       setDataFilter(phoneReducer.phoneList);
     }
   }, [phoneReducer.phoneList]);
+
+  useEffect(() => {
+    if (filterPrice) {
+      priceSearch(filterPrice);
+    }
+  }, [filterPrice]);
 
   const brandSearching = () => {
     const data = phoneReducer.phoneList?.filter(
@@ -96,21 +104,40 @@ export default function ProductRight(props: Props) {
     }
   };
 
+  const priceSearch = (value: string) => {
+    if (value === "lowtohigh") {
+      if (dataFilterBrand.length > 0) {
+        setDataFilter(
+          dataFilterBrand.slice().sort((a, b) => a.price - b.price)
+        );
+      } else {
+        setDataFilter(
+          phoneReducer.phoneList.slice().sort((a, b) => a.price - b.price)
+        );
+      }
+    } else if (value === "hightolow") {
+      if (dataFilterBrand.length > 0) {
+        setDataFilter(
+          dataFilterBrand.slice().sort((a, b) => b.price - a.price)
+        );
+      } else {
+        setDataFilter(
+          phoneReducer.phoneList.slice().sort((a, b) => b.price - a.price)
+        );
+      }
+    } else if (value === "popular") {
+      if (dataFilterBrand.length > 0) {
+        setDataFilter(dataFilterBrand.filter((item) => item.new_release));
+      } else {
+        setDataFilter(
+          phoneReducer.phoneList.filter((item) => item.new_release)
+        );
+      }
+    }
+  };
+
   return (
     <div className="product_right min-h-[800px] w-[70%] ml-auto">
-      {/* <div className="logo_company  flex justify-between items-center">
-        {companyPhone.map((ele) => {
-          return (
-            <div
-              key={ele.image.src}
-              className="imag px-2 bg-white rounded-[10px] h-[30px] max-h-[30px] max-w-[100px] w-[100px] flex items-center justify-center cursor-pointer"
-            >
-              <img src={ele.image.src} alt="logo_company" />
-            </div>
-          );
-        })}
-      </div> */}
-      {/* <div className="separate h-[1px] bg-[#AAAAAA] my-10" /> */}
       <div className="filter_phone">
         <div className="total_phone flex justify-between items-center">
           <p className="text-base tracking-wider text-[#AAAAAA] font-medium">
@@ -121,10 +148,11 @@ export default function ProductRight(props: Props) {
               frameworks={frameworks}
               title="sort by"
               page="product"
+              filterPrice={filterPrice}
+              setFilterPrice={setFilterPrice}
             />
           </div>
         </div>
-        <div className="filter"></div>
       </div>
       <div
         ref={ref}
