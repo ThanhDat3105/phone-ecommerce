@@ -54,17 +54,21 @@ export default function Footer() {
             <div className="middle flex xl:gap-[120px] md:gap-[60px] xl:flex-row md:flex-col">
               <div className="middle_item">
                 <h5>Support</h5>
-                <p className="pt-[24px]">Contact us</p>
-                <p>FAQ</p>
-                <p>Warranty service</p>
-                <p>Return policy</p>
+                <ul className="text-sm flex flex-col gap-[15px] text-[#d9d7d7d2] pt-[10px]">
+                  <li className="cursor-pointer">Contact us</li>
+                  <li className="cursor-pointer">FAQ</li>
+                  <li className="cursor-pointer">Warranty service</li>
+                  <li className="cursor-pointer">Return policy</li>
+                </ul>
               </div>
               <div className="middle_item">
                 <h5>Information</h5>
-                <p className="pt-[24px]">About us</p>
-                <p>News</p>
-                <p>Payment methods</p>
-                <p>Evaluate quality</p>
+                <ul className="text-sm flex flex-col gap-[15px] text-[#d9d7d7d2] pt-[10px]">
+                  <li className="cursor-pointer">About us</li>
+                  <li className="cursor-pointer">News</li>
+                  <li className="cursor-pointer">Payment methods</li>
+                  <li className="cursor-pointer">Evaluate quality</li>
+                </ul>
               </div>
             </div>
             <div className="right flex flex-col gap-[30px] max-w-[380px] w-[380px]">

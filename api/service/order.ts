@@ -5,6 +5,13 @@ export const createOrderApi = (data: Order) => {
   return axiosRequest({
     url: "order/create-order",
     method: "POST",
-    data
+    data,
+  });
+};
+
+export const fetchOrderApi = () => {
+  return axiosRequest({
+    url: "order/order-list",
+    method: "GET",
   });
 };

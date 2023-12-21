@@ -91,26 +91,6 @@ export default function ProductLeft(props: Props) {
               </div>
             </div>
           </div>
-          {/* <div className="separate" />
-          <div className="price pt-5">
-            <div className="flex flex-col gap-5">
-              <div className="collapse_title flex justify-between items-center font-bold cursor-pointer">
-                <h5 className="text-lg">Price</h5>
-              </div>
-              <div className="flex justify-between gap-[10px] items-center">
-                <div className="border-[1px] rounded-[6px] border-solid border-[#AAAAAA] text-center w-[48%] py-[2px]">
-                  <p>{formatPrice(minPrice * 100)}đ</p>
-                </div>
-                <div className="separate_price bg-black h-[1px] w-[4%]" />
-                <div className="border-[1px] rounded-[6px] border-solid border-[#AAAAAA] text-center w-[48%] py-[2px]">
-                  <p>{formatPrice(maxPrice * 100)}đ</p>
-                </div>
-              </div>
-              <div className="collapse_check px-2 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden cursor-pointer tracking-widest">
-               
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
     </div>

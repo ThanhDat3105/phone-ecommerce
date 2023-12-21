@@ -1,7 +1,7 @@
 {
-  "/page": "app/page.js",
   "/(root)/(routes)/product/(product_detail)/[id]/page": "app/(root)/(routes)/product/(product_detail)/[id]/page.js",
+  "/(root)/(routes)/order-list/page": "app/(root)/(routes)/order-list/page.js",
   "/(root)/(routes)/cart/page": "app/(root)/(routes)/cart/page.js",
   "/(root)/(routes)/product/page": "app/(root)/(routes)/product/page.js",
-  "/(root)/(routes)/sign_up/page": "app/(root)/(routes)/sign_up/page.js"
+  "/[...not_found]/page": "app/[...not_found]/page.js"
 }

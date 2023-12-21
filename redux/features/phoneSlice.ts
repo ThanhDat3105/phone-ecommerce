@@ -1,9 +1,10 @@
 import { fetchListBrandApi } from "@/api/service/brand";
 import { fetchListCategoryApi } from "@/api/service/category";
-import { createOrderApi } from "@/api/service/order";
+import { createOrderApi, fetchOrderApi } from "@/api/service/order";
 import { fetchListPhoneApi, findProductByIdApi } from "@/api/service/phone";
 import { Brand } from "@/interface/brand";
 import { Category } from "@/interface/category";
+import { OrderList } from "@/interface/order";
 import { CartItem, Order, Product, ValueFormOrder } from "@/interface/product";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "sonner";
@@ -15,6 +16,7 @@ interface phoneState {
   phoneInfo: Product | undefined;
   cartList: CartItem[];
   isLoading: boolean;
+  orderList: OrderList[];
 }
 
 export const fetchListPhoneAction = createAsyncThunk(
@@ -77,6 +79,18 @@ export const createOrderAction = createAsyncThunk(
   }
 );
 
+export const fetchOrderAction = createAsyncThunk(
+  "phoneReducer/fetchOrderAction",
+  async () => {
+    try {
+      const result = await fetchOrderApi();
+      return result.data.content;
+    } catch (error) {
+      console.log("Error BE");
+    }
+  }
+);
+
 export const phoneSlice = createSlice({
   name: "phone",
   initialState: {
@@ -86,6 +100,7 @@ export const phoneSlice = createSlice({
     phoneInfo: undefined,
     cartList: [],
     isLoading: true,
+    orderList: [],
   } as phoneState,
 
   reducers: {
@@ -206,12 +221,24 @@ export const phoneSlice = createSlice({
       createOrderAction.fulfilled,
       (state, action: PayloadAction<Order>) => {
         const result = action.payload;
-
+        state.cartList = [];
         if (result) {
           toast.success("Order Success");
         }
       }
     );
+    builder
+      .addCase(fetchOrderAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchOrderAction.fulfilled,
+        (state, action: PayloadAction<OrderList[]>) => {
+          const result = action.payload;
+          state.orderList = result;
+          state.isLoading = false;
+        }
+      );
   },
 });
 

@@ -43,8 +43,6 @@ export default function Header() {
     });
   }
 
-  useEffect(() => {}, [presentHeight]);
-
   useEffect(() => {
     if (typeof window !== "undefined") {
       const user = localStorage.getItem("USER_INFO_KEY");
@@ -273,13 +271,21 @@ export default function Header() {
                     </div>
                   </>
                 ) : (
-                  <div
-                    className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
-                    onClick={() => handleLogOut()}
-                  >
-                    Log out
-                    <LogOut size={15} />
-                  </div>
+                  <>
+                    <div
+                      className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
+                      onClick={() => router.push("/order-list")}
+                    >
+                      Order list
+                    </div>
+                    <div
+                      className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
+                      onClick={() => handleLogOut()}
+                    >
+                      Log out
+                      <LogOut size={15} />
+                    </div>
+                  </>
                 )}
               </div>
             </div>
