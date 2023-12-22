@@ -1,9 +1,9 @@
-import { newsItem } from "@/interface/news";
+import { newHome } from "@/interface/news";
 import { formatDate } from "@/utils/moment";
 import React from "react";
 
 interface Props {
-  ele: newsItem;
+  ele: newHome;
 }
 
 export default function ItemNews(props: Props) {

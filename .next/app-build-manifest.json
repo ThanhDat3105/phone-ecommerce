@@ -1,46 +1,16 @@
 {
   "pages": {
-    "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/layout.css",
-      "static/chunks/app/layout.js"
-    ],
-    "/(root)/(routes)/product/(product_detail)/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(root)/(routes)/product/(product_detail)/[id]/page.css",
-      "static/chunks/app/(root)/(routes)/product/(product_detail)/[id]/page.js"
-    ],
-    "/(root)/(routes)/sign_in/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(root)/(routes)/sign_in/page.css",
-      "static/chunks/app/(root)/(routes)/sign_in/page.js"
-    ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
-    "/(root)/(routes)/order-list/page": [
+    "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(root)/(routes)/order-list/page.css",
-      "static/chunks/app/(root)/(routes)/order-list/page.js"
-    ],
-    "/(root)/(routes)/product/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(root)/(routes)/product/page.css",
-      "static/chunks/app/(root)/(routes)/product/page.js"
-    ],
-    "/(root)/(routes)/cart/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/(root)/(routes)/cart/page.css",
-      "static/chunks/app/(root)/(routes)/cart/page.js"
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/not-found": [
       "static/chunks/webpack.js",
@@ -52,6 +22,18 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/[...not_found]/page.js"
+    ],
+    "/(root)/(routes)/news/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(root)/(routes)/news/page.css",
+      "static/chunks/app/(root)/(routes)/news/page.js"
+    ],
+    "/(root)/(routes)/product/(product_detail)/[id]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(root)/(routes)/product/(product_detail)/[id]/page.css",
+      "static/chunks/app/(root)/(routes)/product/(product_detail)/[id]/page.js"
     ]
   }
 }

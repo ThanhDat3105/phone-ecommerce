@@ -191,7 +191,11 @@ export default function Header() {
               </div>
             </div>
             <div className="item_menu relative">
-              <div role="button" className="font-normal text-base">
+              <div
+                onClick={() => router.push("/news")}
+                role="button"
+                className="font-normal text-base"
+              >
                 News
               </div>
             </div>
