@@ -1,11 +1,12 @@
 "use client";
 import "./productLeft.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formatPrice } from "@/utils/price";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { Brand } from "@/interface/brand";
 import { Category } from "@/interface/category";
+import { useRouter } from "next/navigation";
 
 interface Props {
   setFilterBrand: (value: string) => void;
@@ -15,7 +16,7 @@ interface Props {
 }
 
 export default function ProductLeft(props: Props) {
-  const [activeIdBrand, setActiveIdBrand] = useState<number>(0);
+  const router = useRouter();
   const [activeIdType, setActiveIdType] = useState<number>(0);
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
@@ -24,9 +25,9 @@ export default function ProductLeft(props: Props) {
     props.setFilterType(type);
   };
 
-  const handleActiveBrand = (id: number, brand: string) => {
+  const handleActiveBrand = (brand: string) => {
+    router.push(`/product?brand=${brand}`);
     setActiveIdType(-1);
-    setActiveIdBrand(id);
     props.setFilterBrand(brand);
   };
 
@@ -44,11 +45,8 @@ export default function ProductLeft(props: Props) {
                   return (
                     <div key={ele.id_brand}>
                       <span
-                        onClick={() =>
-                          handleActiveBrand(ele.id_brand, ele.name)
-                        }
+                        onClick={() => handleActiveBrand(ele.name)}
                         className={`${
-                          activeIdBrand === ele.id_brand &&
                           props.filterBrand === ele.name
                             ? "font-bold"
                             : "font-normal"

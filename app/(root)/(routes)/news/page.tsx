@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import MainLayout from "../../MainLayout";
 
@@ -11,8 +12,11 @@ import { news } from "@/data/mockData";
 import ItemNew from "@/app/components/item_news/ItemNew";
 
 import { IoIosArrowForward } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 export default function NewPage() {
+  const router = useRouter();
+
   const arr = [
     {
       id: 1,
@@ -39,6 +43,7 @@ export default function NewPage() {
       name: "Other News",
     },
   ];
+
   return (
     <MainLayout>
       <div className="new_page py-[120px] bg-white">
@@ -48,7 +53,10 @@ export default function NewPage() {
               <p className="text-3xl font-semibold text-center">NEWS</p>
             </div>
             <div className="content flex justify-between gap-[30px] mt-[30px]">
-              <div className="left relative cursor-pointer">
+              <div
+                className="left relative cursor-pointer"
+                onClick={() => router.push(`/news/${1}`)}
+              >
                 <img src={new1.src} alt="new" />
                 <p className="absolute text-2xl font-semibold text-center w-[490px] px-[35px] bottom-[5%] rounded-[20px] py-5 right-[50%] translate-x-[50%] bg-white">
                   Tiêu điểm cuối năm 2023: Tổng hợp sản phẩm MacBook và iMac mới
@@ -56,7 +64,10 @@ export default function NewPage() {
                 </p>
               </div>
               <div className="right flex flex-col gap-[30px]">
-                <div className="top justify-center relative flex cursor-pointer">
+                <div
+                  className="top justify-center relative flex cursor-pointer"
+                  onClick={() => router.push(`/news/${2}`)}
+                >
                   <img src={new2.src} alt="new" className="rounded-[20px]" />
                   <div className="liner_gradient" />
                   <p className="absolute text-xl font-semibold text-center text-white bottom-0 w-[330px]">
@@ -64,7 +75,10 @@ export default function NewPage() {
                     “xuống tiền?
                   </p>
                 </div>
-                <div className="bottom justify-center relative flex cursor-pointer">
+                <div
+                  className="bottom justify-center relative flex cursor-pointer"
+                  onClick={() => router.push(`/news/${3}`)}
+                >
                   <img src={new3.src} alt="new" className="rounded-[20px]" />
                   <div className="liner_gradient" />
                   <p className="absolute text-xl font-semibold text-center text-white bottom-0 w-[330px]">

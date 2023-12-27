@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { AiOutlineClose } from "react-icons/ai";
 import emptyCart from "@/public/empty-cart.png";
@@ -21,12 +21,18 @@ interface Props {
 export default function ModalCart(props: Props) {
   const router = useRouter();
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
+
+  useEffect(() => {
+    if (props.show === true) {
+      document.querySelector(".modal_cart")?.classList.remove("close");
+      document.querySelector(".modal_cart")?.classList.add("show");
+    } else {
+      document.querySelector(".modal_cart")?.classList.remove("show");
+    }
+  }, [props.show]);
+  
   return (
-    <div
-      className={`modal_cart fixed w-full z-[101] translate-x-[1540px] ${
-        props.show ? "show" : "close"
-      }`}
-    >
+    <div className={`modal_cart fixed w-full z-[101] translate-x-[1540px]`}>
       <div className="container_modal w-full absolute max-w-[420px] right-0 top-0 h-screen">
         <div className="modal_all max-w-[420px] ml-auto mr-auto bg-white px-[30px] rounded-l-[6px] h-full">
           <div className="button_close py-[15px] text-2xl">

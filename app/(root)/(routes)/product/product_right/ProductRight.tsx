@@ -2,9 +2,9 @@
 import Combobox from "@/app/components/combobox/Combobox";
 import ItemProduct from "@/app/components/item_product/ItemProduct";
 import Pagination from "@/app/components/pagination/Pagination";
-import { companyPhone } from "@/data/mockData";
 import { Product } from "@/interface/product";
 import { RootState } from "@/redux/store";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -24,19 +24,20 @@ const frameworks = [
 ];
 
 interface Props {
+  setFilterBrand: (value: string) => void;
+  setFilterType: (value: string) => void;
   filterBrand: string;
   filterType: string;
 }
 
 export default function ProductRight(props: Props) {
+  const searchParams = useSearchParams();
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const ref = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [hasScrolled, setHasScrolled] = useState<boolean>(false);
   const [filterPrice, setFilterPrice] = useState<string>("");
-  const [dataFilter, setDataFilter] = useState<Product[]>(
-    phoneReducer.phoneList
-  );
+  const [dataFilter, setDataFilter] = useState<Product[]>([]);
   const [dataFilterBrand, setDataFilterBrand] = useState<Product[]>([]);
 
   const quantityItemRender = 18;
@@ -48,12 +49,15 @@ export default function ProductRight(props: Props) {
   const totalPages = Math.ceil(dataFilter?.length / quantityItemRender);
 
   useEffect(() => {
-    brandSearching();
+    brandSearching(props.filterBrand);
     setFilterPrice("");
+    props.setFilterType("");
   }, [props.filterBrand]);
 
   useEffect(() => {
-    typeSearching();
+    if (props.filterType !== "") {
+      typeSearching();
+    }
   }, [props.filterType]);
 
   useEffect(() => {
@@ -66,31 +70,42 @@ export default function ProductRight(props: Props) {
   }, [currentPage]);
 
   useEffect(() => {
-    if (phoneReducer.phoneList) {
-      setDataFilter(phoneReducer.phoneList);
-    }
-  }, [phoneReducer.phoneList]);
-
-  useEffect(() => {
     if (filterPrice) {
       priceSearch(filterPrice);
     }
   }, [filterPrice]);
 
-  const brandSearching = () => {
+  useEffect(() => {
+    if (searchParams.get("brand") !== null) {
+      brandSearching(String(searchParams.get("brand")));
+      props.setFilterBrand(String(searchParams.get("brand")));
+    } else setDataFilter(phoneReducer.phoneList);
+  }, [phoneReducer.phoneList]);
+
+  const brandSearching = (name: string) => {
     const data = phoneReducer.phoneList?.filter(
-      (ele) => ele.categoryBrandMapping.brand.name === props.filterBrand
+      (ele) => ele.categoryBrandMapping.brand.name === name
     );
-    setDataFilter(data);
-    setDataFilterBrand(data);
+    if (data) {
+      console.log(data);
+      setDataFilter(data);
+      setDataFilterBrand(data);
+    }
   };
 
   const typeSearching = () => {
-    const data = dataFilterBrand?.filter(
-      (ele) => ele.categoryBrandMapping.category.name === props.filterType
-    );
-    if (data) {
+    if (dataFilterBrand.length > 0) {
+      const data = dataFilterBrand?.filter(
+        (ele) => ele.categoryBrandMapping.category.name === props.filterType
+      );
       setDataFilter(data);
+    } else {
+      const data = phoneReducer.phoneList?.filter(
+        (ele) => ele.categoryBrandMapping.category.name === props.filterType
+      );
+      if (data) {
+        setDataFilter(data);
+      }
     }
   };
 

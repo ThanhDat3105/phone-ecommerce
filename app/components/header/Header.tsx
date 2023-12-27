@@ -62,17 +62,11 @@ export default function Header() {
   }, [presentHeight]);
 
   const openHeader = (value: React.RefObject<HTMLDivElement> | null) => {
-    if (value?.current) {
-      value.current.style.height = value.current.scrollHeight + "px";
-      setHeaderOpen(true);
-    }
+    setHeaderOpen(true);
   };
 
   const closeHeader = (value: React.RefObject<HTMLDivElement> | null) => {
-    if (value?.current) {
-      value.current.style.height = "0px";
-      setHeaderOpen(false);
-    }
+    setHeaderOpen(false);
   };
 
   const checkHeight = (value: React.RefObject<HTMLDivElement> | null) => {
@@ -170,7 +164,7 @@ export default function Header() {
       <div
         ref={headerRef}
         className={`header transition-all duration-100 fixed w-full z-50 bg-white drop-shadow-md ${
-          headerOpen ? "" : "overflow-hidden"
+          headerOpen ? "translate-y-[0px]" : "translate-y-[-70px]"
         }`}
       >
         <div className="container_all flex justify-between items-center text-white h-[70px]">

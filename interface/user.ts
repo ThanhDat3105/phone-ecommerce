@@ -3,6 +3,20 @@ export interface userLogin {
   password: string;
 }
 
+export interface Email {
+  email: string;
+}
+
+export interface Password {
+  password: string;
+  confirmPassword: string;
+}
+
+export interface ResetPassword {
+  password: string;
+  token: string;
+}
+
 export interface User {
   id_user: number;
   name: string;

@@ -43,7 +43,12 @@ export default function page() {
                 filterBrand={filterBrand}
                 filterType={filterType}
               />
-              <ProductRight filterBrand={filterBrand} filterType={filterType} />
+              <ProductRight
+                filterBrand={filterBrand}
+                filterType={filterType}
+                setFilterBrand={setFilterBrand}
+                setFilterType={setFilterType}
+              />
             </div>
           </div>
         </div>

@@ -11,7 +11,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { registerUser } from "@/redux/features/userSlice";
@@ -138,7 +137,7 @@ export default function RegisterPage() {
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
-                                variant={"outline"}
+                                variant="outline"
                                 className={cn(
                                   "pl-3 text-left font-normal",
                                   !field.value && "text-muted-foreground"
@@ -205,7 +204,9 @@ export default function RegisterPage() {
                   />
                   <p className="text-lg tracking-wider text-[#5D5D5D] pt-[10px] text-center">
                     Already have account ?
-                    <Link href="/sign_in" className="text-black"><b className="cursor-pointer ml-2">Sign In</b></Link>
+                    <Link href="/sign_in" className="text-black">
+                      <b className="cursor-pointer ml-2">Sign In</b>
+                    </Link>
                   </p>
                   <Button className="w-full h-[60px] text-xl font-extrabold tracking-wider rounded-[60px] text-black bg-white shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] hover:text-white">
                     Sign Up

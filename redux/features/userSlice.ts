@@ -1,6 +1,11 @@
-import { loginApi, registerApi } from "@/api/service/user";
-import { User, UserSignIn, userLogin } from "@/interface/user";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  forgotPasswordApi,
+  loginApi,
+  registerApi,
+  resetPasswordApi,
+} from "@/api/service/user";
+import { Email, ResetPassword, UserSignIn, userLogin } from "@/interface/user";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "sonner";
 
 interface userState {}
@@ -10,6 +15,11 @@ export const loginUser = createAsyncThunk(
   async (payload: userLogin) => {
     try {
       const result = await loginApi(payload);
+      localStorage.setItem(
+        "USER_INFO_KEY",
+        JSON.stringify(result.data.content)
+      );
+      toast.success("Login Successfully");
       return result;
     } catch (error) {
       toast.error("Invalid Information");
@@ -30,6 +40,36 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const forgotPasswordUser = createAsyncThunk(
+  "userReducer/forgotPasswordUser",
+  async (payload: Email) => {
+    try {
+      const result = await forgotPasswordApi(payload);
+      if (result) {
+        toast.success("Please check your email");
+      } else {
+        toast.error("Invalid Information");
+      }
+      return result;
+    } catch (error: any) {
+      console.log("Error: ", error.response.data.message);
+    }
+  }
+);
+
+export const resetPasswordUser = createAsyncThunk(
+  "userReducer/resetPasswordUser",
+  async (payload: ResetPassword) => {
+    try {
+      const result = await resetPasswordApi(payload);
+      toast.success("Reset successfully");
+      return result;
+    } catch (error) {
+      toast.error("Password reset link has expired.");
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "userReducer",
   initialState: {
@@ -37,16 +77,6 @@ export const userSlice = createSlice({
   } as userState,
 
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(loginUser.fulfilled, (state, action) => {
-      console.log(action.payload?.data.content);
-      localStorage.setItem(
-        "USER_INFO_KEY",
-        JSON.stringify(action.payload?.data.content)
-      );
-      toast.success("Login Successfully");
-    });
-  },
 });
 
 export const userAction = userSlice.actions;

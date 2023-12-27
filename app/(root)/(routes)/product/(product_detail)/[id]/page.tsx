@@ -11,12 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { FindProductByIdAction } from "@/redux/features/phoneSlice";
 import Loading from "@/app/components/loading/Loading";
-
+import { useRouter } from "next/navigation";
 interface Props {
   params: { id: number };
 }
 
 export default function Page(props: Props) {
+  const router = useRouter();
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const dispatch = useDispatch<AppDispatch>();
   const [phoneInfo, setPhoneInfo] = useState<Product>();
@@ -44,17 +45,25 @@ export default function Page(props: Props) {
         <div className="product_detail pt-[120px]  bg-white">
           <div className="container_all">
             <div className="menu_back flex text-[#5D5D5D] tracking-wider gap-6 ">
-              <p className="cursor-pointer transition-all duration-300 hover:text-black">
+              <p
+                onClick={() => router.push("/")}
+                className="cursor-pointer transition-all duration-300 hover:text-black"
+              >
                 Home
               </p>
               <IoIosArrowForward className="cursor-pointer" />
-              <p className="cursor-pointer hover:text-black transition-all duration-300">
-                Iphone
+              <p
+                onClick={() =>
+                  router.push(
+                    `/product?brand=${phoneInfo?.categoryBrandMapping.brand.name}`
+                  )
+                }
+                className="cursor-pointer hover:text-black transition-all duration-300"
+              >
+                {phoneInfo?.categoryBrandMapping.brand.name}
               </p>
               <IoIosArrowForward className="cursor-pointer" />
-              <p className="text-black cursor-pointer">
-                IPhone 15 Pro Max 512GB
-              </p>
+              <p className="text-black cursor-pointer">{phoneInfo?.name}</p>
             </div>
             <InfoDetail ele={phoneInfo} key={phoneInfo?.id_product} />
             <RelatedProduct
