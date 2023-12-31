@@ -9,7 +9,7 @@ interface Props {
   params: { id: number };
 }
 
-export default function page(props: Props) {
+export default function NewsPage(props: Props) {
   const router = useRouter();
   const item = news.find((ele) => {
     return ele.id === Number(props.params.id);
@@ -52,7 +52,7 @@ export default function page(props: Props) {
               chấn động cộng đồng công nghệ toàn cầu. Sự kiện ra mắt sản phẩm
               này đã thu hút sự quan tâm của đông đảo người dùng và giới chuyên
               môn. Cả thế giới đang đổ dồn con mắt vào siêu phẩm MacBook Pro M3
-              14" và 16"cùng iMac M3.
+              14`&quot;` và 16`&quot;` cùng iMac M3.
             </p>
             <h1 className="text-xl font-semibold">
               1. MacBook Pro M3 14 inch và MacBook Pro 16 inch
