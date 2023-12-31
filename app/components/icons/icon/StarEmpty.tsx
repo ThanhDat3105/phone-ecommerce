@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function StarEmpty() {
+export function StarEmpty() {
   return (
     <svg
       width="20"
