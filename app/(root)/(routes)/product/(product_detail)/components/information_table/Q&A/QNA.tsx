@@ -2,13 +2,13 @@
 import React, { useRef, useState } from "react";
 
 import { FaHeart } from "react-icons/fa";
-import { StarEmpty, StarFill } from "@/app/components/icons/icon";
 import { Button } from "@/components/ui/button";
 
 import Collapse from "@/app/components/collapse";
 import { IoIosArrowDown } from "react-icons/io";
 
 import "./QNA.scss";
+import { StarEmpty, StarFill } from "@/app/components/icons/icon";
 
 export default function QNA() {
   const elRef = useRef<HTMLDivElement>(null);
