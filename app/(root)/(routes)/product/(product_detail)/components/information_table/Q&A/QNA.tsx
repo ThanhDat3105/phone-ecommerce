@@ -8,7 +8,8 @@ import Collapse from "@/app/components/collapse";
 import { IoIosArrowDown } from "react-icons/io";
 
 import "./QNA.scss";
-import { StarEmpty, StarFill } from "@/app/components/icons/icon";
+import { StarFill } from "@/app/components/icons/icon/StarFill";
+import { StarEmpty } from "@/app/components/icons/icon/StarEmpty";
 
 export default function QNA() {
   const elRef = useRef<HTMLDivElement>(null);

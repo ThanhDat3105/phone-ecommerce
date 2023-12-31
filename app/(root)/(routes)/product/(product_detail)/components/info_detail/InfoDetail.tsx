@@ -2,7 +2,6 @@
 import MultiCarousel from "@/app/components/muti_carousel/MultiCarousel";
 import { Product, Storage } from "@/interface/product";
 
-import { StarEmpty, StarFill } from "@/app/components/icons/icon";
 import { formatPrice } from "@/utils/price";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -10,6 +9,8 @@ import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addToCart } from "@/redux/features/phoneSlice";
+import { StarFill } from "@/app/components/icons/icon/StarFill";
+import { StarEmpty } from "@/app/components/icons/icon/StarEmpty";
 
 interface Props {
   ele: Product | undefined;
