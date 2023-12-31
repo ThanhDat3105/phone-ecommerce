@@ -17,7 +17,7 @@ export default function TotalProduct() {
       <div className="separate h-[1px] bg-black" />
       <div className="body_total pt-5">
         {phoneReducer.cartList?.map((ele: CartItem) => {
-          return <BuyItem ele={ele}/>;
+          return <BuyItem key={ele.id_product} ele={ele} />;
         })}
       </div>
     </div>

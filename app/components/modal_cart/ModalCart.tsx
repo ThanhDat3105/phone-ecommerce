@@ -30,7 +30,7 @@ export default function ModalCart(props: Props) {
       document.querySelector(".modal_cart")?.classList.remove("show");
     }
   }, [props.show]);
-  
+
   return (
     <div className={`modal_cart fixed w-full z-[101] translate-x-[1540px]`}>
       <div className="container_modal w-full absolute max-w-[420px] right-0 top-0 h-screen">
@@ -47,7 +47,7 @@ export default function ModalCart(props: Props) {
           {phoneReducer.cartList.length !== 0 ? (
             <div className="item_all pt-7 h-[70%] overflow-auto">
               {phoneReducer.cartList.map((ele: CartItem) => {
-                return <ItemCart cartItem={ele} />;
+                return <ItemCart key={ele.id_product} cartItem={ele} />;
               })}
             </div>
           ) : (

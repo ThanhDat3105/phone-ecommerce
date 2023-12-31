@@ -5,6 +5,13 @@ import { fetchListPhoneApi, findProductByIdApi } from "@/api/service/phone";
 import { Brand } from "@/interface/brand";
 import { Category } from "@/interface/category";
 import { OrderList } from "@/interface/order";
+import {
+  forgotPasswordApi,
+  loginApi,
+  registerApi,
+  resetPasswordApi,
+} from "@/api/service/user";
+import { Email, ResetPassword, UserSignIn, userLogin } from "@/interface/user";
 import { CartItem, Order, Product, ValueFormOrder } from "@/interface/product";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "sonner";
@@ -91,6 +98,69 @@ export const fetchOrderAction = createAsyncThunk(
   }
 );
 
+export const loginUser = createAsyncThunk(
+  "userReducer/loginUser",
+  async (payload: userLogin) => {
+    try {
+      const result = await loginApi(payload);
+
+      if (result) {
+        localStorage.setItem(
+          "USER_INFO_KEY",
+          JSON.stringify(result.data.content)
+        );
+        toast.success("Login Successfully");
+        return result;
+      }
+    } catch (error: any) {
+      toast.error("Invalid Information");
+    }
+  }
+);
+
+export const registerUser = createAsyncThunk(
+  "userReducer/registerUser",
+  async (payload: UserSignIn) => {
+    try {
+      const result = await registerApi(payload);
+      toast.success("Register Successfully");
+      return result;
+    } catch (error) {
+      toast.error("Invalid Information");
+    }
+  }
+);
+
+export const forgotPasswordUser = createAsyncThunk(
+  "userReducer/forgotPasswordUser",
+  async (payload: Email) => {
+    try {
+      const result = await forgotPasswordApi(payload);
+      if (result) {
+        toast.success("Please check your email");
+      } else {
+        toast.error("Invalid Information");
+      }
+      return result;
+    } catch (error: any) {
+      console.log("Error: ", error.response.data.message);
+    }
+  }
+);
+
+export const resetPasswordUser = createAsyncThunk(
+  "userReducer/resetPasswordUser",
+  async (payload: ResetPassword) => {
+    try {
+      const result = await resetPasswordApi(payload);
+      toast.success("Reset successfully");
+      return result;
+    } catch (error) {
+      toast.error("Password reset link has expired.");
+    }
+  }
+);
+
 export const phoneSlice = createSlice({
   name: "phone",
   initialState: {
@@ -101,6 +171,7 @@ export const phoneSlice = createSlice({
     cartList: [],
     isLoading: true,
     orderList: [],
+    userInfo: undefined,
   } as phoneState,
 
   reducers: {
@@ -239,6 +310,20 @@ export const phoneSlice = createSlice({
           state.isLoading = false;
         }
       );
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+      });
+    builder
+      .addCase(registerUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(registerUser.fulfilled, (state, action: PayloadAction<any>) => {
+        state.isLoading = false;
+      });
   },
 });
 

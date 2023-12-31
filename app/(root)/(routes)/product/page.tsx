@@ -12,7 +12,7 @@ import {
 } from "@/redux/features/phoneSlice";
 import Loading from "@/app/components/loading/Loading";
 
-export default function page() {
+export default function ProductPage() {
   const [filterBrand, setFilterBrand] = useState<string>("");
   const [filterType, setFilterType] = useState<string>("");
   const dispatch = useDispatch<AppDispatch>();

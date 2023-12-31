@@ -4,7 +4,6 @@ import MainLayout from "../../MainLayout";
 import { Button } from "@/components/ui/button";
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
 import { useDispatch } from "react-redux";
-import { loginUser } from "@/redux/features/userSlice";
 import { AppDispatch } from "@/redux/store";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -20,6 +19,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { userLogin } from "@/interface/user";
 import Link from "next/link";
+import { loginUser } from "@/redux/features/phoneSlice";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().min(1).max(50).email(),
@@ -39,13 +40,20 @@ export default function LoginPage() {
     },
   });
 
-  const onSubmit = (data: userLogin) => {
-    dispatch(loginUser(data)).then(() => router.push("/"));
+  const onSubmit = async (data: userLogin) => {
+    try {
+      const result = await dispatch(loginUser(data));
+      if (result.payload) {
+        router.push("/");
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   return (
     <MainLayout>
-      <div className="sign_in pt-[140px] pb-[70px]">
+      <div className="sign_in pt-[140px] pb-[70px] bg-white">
         <div className="container_signIN  max-w-[630px] pb-10 mr-auto ml-auto shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] rounded-[30px]">
           <div className="content py-10 flex flex-col justify-center max-w-[460px] ml-auto mr-auto">
             <div className="title text-center pt-[25px] pb-[40px]">
@@ -94,10 +102,18 @@ export default function LoginPage() {
                     )}
                   />
                 </div>
+                <div className="forgot_password flex justify-end cursor-pointer">
+                  <Link
+                    href="/forgot-password"
+                    className="text-xl tracking-wider text-[#5D5D5D]"
+                  >
+                    Forgot password ?
+                  </Link>
+                </div>
                 <p className="text-lg tracking-wider text-[#5D5D5D] pt-[10px] text-center">
                   Don’t have an accout yet ?
                   <Link href="/sign_up" className="text-black">
-                  <b className="cursor-pointer ml-2">Register</b>
+                    <b className="cursor-pointer ml-2">Register</b>
                   </Link>
                 </p>
                 <Button

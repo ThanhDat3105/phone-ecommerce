@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { IoMdPerson } from "react-icons/io";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
+import { IoMenu } from "react-icons/io5";
 import { FaShoppingBag } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -17,17 +18,20 @@ import { RootState } from "@/redux/store";
 import { formatPrice } from "@/utils/price";
 import { Product } from "@/interface/product";
 import ModalCart from "../modal_cart/ModalCart";
+import ModalMenu from "./modal_menu/ModalMenu";
 
 export default function Header() {
-  const [login, setLogin] = useState<boolean>(false);
   const elRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const [login, setLogin] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
   const [presentHeight, setPresentHeight] = useState<number>(0);
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const [headerOpen, setHeaderOpen] = useState<boolean>(true);
+  const [mobile, setMobile] = useState<boolean>(false);
+  const [showMenu, setShowMenu] = useState<boolean>(false);
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
   if (typeof window !== "undefined") {
@@ -35,10 +39,10 @@ export default function Header() {
       const scrollPosition = window.scrollY || window.pageYOffset;
       if (scrollPosition > presentHeight) {
         setPresentHeight(scrollPosition);
-        closeHeader(headerRef);
+        closeHeader();
       } else {
         setPresentHeight(scrollPosition);
-        openHeader(headerRef);
+        openHeader();
       }
     });
   }
@@ -50,22 +54,17 @@ export default function Header() {
         setLogin(true);
       }
     }
+
+    if (Number(headerRef.current?.clientWidth) <= 850) {
+      setMobile(true);
+    }
   }, []);
 
-  useEffect(() => {
-    if (presentHeight > 0) {
-      document.querySelector(".container_header")?.classList.add("scroll");
-      document.querySelector(".container_header")?.classList.remove("ani_none");
-    } else if (presentHeight === 0) {
-      document.querySelector(".container_header")?.classList.remove("scroll");
-    }
-  }, [presentHeight]);
-
-  const openHeader = (value: React.RefObject<HTMLDivElement> | null) => {
+  const openHeader = () => {
     setHeaderOpen(true);
   };
 
-  const closeHeader = (value: React.RefObject<HTMLDivElement> | null) => {
+  const closeHeader = () => {
     setHeaderOpen(false);
   };
 
@@ -111,6 +110,7 @@ export default function Header() {
           filterPhone?.map((ele: Product) => {
             return (
               <div
+                key={ele.id_product}
                 onClick={() => router.push(`/product/${ele.id_product}`)}
                 className="item_phone py-4 transition-all duration-300 flex cursor-pointer gap-[10px] bg-white px-[5px] hover:bg-[rgb(0,0,0,0.5)]"
               >
@@ -167,127 +167,177 @@ export default function Header() {
           headerOpen ? "translate-y-[0px]" : "translate-y-[-70px]"
         }`}
       >
-        <div className="container_all flex justify-between items-center text-white h-[70px]">
+        <div className="container_all flex justify-between items-center text-white md:h-[70px] h-[60px]">
           <div
             onClick={() => router.push("/")}
             className="header_logo cursor-pointer"
           >
             <Logo />
           </div>
-          <div className="header_menu flex gap-[55px] text-black">
-            <div className="item_menu category flex cursor-pointer relative items-center">
+          {mobile ? (
+            <div className="flex gap-[20px]">
               <div
-                role="button"
-                onClick={() => router.push("/product")}
-                className="font-normal text-base"
+                className={`header_find relative flex items-center border-b-[2px]  ${
+                  inputFocus
+                    ? "border-[#a5a7ac] border-b-2 "
+                    : "border-transparent"
+                }`}
               >
-                All Categories
+                <input
+                  type="text"
+                  placeholder="Search Product"
+                  className="input_find pl-0 text-black focus-visible:outline-none py-[10px] w-[150px]"
+                  onChange={handleChangeSearch}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                />
+                <Button
+                  variant="ghost"
+                  size={"icon"}
+                  className="button_Magnifying rounded-[30px] max-h-[30px] duration-300 justify-end hover:bg-transparent"
+                >
+                  <HiOutlineMagnifyingGlass className="text-xl text-black" />
+                </Button>
               </div>
-            </div>
-            <div className="item_menu relative">
-              <div
-                onClick={() => router.push("/news")}
-                role="button"
-                className="font-normal text-base"
-              >
-                News
-              </div>
-            </div>
-          </div>
-          <div className="header_info flex gap-[30px]">
-            <div
-              className={`header_find relative flex items-center border-b-[2px]  ${
-                inputFocus
-                  ? "border-[#a5a7ac] border-b-2 "
-                  : "border-transparent"
-              }`}
-            >
-              <input
-                type="text"
-                placeholder="Search Product"
-                className="input_find pl-0 text-black focus-visible:outline-none py-[10px] w-[150px]"
-                onChange={handleChangeSearch}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-              />
-              <Button
-                variant="ghost"
-                size={"icon"}
-                className="button_Magnifying rounded-[30px] max-h-[30px] duration-300 justify-end"
-              >
-                <HiOutlineMagnifyingGlass className="text-xl text-black" />
-              </Button>
-              {value && (
-                <div className="active absolute bg-white w-[270px] left-[-40px] h-[350px] top-[146%] rounded-b-[15px] overflow-auto">
-                  {renderPhoneSearch()}
-                </div>
-              )}
-            </div>
-            <div className="header_cart relative">
-              <Button
-                onClick={() => setShow(true)}
-                size={"icon"}
-                className="button_bag rounded-[50%] bg-white text-black transition-all duration-300 hover:bg-black hover:text-white"
-              >
-                <FaShoppingBag className="icon_bag text-[20px]" />
-              </Button>
-              {phoneReducer.cartList.length > 0 && (
-                <span className="absolute bg-black text-white rounded-full w-auto text-center text-[12px] left-[22px] top-[3px] leading-[12px] p-[4px] min-w-[20px]">
-                  {phoneReducer.cartList.length}
-                </span>
-              )}
-            </div>
-            <div className="header_user relative">
-              <Button
-                onClick={() => checkHeight(elRef)}
-                size={"icon"}
-                className="button_person rounded-[50%] bg-white text-black transition-all duration-300 hover:bg-black hover:text-white"
-              >
-                <IoMdPerson className="icon_person text-2xl" />
-              </Button>
-              <div
-                ref={elRef}
-                className="dropdown_user absolute h-0 overflow-hidden w-[150px] top-[140%] rounded-b-[5px] right-[50%] translate-x-[50%] transition-all duration-300"
-              >
-                {!login ? (
-                  <>
-                    <div
-                      className="px-5 py-3 cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
-                      onClick={() => {
-                        router.push("/sign_in"), checkHeight(elRef);
-                      }}
-                    >
-                      Login
-                    </div>
-                    <div
-                      className="px-5 py-3 bg-white text-black cursor-pointer hover:opacity-80 transition-all duration-300"
-                      onClick={() => {
-                        router.push("/sign_up"), checkHeight(elRef);
-                      }}
-                    >
-                      Register
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div
-                      className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
-                      onClick={() => router.push("/order-list")}
-                    >
-                      Order list
-                    </div>
-                    <div
-                      className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
-                      onClick={() => handleLogOut()}
-                    >
-                      Log out
-                      <LogOut size={15} />
-                    </div>
-                  </>
+              <div className="header_cart relative">
+                <Button
+                  onClick={() => setShow(true)}
+                  size={"icon"}
+                  className="button_bag rounded-[50%] bg-white text-black transition-all duration-300 hover:bg-black hover:text-white"
+                >
+                  <FaShoppingBag className="icon_bag text-[20px]" />
+                </Button>
+                {phoneReducer.cartList.length > 0 && (
+                  <span className="absolute bg-black text-white rounded-full w-auto text-center text-[12px] left-[22px] top-[3px] leading-[12px] p-[4px] min-w-[20px]">
+                    {phoneReducer.cartList.length}
+                  </span>
                 )}
               </div>
+              <Button
+                onClick={() => setShowMenu(!showMenu)}
+                className="bg-transparent hover:bg-[#D2D2D2]"
+              >
+                <IoMenu className="text-black text-3xl cursor-pointer" />
+              </Button>
             </div>
-          </div>
+          ) : (
+            <>
+              <div className="header_menu flex gap-[55px] text-black">
+                <div className="item_menu category flex cursor-pointer relative items-center">
+                  <div
+                    role="button"
+                    onClick={() => router.push("/product")}
+                    className="font-normal text-base"
+                  >
+                    All Categories
+                  </div>
+                </div>
+                <div className="item_menu relative">
+                  <div
+                    onClick={() => router.push("/news")}
+                    role="button"
+                    className="font-normal text-base"
+                  >
+                    News
+                  </div>
+                </div>
+              </div>
+              <div className="header_info flex gap-[30px]">
+                <div
+                  className={`header_find relative flex items-center border-b-[2px]  ${
+                    inputFocus
+                      ? "border-[#a5a7ac] border-b-2 "
+                      : "border-transparent"
+                  }`}
+                >
+                  <input
+                    type="text"
+                    placeholder="Search Product"
+                    className="input_find pl-0 text-black focus-visible:outline-none py-[10px] w-[150px]"
+                    onChange={handleChangeSearch}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                  />
+                  <Button
+                    variant="ghost"
+                    size={"icon"}
+                    className="button_Magnifying rounded-[30px] max-h-[30px] duration-300 justify-end hover:bg-transparent"
+                  >
+                    <HiOutlineMagnifyingGlass className="text-xl text-black" />
+                  </Button>
+                  {value && (
+                    <div className="active absolute bg-white w-[270px] left-[-40px] h-[350px] top-[146%] rounded-b-[15px] overflow-auto">
+                      {renderPhoneSearch()}
+                    </div>
+                  )}
+                </div>
+                <div className="header_cart relative">
+                  <Button
+                    onClick={() => setShow(true)}
+                    size={"icon"}
+                    className="button_bag rounded-[50%] bg-white text-black transition-all duration-300 hover:bg-black hover:text-white"
+                  >
+                    <FaShoppingBag className="icon_bag text-[20px]" />
+                  </Button>
+                  {phoneReducer.cartList.length > 0 && (
+                    <span className="absolute bg-black text-white rounded-full w-auto text-center text-[12px] left-[22px] top-[3px] leading-[12px] p-[4px] min-w-[20px]">
+                      {phoneReducer.cartList.length}
+                    </span>
+                  )}
+                </div>
+                <div className="header_user relative">
+                  <Button
+                    onClick={() => checkHeight(elRef)}
+                    size={"icon"}
+                    className="button_person rounded-[50%] bg-white text-black transition-all duration-300 hover:bg-black hover:text-white"
+                  >
+                    <IoMdPerson className="icon_person text-2xl" />
+                  </Button>
+                  <div
+                    ref={elRef}
+                    className="dropdown_user absolute h-0 overflow-hidden w-[150px] top-[140%] rounded-b-[5px] right-[50%] translate-x-[50%] transition-all duration-300"
+                  >
+                    {!login ? (
+                      <>
+                        <div
+                          className="px-5 py-3 cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
+                          onClick={() => {
+                            router.push("/sign_in"), checkHeight(elRef);
+                          }}
+                        >
+                          Login
+                        </div>
+                        <div
+                          className="px-5 py-3 bg-white text-black cursor-pointer hover:opacity-80 transition-all duration-300"
+                          onClick={() => {
+                            router.push("/sign_up"), checkHeight(elRef);
+                          }}
+                        >
+                          Register
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div
+                          className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
+                          onClick={() => router.push("/order-list")}
+                        >
+                          Order list
+                        </div>
+                        <div
+                          className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
+                          onClick={() => handleLogOut()}
+                        >
+                          Log out
+                          <LogOut size={15} />
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div
@@ -295,6 +345,16 @@ export default function Header() {
         className={`bg_opacity ${show ? "show" : "hide"} `}
       />
       <ModalCart show={show} setShow={setShow} handleClose={handleClose} />
+      {mobile ? (
+        <ModalMenu
+          handleLogOut={handleLogOut}
+          login={login}
+          showMenu={showMenu}
+          setShowMenu={setShowMenu}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 }

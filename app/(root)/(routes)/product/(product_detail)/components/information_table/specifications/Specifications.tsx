@@ -10,9 +10,9 @@ export default function Specifications() {
           </div>
           <div className="right text-base w-[50%]">
             <p>
-              iOS is the world's most secure and personal operating system for
-              mobile phones, packed with powerful features and designed to
-              protect your privacy.
+              iOS is the world`&apos;`s most secure and personal operating
+              system for mobile phones, packed with powerful features and
+              designed to protect your privacy.
             </p>
           </div>
         </div>

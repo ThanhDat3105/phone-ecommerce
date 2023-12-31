@@ -34,7 +34,7 @@ export default function Brand() {
           <div className="name_brand flex xl:gap-5 md:gap-[10px] sm:gap-[5px]">
             {brand.map((ele: any) => {
               return (
-                <div className=" border-[#E5E7EB] border-[1px] border-solid py-1 px-2 flex items-center rounded-[6px] transition duration-300 hover:bg-[#D2D2D2] cursor-pointer">
+                <div key={ele.id} className="border-[#E5E7EB] border-[1px] border-solid py-1 px-2 flex items-center rounded-[6px] transition duration-300 hover:bg-[#D2D2D2] cursor-pointer">
                   <p
                     className="text-base font-normal tracking-wider text-[#000000] opacity-[50%]"
                     key={ele.id}

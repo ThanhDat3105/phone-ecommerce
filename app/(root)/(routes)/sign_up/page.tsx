@@ -13,7 +13,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { registerUser } from "@/redux/features/userSlice";
 import { UserSignIn } from "@/interface/user";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
@@ -29,6 +28,7 @@ import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import Link from "next/link";
+import { registerUser } from "@/redux/features/phoneSlice";
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -67,7 +67,7 @@ export default function RegisterPage() {
 
   return (
     <MainLayout>
-      <div className="sign_up pt-[140px] pb-[70px]">
+      <div className="sign_up pt-[140px] pb-[70px] bg-white">
         <div className="container_signIN  max-w-[630px] pb-10 mr-auto ml-auto shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] rounded-[30px]">
           <div className="content py-10 flex flex-col justify-center max-w-[460px] ml-auto mr-auto">
             <div className="title text-center pt-[25px] pb-[40px]">

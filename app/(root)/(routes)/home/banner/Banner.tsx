@@ -40,7 +40,7 @@ export default function Banner() {
         {banner.map((ele) => {
           return (
             <SwiperSlide key={ele.id}>
-              <div className="image h-[500px]">
+              <div className="image h-[180px] xl:h-[500px] md:h-[360px]">
                 <img src={ele.img.src} alt="banner" className="w-full h-full" />
               </div>
             </SwiperSlide>

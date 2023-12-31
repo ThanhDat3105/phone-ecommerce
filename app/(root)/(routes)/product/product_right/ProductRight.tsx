@@ -156,7 +156,7 @@ export default function ProductRight(props: Props) {
       <div className="filter_phone">
         <div className="total_phone flex justify-between items-center">
           <p className="text-base tracking-wider text-[#AAAAAA] font-medium">
-            {dataFilter.length} Products
+            {dataFilter?.length} Products
           </p>
           <div className="dropdown flex items-center gap-2">
             <Combobox
@@ -173,7 +173,7 @@ export default function ProductRight(props: Props) {
         ref={ref}
         className="product_item grid xl:grid-cols-3 gap-[30px] pt-[50px]"
       >
-        {currentPageData.map((ele) => {
+        {currentPageData?.map((ele) => {
           return <ItemProduct key={ele.id_product} ele={ele} />;
         })}
       </div>

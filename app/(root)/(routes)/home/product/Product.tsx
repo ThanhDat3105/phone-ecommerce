@@ -40,18 +40,22 @@ export default function Product() {
           <div className="container_all flex flex-col gap-[50px]">
             <ListItemProduct
               title="Iphone"
+              brand="Apple"
               ele={filterPhoneHome(6)?.slice(0, 4)}
             />
             <ListItemProduct
               title="Samsung"
+              brand="Samsung"
               ele={filterPhoneHome(5)?.slice(0, 4)}
             />
             <ListItemProduct
               title="Vivo"
+              brand="Vivo"
               ele={filterPhoneHome(7)?.slice(0, 4)}
             />
             <ListItemProduct
               title="Oppo"
+              brand="Oppo"
               ele={filterPhoneHome(8)?.slice(0, 4)}
             />
           </div>

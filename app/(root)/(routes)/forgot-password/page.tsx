@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import MainLayout from "../../MainLayout";
 import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
-import { forgotPasswordUser, loginUser } from "@/redux/features/userSlice";
 import { AppDispatch } from "@/redux/store";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Email } from "@/interface/user";
+import { forgotPasswordUser } from "@/redux/features/phoneSlice";
 
 const formSchema = z.object({
   email: z.string().min(1).max(50).email(),

@@ -91,7 +91,7 @@ export default function NewPage() {
           <div className="flex justify-between mt-[60px]">
             {arr.map((ele) => {
               return (
-                <Button className="text-black w-[120px] text-center py-2 bg-[#E5E7EB] rounded-[10px] hover:text-white">
+                <Button key={ele.id} className="text-black w-[120px] text-center py-2 bg-[#E5E7EB] rounded-[10px] hover:text-white">
                   {ele.name}
                 </Button>
               );
@@ -105,7 +105,7 @@ export default function NewPage() {
               {news
                 .filter((ele) => ele.type === "apple")
                 .map((filter) => {
-                  return <ItemNew data={filter} />;
+                  return <ItemNew key={filter.id} data={filter} />;
                 })}
             </div>
             <div className="bottom flex justify-center items-center gap-[10px] mt-[30px]">
@@ -121,7 +121,7 @@ export default function NewPage() {
               {news
                 .filter((ele) => ele.type === "review")
                 .map((filter) => {
-                  return <ItemNew data={filter} />;
+                  return <ItemNew key={filter.id} data={filter} />;
                 })}
             </div>
             <div className="bottom flex justify-center items-center gap-[10px] mt-[30px]">
@@ -137,7 +137,7 @@ export default function NewPage() {
               {news
                 .filter((ele) => ele.type === "discover")
                 .map((filter) => {
-                  return <ItemNew data={filter} />;
+                  return <ItemNew key={filter.id} data={filter} />;
                 })}
             </div>
             <div className="bottom flex justify-center items-center gap-[10px] mt-[30px]">
@@ -153,7 +153,7 @@ export default function NewPage() {
               {news
                 .filter((ele) => ele.type === "other")
                 .map((filter) => {
-                  return <ItemNew data={filter} />;
+                  return <ItemNew key={filter.id} data={filter} />;
                 })}
             </div>
             <div className="bottom flex justify-center items-center gap-[10px] mt-[30px]">

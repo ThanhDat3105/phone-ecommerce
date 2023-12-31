@@ -20,12 +20,12 @@ export default function ItemProduct(props: Props) {
       }`}
       onClick={() => router.push(`/product/${props.ele.id_product}`)}
     >
-      <div className="item_top pb-6 md:flex md:justify-center max-w-[210px] max-h-[275px] w-[210px] h-[275px]">
+      <div className="item_top pb-6 md:flex md:justify-center max-w-[210px] max-h-[275px] w-[210px] h-[275px] relative">
         <div className="image">
           <img
             src={props.ele.thumbnail}
             alt="iphone"
-            className="relative top-[50%] translate-y-[-50%]"
+            className="absolute top-[50%] translate-y-[-50%] right-[50%] translate-x-[50%]"
           />
         </div>
       </div>
