@@ -58,23 +58,32 @@ export interface CartItem {
 }
 
 export interface Order {
-  id_user: number | undefined;
+  id_user: number;
+  name: string;
   phone: string;
   address: string;
   payment_method: string | undefined;
   delivery_by: string;
   total: number;
-  id_product: number[];
+  productItem: ProductItem[];
 }
 
 export interface ValueFormOrder {
   values: {
-    id_user: number | undefined;
+    id_user: number;
+    name: string;
     phone: string;
     address: string;
     payment_method: string | undefined;
     delivery_by: string;
     total: number;
-    id_product: number[];
+    productItem: ProductItem[];
   };
+}
+export interface ProductItem {
+  name: string;
+  color: string;
+  price: number;
+  storage: string;
+  quantity: number;
 }

@@ -87,7 +87,6 @@ export default function ProductRight(props: Props) {
       (ele) => ele.categoryBrandMapping.brand.name === name
     );
     if (data) {
-      console.log(data);
       setDataFilter(data);
       setDataFilterBrand(data);
     }

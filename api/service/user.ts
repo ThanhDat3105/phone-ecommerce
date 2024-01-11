@@ -32,3 +32,10 @@ export const resetPasswordApi = (data: ResetPassword) => {
     data: { password: data.password },
   });
 };
+
+export const verifyEmail = (email: string) => {
+  return axiosRequest({
+    url: `auth/verify-email/${email}`,
+    method: "PUT",
+  });
+};

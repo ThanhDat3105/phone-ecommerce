@@ -33,7 +33,19 @@ import { registerUser } from "@/redux/features/phoneSlice";
 const formSchema = z.object({
   name: z.string().min(2),
   email: z.string().min(1).max(50).email(),
-  password: z.string().min(1).max(50),
+  password: z
+    .string()
+    .min(1)
+    .max(20)
+    .refine(
+      (value) => {
+        return /[A-Z]/.test(value) && /[!@#$%^&*(),.?":{}|<>]/.test(value);
+      },
+      {
+        message:
+          "The password must contain at least one uppercase letter and at least one special character.",
+      }
+    ),
   birthday: z.any(),
   address: z.string().min(2),
   phone: z.string().min(10).max(11),
@@ -55,14 +67,18 @@ export default function RegisterPage() {
     },
   });
 
-  const onSubmit = (d: UserSignIn) => {
+  const onSubmit = async (d: UserSignIn) => {
     const data = {
       ...d,
       birthday: d.birthday
         ? format(new Date(d.birthday), "yyyy-MM-dd")
         : undefined,
     };
-    dispatch(registerUser(data)).then(() => router.push("/sign_in"));
+    try {
+      await dispatch(registerUser(data));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

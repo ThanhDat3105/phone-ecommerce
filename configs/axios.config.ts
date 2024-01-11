@@ -2,6 +2,8 @@ import axios from "axios";
 
 const axiosRequest = axios.create({
   baseURL: "https://be-phone-eu7f.onrender.com/",
+  withCredentials: false,
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
 });
 
 axiosRequest.interceptors.request.use((config) => {

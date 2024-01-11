@@ -1,7 +1,10 @@
 import { fetchListBrandApi } from "@/api/service/brand";
 import { fetchListCategoryApi } from "@/api/service/category";
-import { createOrderApi, fetchOrderApi } from "@/api/service/order";
-import { fetchListPhoneApi, findProductByIdApi } from "@/api/service/phone";
+import {
+  createOrderApi,
+  fetchOrderApi,
+  fetchOrderByIdApi,
+} from "@/api/service/order";
 import { Brand } from "@/interface/brand";
 import { Category } from "@/interface/category";
 import { OrderList } from "@/interface/order";
@@ -10,20 +13,23 @@ import {
   loginApi,
   registerApi,
   resetPasswordApi,
+  verifyEmail,
 } from "@/api/service/user";
 import { Email, ResetPassword, UserSignIn, userLogin } from "@/interface/user";
 import { CartItem, Order, Product, ValueFormOrder } from "@/interface/product";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "sonner";
+import { fetchListPhoneApi, findProductByIdApi } from "@/api/service/phone";
 
 interface phoneState {
   phoneList: Product[];
   brandList: Brand[];
   categoryList: Category[];
-  phoneInfo: Product | undefined;
+  phoneInfo: Product | null;
   cartList: CartItem[];
   isLoading: boolean;
   orderList: OrderList[];
+  orderInfo: OrderList | null;
 }
 
 export const fetchListPhoneAction = createAsyncThunk(
@@ -33,7 +39,7 @@ export const fetchListPhoneAction = createAsyncThunk(
       const result = await fetchListPhoneApi();
       return result.data.content;
     } catch (error) {
-      console.log("Error BE");
+      console.log(error);
     }
   }
 );
@@ -98,6 +104,18 @@ export const fetchOrderAction = createAsyncThunk(
   }
 );
 
+export const fetchOrderByIdAction = createAsyncThunk(
+  "phoneReducer/fetchOrderByIdAction",
+  async (id: number) => {
+    try {
+      const result = await fetchOrderByIdApi(id);
+      return result.data.content;
+    } catch (error) {
+      console.log("Error BE");
+    }
+  }
+);
+
 export const loginUser = createAsyncThunk(
   "userReducer/loginUser",
   async (payload: userLogin) => {
@@ -123,10 +141,17 @@ export const registerUser = createAsyncThunk(
   async (payload: UserSignIn) => {
     try {
       const result = await registerApi(payload);
-      toast.success("Register Successfully");
+      if (result) {
+        toast.success("Please check your email");
+      } else {
+        toast.error("Invalid Information");
+      }
       return result;
-    } catch (error) {
-      toast.error("Invalid Information");
+    } catch (error: any) {
+      if (error.response.data.message === "Email đã tồn tại") {
+        toast.error("Email already exists");
+      }
+      console.log("Error: ", error.response.data.message);
     }
   }
 );
@@ -153,10 +178,22 @@ export const resetPasswordUser = createAsyncThunk(
   async (payload: ResetPassword) => {
     try {
       const result = await resetPasswordApi(payload);
-      toast.success("Reset successfully");
-      return result;
+      if (result) {
+        toast.success("Reset successfully");
+      }
     } catch (error) {
       toast.error("Password reset link has expired.");
+    }
+  }
+);
+
+export const verifyEmailAction = createAsyncThunk(
+  "userReducer/verifyEmailAction",
+  async (payload: string) => {
+    try {
+      await verifyEmail(payload);
+    } catch (error) {
+      console.log(error);
     }
   }
 );
@@ -167,11 +204,11 @@ export const phoneSlice = createSlice({
     phoneList: [],
     brandList: [],
     categoryList: [],
-    phoneInfo: undefined,
+    phoneInfo: null,
     cartList: [],
     isLoading: true,
     orderList: [],
-    userInfo: undefined,
+    orderInfo: null,
   } as phoneState,
 
   reducers: {
@@ -282,22 +319,39 @@ export const phoneSlice = createSlice({
       })
       .addCase(
         FindProductByIdAction.fulfilled,
-        (state, action: PayloadAction<Product | undefined>) => {
+        (state, action: PayloadAction<Product | null>) => {
           const result = action.payload;
           state.phoneInfo = result;
           state.isLoading = false;
         }
       );
-    builder.addCase(
-      createOrderAction.fulfilled,
-      (state, action: PayloadAction<Order>) => {
-        const result = action.payload;
-        state.cartList = [];
-        if (result) {
-          toast.success("Order Success");
+    // builder
+    //   .addCase(createOrderAction.pending, (state) => {
+    //     state.isLoading = true;
+    //   })
+    //   .addCase(
+    //     createOrderAction.fulfilled,
+    //     (state, action: PayloadAction<Order>) => {
+    //       const result = action.payload;
+    //       // state.cartList = [];
+    //       if (result) {
+    //         toast.success("Order Success");
+    //       }
+    //       state.isLoading = false;
+    //     }
+    //   );
+    builder
+      .addCase(fetchOrderByIdAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        fetchOrderByIdAction.fulfilled,
+        (state, action: PayloadAction<OrderList>) => {
+          const result = action.payload;
+          state.orderInfo = result;
+          state.isLoading = false;
         }
-      }
-    );
+      );
     builder
       .addCase(fetchOrderAction.pending, (state) => {
         state.isLoading = true;

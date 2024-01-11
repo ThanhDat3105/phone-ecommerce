@@ -14,14 +14,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { User } from "@/interface/user";
 import { toast } from "sonner";
-import EmptyCart from '@/public/image/cart/empty-cart.png'
+import EmptyCart from "@/public/image/cart/empty-cart.png";
 export default function CartPage() {
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [progress, setProgress] = useState<boolean>(false);
-  const [hasScrolled, setHasScrolled] = useState<boolean>(false);
-  const [idUser, setIdUser] = useState<number>();
+  const [user, setUser] = useState<User>();
 
   const scrollToSection = () => {
     const destination = ref.current;
@@ -34,9 +33,6 @@ export default function CartPage() {
   };
 
   useEffect(() => {
-    if (!progress) {
-      setHasScrolled(true);
-    }
     if (progress) {
       scrollToSection();
     }
@@ -44,10 +40,10 @@ export default function CartPage() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const user = localStorage.getItem("USER_INFO_KEY");
-      if (user) {
-        const userInfoObject: User = JSON.parse(user);
-        setIdUser(userInfoObject.id_user);
+      const userLocalStorage = localStorage.getItem("USER_INFO_KEY");
+      if (userLocalStorage) {
+        const userInfoObject: User = JSON.parse(userLocalStorage);
+        setUser(userInfoObject);
       }
     }
   }, []);
@@ -118,7 +114,11 @@ export default function CartPage() {
                   />
                 </div>
                 <div className="checkout relative">
-                  <div className={`content ${!progress ? "opacity-60" : "opacity-100"}  flex items-center gap-[10px]`}>
+                  <div
+                    className={`content ${
+                      !progress ? "opacity-60" : "opacity-100"
+                    }  flex items-center gap-[10px]`}
+                  >
                     <p className="text-lg rounded-full p-2 text-center font-bold bg-[#444444] text-white w-[40px] h-[40px]">
                       2
                     </p>
@@ -135,7 +135,7 @@ export default function CartPage() {
                   />
                 </div>
               </div>
-              {!progress ? <TotalProduct /> : <InfoCheckout idUser={idUser} />}
+              {!progress ? <TotalProduct /> : <InfoCheckout user={user} />}
             </div>
             <div className="right">
               <div className="content p-[30px] mt-48 bg-[#FFFFFF] rounded-[15px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)]">
@@ -160,7 +160,6 @@ export default function CartPage() {
                 </div>
                 <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
                 <div className="discount">
-                  {/* <p className="tracking-wider pb-4"></p> */}
                   <div className="total_discount">
                     <div className="text-sm text-[#444444] flex justify-between pb-1">
                       <p>{phoneReducer.cartList.length} Item</p>
@@ -190,10 +189,12 @@ export default function CartPage() {
           </div>
         </div>
       ) : (
-        <div className="min-h-[800px] pt-[70px]">
+        <div className="min-h-[800px] pt-[70px] bg-white">
           <div className="flex items-center justify-center flex-col">
             <img src={EmptyCart.src} alt="Empty Cart" />
-            <Button onClick={()=>router.push("/product")} className="ml-2">Go back to menu</Button>
+            <Button onClick={() => router.push("/product")} className="ml-2">
+              Go back to menu
+            </Button>
           </div>
         </div>
       )}

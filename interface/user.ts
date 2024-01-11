@@ -22,11 +22,14 @@ export interface User {
   name: string;
   email: string;
   password: string;
-  birthday: Date;
+  birthday: string;
   address: string;
   phone: string;
   role: boolean;
-  accessToken: string;
+  verifyEmail: boolean;
+  verifyEmailToken: string | null;
+  resetPasswordToken: string | null;
+  resetPasswordExpire: string | null;
 }
 
 export interface UserSignIn {

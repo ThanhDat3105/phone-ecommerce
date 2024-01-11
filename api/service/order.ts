@@ -15,3 +15,10 @@ export const fetchOrderApi = () => {
     method: "GET",
   });
 };
+
+export const fetchOrderByIdApi = (id: number) => {
+  return axiosRequest({
+    url: `order/find-order/${id}`,
+    method: "GET",
+  });
+};

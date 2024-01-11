@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import MainLayout from "../../MainLayout";
 import { Button } from "@/components/ui/button";
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
@@ -20,7 +20,6 @@ import { Input } from "@/components/ui/input";
 import { userLogin } from "@/interface/user";
 import Link from "next/link";
 import { loginUser } from "@/redux/features/phoneSlice";
-import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().min(1).max(50).email(),

@@ -5,33 +5,30 @@ import { Button } from "@/components/ui/button";
 import visa from "@/public/image/cart/visa 1.png";
 import momo from "@/public/image/cart/momo 1.png";
 
-import { DatePickerDemo } from "@/app/components/date_picker/DatePicker";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
-import { CartItem, Order, ValueFormOrder } from "@/interface/product";
+import { CartItem, ValueFormOrder } from "@/interface/product";
 import { createOrderAction } from "@/redux/features/phoneSlice";
-import { useRouter } from "next/navigation";
+import { User } from "@/interface/user";
 
 interface Props {
-  idUser: number | undefined;
+  user: User | undefined;
 }
 
 export default function InfoCheckout(props: Props) {
-  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  const idCartList: number[] = [];
   const reducer = useSelector((state: RootState) => state);
   const [payment_method, setPaymentMethod] = useState<string>();
-  const [total, setTotal] = useState<number>(0);
   const [formOrder, setFormOrder] = useState<ValueFormOrder>({
     values: {
-      id_user: props.idUser,
+      id_user: Number(props.user?.id_user),
+      name: String(props.user?.name),
       phone: "",
       address: "",
       payment_method: payment_method,
       delivery_by: "Shopee Express",
-      total: total,
-      id_product: idCartList,
+      total: Number(0),
+      productItem: [],
     },
   });
 
@@ -42,9 +39,15 @@ export default function InfoCheckout(props: Props) {
 
   useEffect(() => {
     if (reducer.phoneReducer.cartList) {
-      const newIdCartList = reducer.phoneReducer.cartList.map(
+      const productItem = reducer.phoneReducer.cartList.map(
         (item: CartItem) => {
-          return item.id_product || 0;
+          return {
+            name: item.name,
+            color: item.color,
+            price: item.price,
+            storage: item.storage,
+            quantity: item.quantity,
+          };
         }
       );
 
@@ -52,7 +55,7 @@ export default function InfoCheckout(props: Props) {
         ...prevFormOrder,
         values: {
           ...prevFormOrder.values,
-          id_product: newIdCartList,
+          productItem,
         },
       }));
     }
@@ -86,7 +89,7 @@ export default function InfoCheckout(props: Props) {
   };
 
   const pay = () => {
-    dispatch(createOrderAction(formOrder)).then(() => router.push("/"));
+    dispatch(createOrderAction(formOrder));
   };
 
   return (
@@ -122,9 +125,9 @@ export default function InfoCheckout(props: Props) {
       <p className="text-xl font-bold mt-10">Payment Method</p>
       <div className="option_pay flex gap-[35px] mt-[45px] mb-[60px]">
         <div
-          onClick={() => handleActive("visa")}
+          onClick={() => handleActive("Visa")}
           className={`image rounded-[10px] h-[60px] px-5  flex items-center justify-center cursor-pointer ${
-            payment_method === "visa"
+            payment_method === "Visa"
               ? "shadow-[0_5px_10px_0_rgb(0,0,0,0.4)]"
               : "shadow-none"
           }`}
@@ -132,9 +135,9 @@ export default function InfoCheckout(props: Props) {
           <img src={visa.src} alt="" />
         </div>
         <div
-          onClick={() => handleActive("momo")}
+          onClick={() => handleActive("Momo")}
           className={`image rounded-[10px]  h-[60px] px-5 bg-white flex items-center justify-center cursor-pointer ${
-            payment_method === "momo"
+            payment_method === "Momo"
               ? "shadow-[0_5px_10px_0_rgb(0,0,0,0.4)]"
               : "shadow-none"
           }`}
@@ -142,9 +145,9 @@ export default function InfoCheckout(props: Props) {
           <img src={momo.src} alt="" />
         </div>
         <div
-          onClick={() => handleActive("shipcode")}
+          onClick={() => handleActive("Shipcode")}
           className={`image rounded-[10px] h-[60px] px-5  flex items-center justify-center cursor-pointer ${
-            payment_method === "shipcode"
+            payment_method === "Shipcode"
               ? "shadow-[0_5px_10px_0_rgb(0,0,0,0.4)]"
               : "shadow-none"
           }`}
@@ -152,19 +155,6 @@ export default function InfoCheckout(props: Props) {
           <p className="font-bold">Ship Code</p>
         </div>
       </div>
-      {/* <input
-        type="text"
-        placeholder="Card Number"
-        className="w-full p-5 rounded-[10px] focus-visible:outline-none border-[1px] border-[#444444] placeholder:text-black"
-      />
-      <div className="last flex gap-[100px] justify-between mt-[60px]">
-        <DatePickerDemo />
-        <input
-          type="text"
-          placeholder="CVC Code"
-          className="w-full p-5 rounded-[10px] focus-visible:outline-none border-[1px] border-[#444444] placeholder:text-black"
-        />
-      </div> */}
       <Button
         onClick={() => pay()}
         type="button"

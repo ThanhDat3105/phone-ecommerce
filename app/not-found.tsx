@@ -16,9 +16,9 @@ export default function NotFound() {
             <div className="image">
               <img src={notFound.src} alt="not_found" />
             </div>
-            <div className="text flex flex-col gap-[10px]">``
+            <div className="text flex flex-col gap-[10px]">
               <p className="text-xl text-center">
-                The page you are looking for doesn`&apos;`t exist or an other
+                The page you are looking for doesn&apos;t exist or an other
                 error eccurred
               </p>
               <p className="text-xl text-[#AAAAAA] text-center">
