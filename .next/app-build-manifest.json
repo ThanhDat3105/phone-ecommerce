@@ -1,16 +1,34 @@
 {
   "pages": {
+    "/not-found": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/not-found.css",
+      "static/chunks/app/not-found.js"
+    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/not-found": [
+    "/(root)/(routes)/product/(product_detail)/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/not-found.css",
-      "static/chunks/app/not-found.js"
+      "static/css/app/(root)/(routes)/product/(product_detail)/[id]/page.css",
+      "static/chunks/app/(root)/(routes)/product/(product_detail)/[id]/page.js"
+    ],
+    "/(root)/(routes)/order-list/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(root)/(routes)/order-list/page.css",
+      "static/chunks/app/(root)/(routes)/order-list/page.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
     ],
     "/(root)/(routes)/product/page": [
       "static/chunks/webpack.js",
@@ -18,11 +36,17 @@
       "static/css/app/(root)/(routes)/product/page.css",
       "static/chunks/app/(root)/(routes)/product/page.js"
     ],
-    "/(root)/(routes)/product/(product_detail)/[id]/page": [
+    "/(root)/(routes)/sign_in/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(root)/(routes)/product/(product_detail)/[id]/page.css",
-      "static/chunks/app/(root)/(routes)/product/(product_detail)/[id]/page.js"
+      "static/css/app/(root)/(routes)/sign_in/page.css",
+      "static/chunks/app/(root)/(routes)/sign_in/page.js"
+    ],
+    "/(root)/(routes)/cart/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(root)/(routes)/cart/page.css",
+      "static/chunks/app/(root)/(routes)/cart/page.js"
     ]
   }
 }

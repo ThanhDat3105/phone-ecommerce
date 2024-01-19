@@ -6,6 +6,7 @@ interface Props {
 }
 
 export default function Specifications(props: Props) {
+  console.log(props.info);
   return (
     <div className="specifications pb-10 bg-white">
       <div className="container_all">
@@ -36,30 +37,36 @@ export default function Specifications(props: Props) {
             </p>
           </div>
         </div>
-        <div className="item  py-[30px] items-center flex bg-[#FFFFFF]">
-          <div className="left uppercase pl-10 w-[50%]">
-            <p>screen</p>
-          </div>
-          <div className="right text-base w-[50%]">
-            <p>{props.info?.screen}</p>
-          </div>
-        </div>
-        <div className="item  py-[30px] items-center flex bg-[#EFEFEF]">
-          <div className="left uppercase pl-10 w-[50%]">
-            <p>Rear camera</p>
-          </div>
-          <div className="right text-base w-[50%]">
-            <p>{props.info?.rear_camera}</p>
-          </div>
-        </div>
-        <div className="item  py-[30px] items-center flex bg-[#FFFFFF]">
-          <div className="left uppercase pl-10 w-[50%]">
-            <p>Front camera</p>
-          </div>
-          <div className="right text-base w-[50%]">
-            <p>{props.info?.front_camera}</p>
-          </div>
-        </div>
+        {props.info?.categoryBrandMapping.category.name !== "Headphone" ? (
+          <>
+            <div className="item  py-[30px] items-center flex bg-[#FFFFFF]">
+              <div className="left uppercase pl-10 w-[50%]">
+                <p>screen</p>
+              </div>
+              <div className="right text-base w-[50%]">
+                <p>{props.info?.screen}</p>
+              </div>
+            </div>
+            <div className="item  py-[30px] items-center flex bg-[#EFEFEF]">
+              <div className="left uppercase pl-10 w-[50%]">
+                <p>Rear camera</p>
+              </div>
+              <div className="right text-base w-[50%]">
+                <p>{props.info?.rear_camera}</p>
+              </div>
+            </div>
+            <div className="item  py-[30px] items-center flex bg-[#FFFFFF]">
+              <div className="left uppercase pl-10 w-[50%]">
+                <p>Front camera</p>
+              </div>
+              <div className="right text-base w-[50%]">
+                <p>{props.info?.front_camera}</p>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

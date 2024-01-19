@@ -8,7 +8,7 @@ interface Props {
 export default function InformationTable(props: Props) {
   return (
     <div className="information_table">
-      {props.info?.name === "iPhone 15 Pro" ? <Description /> : ""}
+      {props.info?.name.includes("iPhone 15 Pro") ? <Description /> : ""}
       <Specifications info={props.info} />
       {/* <QNA /> */}
     </div>

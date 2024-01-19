@@ -56,14 +56,14 @@ export default function ItemCart(props: Props) {
         </div>
         <div className="number_item border-[1px] border-[#dee2e6] rounded-[6px] flex justify-between text-lg text-center w-[120px]">
           <div
-            className="decrease w-full cursor-pointer transition-all duration-300 hover:bg-black hover:text-white"
+            className="decrease w-full cursor-pointer transition-all duration-300 hover:bg-black rounded-l-[6px] hover:text-white"
             onClick={() => decrease()}
           >
             -
           </div>
           <div className="number w-full">{props.cartItem.quantity}</div>
           <div
-            className="increase w-full cursor-pointer transition-all duration-300 hover:bg-black hover:text-white"
+            className="increase w-full cursor-pointer transition-all duration-300 hover:bg-black rounded-r-[6px] hover:text-white"
             onClick={() => crease()}
           >
             +
@@ -72,7 +72,7 @@ export default function ItemCart(props: Props) {
       </div>
       <div className="item_right flex items-center">
         <div
-          className="button_delete w-[26px] h-[26px] bg-[#ff0000] text-white rounded-[6px] flex justify-center items-center opacity-0 transition-all duration-300 cursor-pointer hover:bg-[#ff0000ca]"
+          className="button_delete w-[26px] h-[26px] bg-black text-white rounded-[6px] flex justify-center items-center opacity-0 transition-all duration-300 cursor-pointer hover:bg-[#ff0000ca]"
           onClick={() => handleDeleteCart()}
         >
           <FaTrash className="trash_delete" />

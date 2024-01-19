@@ -16,7 +16,7 @@ import { LogOut } from "lucide-react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { formatPrice } from "@/utils/price";
-import { Product } from "@/interface/product";
+import { CartItem, Product } from "@/interface/product";
 import ModalCart from "../modal_cart/ModalCart";
 import ModalMenu from "./modal_menu/ModalMenu";
 
@@ -32,6 +32,7 @@ export default function Header() {
   const [headerOpen, setHeaderOpen] = useState<boolean>(true);
   const [mobile, setMobile] = useState<boolean>(false);
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [cartList, setCartList] = useState<CartItem[]>();
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
   if (typeof window !== "undefined") {
@@ -58,7 +59,16 @@ export default function Header() {
     if (Number(headerRef.current?.clientWidth) <= 850) {
       setMobile(true);
     }
+
+    setCartList(phoneReducer.cartList);
   }, []);
+
+  useEffect(() => {
+    if (cartList !== undefined && cartList !== phoneReducer.cartList) {
+      console.log("run");
+      openHeader();
+    }
+  }, [phoneReducer.cartList]);
 
   const openHeader = () => {
     setHeaderOpen(true);

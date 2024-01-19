@@ -9,7 +9,10 @@ import { useEffect, useState } from "react";
 import { Product } from "@/interface/product";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
-import { FindProductByIdAction } from "@/redux/features/phoneSlice";
+import {
+  FindProductByIdAction,
+  fetchListPhoneAction,
+} from "@/redux/features/phoneSlice";
 import Loading from "@/app/components/loading/Loading";
 import { useRouter } from "next/navigation";
 interface Props {
@@ -26,8 +29,16 @@ export default function DetailProduct(props: Props) {
     dispatch(FindProductByIdAction(id));
   };
 
+  const fetchPhoneList = () => {
+    dispatch(fetchListPhoneAction());
+  };
+
   useEffect(() => {
     findProductById(props.params.id);
+
+    if (!phoneReducer.phoneInfo) {
+      fetchPhoneList();
+    }
   }, []);
 
   useEffect(() => {
