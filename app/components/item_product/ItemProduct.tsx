@@ -16,8 +16,8 @@ export default function ItemProduct(props: Props) {
 
   return (
     <div
-      className={`item overflow-hidden cursor-pointer bg-[#FFFFFF] rounded-[20px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] px-7 pb-[30px] relative transition-all duration-300 xl:mb-0 xl:max-w-none  md:max-w-[300px] ml-auto mr-auto md:mb-7 hover:scale-[1.03] hover:shadow-[0_5px_10px_0_rgba(0,0,0,0.3)]"
-      }`}
+      className={`item cursor-pointer bg-[#FFFFFF] rounded-[20px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] px-7 pb-[30px] relative transition-all duration-300 xl:mb-0 xl:max-w-none md:max-w-[300px] ml-auto mr-auto md:mb-7 hover:scale-[1.03] hover:shadow-[0_5px_10px_0_rgba(0,0,0,0.3)]`}
+      // style={{ scrollSnapAlign: "start" }}
       onClick={() => router.push(`/product/${props.ele.id_product}`)}
     >
       <div className="item_top pb-6 md:flex md:justify-center max-w-[210px] max-h-[275px] w-[210px] h-[275px] relative">
@@ -25,7 +25,7 @@ export default function ItemProduct(props: Props) {
           <img
             src={props.ele.thumbnail}
             alt="iphone"
-            className="absolute top-[50%] translate-y-[-50%] right-[50%] translate-x-[50%]"
+            className="absolute top-[50%] translate-y-[-50%] right-[50%] translate-x-[50%] !object-contain"
           />
         </div>
       </div>

@@ -21,7 +21,10 @@ export default function ListItemProduct(props: Props) {
         <div className="title flex justify-center items-center">
           <p className="xl:text-[32px] md:text-2xl text-xl">{props.title}</p>
         </div>
-        <div className="product_thumbnail grid xl:grid-cols-4 gap-[45px] pt-11 md:grid-cols-2 grid-cols-1">
+        <div
+          className="product_thumbnail pt-11 gap-[45px] flex"
+          // style={{ scrollSnapType: "x mandatory" }}
+        >
           {props.ele?.map((ele: Product) => {
             return <ItemProduct key={ele.id_product} ele={ele} />;
           })}

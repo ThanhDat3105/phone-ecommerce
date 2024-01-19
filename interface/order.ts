@@ -18,4 +18,3 @@ export interface OrderList {
   created_date: string;
   productItem: ProductItem[];
 }
-

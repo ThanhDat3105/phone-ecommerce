@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import MainLayout from "@/app/(root)/MainLayout";
 import { Button } from "@/components/ui/button";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { z } from "zod";
 import {
   Form,
@@ -43,6 +44,7 @@ type LoginFormValues = z.infer<typeof formSchema>;
 
 export default function LoginPage(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(formSchema),
@@ -94,13 +96,26 @@ export default function LoginPage(props: Props) {
                     render={({ field }) => (
                       <FormItem className="mb-5">
                         <FormControl>
-                          <Input
-                            type="password"
-                            id="password"
-                            placeholder="Password"
-                            className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
-                            {...field}
-                          />
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              id="password"
+                              placeholder="Password"
+                              className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+                              {...field}
+                            />
+                            {showPassword ? (
+                              <FaRegEyeSlash
+                                onClick={() => setShowPassword(false)}
+                                className="absolute right-[5%] translate-y-[-50%] top-[50%] !m-0 cursor-pointer"
+                              />
+                            ) : (
+                              <FaRegEye
+                                onClick={() => setShowPassword(true)}
+                                className="absolute right-[5%] translate-y-[-50%] top-[50%] !m-0 cursor-pointer"
+                              />
+                            )}
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>

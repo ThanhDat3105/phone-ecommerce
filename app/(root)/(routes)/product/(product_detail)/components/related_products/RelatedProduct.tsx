@@ -13,7 +13,23 @@ interface Props {
 }
 
 export default function RelatedProduct(props: Props) {
+  // Hàm xáo trộn mảng
+  const shuffleArray = (array: Product[]) => {
+    let shuffledArray = array.slice();
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [
+        shuffledArray[j],
+        shuffledArray[i],
+      ];
+    }
+    return shuffledArray;
+  };
+
   const isRelated = "related";
+
+  const shuffledProducts = shuffleArray(props.ele);
+
   return (
     <div className="related_products mb-[30px]">
       <div className="title mb-[50px]">
@@ -46,7 +62,7 @@ export default function RelatedProduct(props: Props) {
             },
           }}
         >
-          {props.ele
+          {shuffledProducts
             .filter(
               (ele: Product) =>
                 ele.categoryBrandMapping.brand.name === props.brand

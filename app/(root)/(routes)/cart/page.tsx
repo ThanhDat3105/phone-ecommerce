@@ -60,7 +60,7 @@ export default function CartPage() {
         setProgress(true);
       } else {
         toast("Login to continue");
-        router.push("/sign_in");
+        router.push(`/sign_in?urlBack=/cart`);
       }
     }
   };

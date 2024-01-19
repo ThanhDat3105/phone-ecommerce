@@ -1,13 +1,16 @@
-import QNA from "./Q&A/QNA";
+import { Product } from "@/interface/product";
 import Description from "./description/Description";
 import Specifications from "./specifications/Specifications";
 
-export default function InformationTable() {
+interface Props {
+  info: Product | undefined;
+}
+export default function InformationTable(props: Props) {
   return (
     <div className="information_table">
-      {/* <Description />
-      <Specifications/> */}
-      <QNA />
+      {props.info?.name === "iPhone 15 Pro" ? <Description /> : ""}
+      <Specifications info={props.info} />
+      {/* <QNA /> */}
     </div>
   );
 }

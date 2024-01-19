@@ -10,6 +10,8 @@ import { AppDispatch, RootState } from "@/redux/store";
 import { CartItem, ValueFormOrder } from "@/interface/product";
 import { createOrderAction } from "@/redux/features/phoneSlice";
 import { User } from "@/interface/user";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface Props {
   user: User | undefined;
@@ -18,6 +20,7 @@ interface Props {
 export default function InfoCheckout(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const reducer = useSelector((state: RootState) => state);
+  const router = useRouter();
   const [payment_method, setPaymentMethod] = useState<string>();
   const [formOrder, setFormOrder] = useState<ValueFormOrder>({
     values: {
@@ -88,8 +91,17 @@ export default function InfoCheckout(props: Props) {
     setPaymentMethod(name);
   };
 
-  const pay = () => {
-    dispatch(createOrderAction(formOrder));
+  const pay = async () => {
+    try {
+      const result = await dispatch(createOrderAction(formOrder));
+
+      if (result) {
+        toast.success("Order placed successfully");
+        router.push("/");
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   return (

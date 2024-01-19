@@ -302,7 +302,8 @@ export default function Header() {
                         <div
                           className="px-5 py-3 cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
                           onClick={() => {
-                            router.push("/sign_in"), checkHeight(elRef);
+                            router.push("/sign_in?urlBack=/"),
+                              checkHeight(elRef);
                           }}
                         >
                           Login

@@ -114,7 +114,7 @@ export default function InfoDetail(props: Props) {
                   onClick={() => handleClickColor(ele.hex)}
                   key={ele.name}
                   className={`max-w-[30px] max-h-[30px] w-[30px] h-[30px] block rounded-full cursor-pointer
-                  ${color === ele.hex ? "active border-[5px]" : ""}
+                  ${color === ele.hex ? "active border-[5px]" : ""} 
                   `}
                   style={{ backgroundColor: `${ele.hex}` }}
                 />

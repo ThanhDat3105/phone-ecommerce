@@ -47,12 +47,6 @@ export default function BuyItem(props: Props) {
     <>
       <div className="item flex">
         <div className="info_item w-[40%] flex gap-[15px] items-center">
-          <div
-            className="button_delete w-[26px] h-[26px] bg-black text-white rounded-[6px] flex justify-center items-center transition-all duration-300 cursor-pointer hover:bg-[#ff0000ca]"
-            onClick={() => handleDeleteCart()}
-          >
-            <FaTrash className="trash_delete" />
-          </div> 
           <div className="image flex items-center w-[70px] h-[90px] max-w-[70px] max-h-[90px]">
             <img
               src={props.ele.thumbnail}
@@ -99,6 +93,14 @@ export default function BuyItem(props: Props) {
         </div>
         <div className="info_item w-[20%] flex items-center justify-center">
           <p>{formatPrice(props.ele.price * number)}đ</p>
+        </div>
+        <div className="flex items-center">
+          <div
+            className="button_delete w-[26px] h-[26px] bg-black text-white rounded-[6px] flex justify-center items-center transition-all duration-300 cursor-pointer hover:bg-[#ff0000ca]"
+            onClick={() => handleDeleteCart()}
+          >
+            <FaTrash className="trash_delete" />
+          </div>
         </div>
       </div>
       <div className="separate h-[1px] bg-[#D5D5D5] my-5" />

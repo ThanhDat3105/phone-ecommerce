@@ -73,7 +73,7 @@ export default function DetailProduct(props: Props) {
           </div>
           <div className="information">
             <div className="button_information"></div>
-            <InformationTable />
+            <InformationTable info={phoneInfo} />
           </div>
         </div>
       )}

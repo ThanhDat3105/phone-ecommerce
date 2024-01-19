@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../../MainLayout";
 import { Button } from "@/components/ui/button";
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -27,9 +28,15 @@ const formSchema = z.object({
 });
 type LoginFormValues = z.infer<typeof formSchema>;
 
-export default function LoginPage() {
+interface Props {
+  urlBack?: { url: string };
+}
+
+export default function LoginPage(props: Props) {
+  const searchParams = useSearchParams();
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(formSchema),
@@ -43,12 +50,22 @@ export default function LoginPage() {
     try {
       const result = await dispatch(loginUser(data));
       if (result.payload) {
-        router.push("/");
+        if (searchParams.get("urlBack") !== null) {
+          router.push(String(searchParams.get("urlBack")));
+        } else {
+          router.push("/");
+        }
       }
     } catch (error: any) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (searchParams.get("urlBack") !== null) {
+      console.log(searchParams.get("urlBack"));
+    }
+  }, []);
 
   return (
     <MainLayout>
@@ -88,13 +105,26 @@ export default function LoginPage() {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <Input
-                            type="password"
-                            id="password"
-                            placeholder="Enter your password"
-                            className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
-                            {...field}
-                          />
+                          <div className="relative">
+                            <Input
+                              type={showPassword ? "text" : "password"}
+                              id="password"
+                              placeholder="Enter your password"
+                              className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+                              {...field}
+                            />
+                            {showPassword ? (
+                              <FaRegEyeSlash
+                                onClick={() => setShowPassword(false)}
+                                className="absolute right-[5%] translate-y-[-50%] top-[50%] !m-0 cursor-pointer"
+                              />
+                            ) : (
+                              <FaRegEye
+                                onClick={() => setShowPassword(true)}
+                                className="absolute right-[5%] translate-y-[-50%] top-[50%] !m-0 cursor-pointer"
+                              />
+                            )}
+                          </div>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
