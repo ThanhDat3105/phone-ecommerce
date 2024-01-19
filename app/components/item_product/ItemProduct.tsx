@@ -25,7 +25,7 @@ export default function ItemProduct(props: Props) {
           <img
             src={props.ele.thumbnail}
             alt="iphone"
-            className="absolute top-[50%] translate-y-[-50%] right-[50%] translate-x-[50%] !object-contain"
+            className="absolute top-[50%] translate-y-[-50%] right-[50%] translate-x-[50%] !  object-contain"
           />
         </div>
       </div>

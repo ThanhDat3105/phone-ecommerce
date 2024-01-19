@@ -28,11 +28,7 @@ const formSchema = z.object({
 });
 type LoginFormValues = z.infer<typeof formSchema>;
 
-interface Props {
-  urlBack?: { url: string };
-}
-
-export default function LoginPage(props: Props) {
+export default function LoginPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
