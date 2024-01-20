@@ -22,15 +22,15 @@ export default function ListItemProduct(props: Props) {
           <p className="xl:text-[32px] md:text-2xl text-xl">{props.title}</p>
         </div>
         <div
-          className="product_thumbnail pt-11 gap-[45px] flex"
-          // style={{ scrollSnapType: "x mandatory" }}
+          className="product_thumbnail xl:pt-11 pt-5 xl:gap-[45px] gap-5 flex xl:overflow-visible overflow-auto"
+          style={{ scrollSnapType: "x mandatory" }}
         >
           {props.ele?.map((ele: Product) => {
             return <ItemProduct key={ele.id_product} ele={ele} />;
           })}
         </div>
       </div>
-      <div className="button_more flex justify-center pt-11 items-center">
+      <div className="button_more flex justify-center xl:pt-11 pt-5 items-center">
         <Button
           onClick={() => router.push(`/product?brand=${props.brand}`)}
           className="rounded-[15px] py-3 px-5 text-xl gap-2 bg-transparent text-black border-[1px] border-solid border-[black] hover:bg-transparent"

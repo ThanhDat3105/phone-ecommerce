@@ -18,7 +18,7 @@ export default function Footer() {
     <div className="footer bg-black text-white">
       <div className="container_all">
         <div className="content">
-          <div className="content_top flex justify-between pt-[35px] pb-10 xl:flex-row md:flex-col xl:gap-0 md:gap-[60px]">
+          <div className="content_top flex justify-between pt-[35px] pb-10 xl:flex-row flex-col xl:gap-0 gap-[60px]">
             <div className="left max-w-[160px]">
               <div className="logo flex gap-[12px] ">
                 <div className="image">
@@ -51,7 +51,7 @@ export default function Footer() {
                 </div>
               </div>
             </div>
-            <div className="middle flex xl:gap-[120px] md:gap-[60px] xl:flex-row md:flex-col">
+            <div className="middle xl:gap-[120px] gap-[60px] xl:flex-row flex">
               <div className="middle_item">
                 <h5>Support</h5>
                 <ul className="text-sm flex flex-col gap-[15px] text-[#d9d7d7d2] pt-[10px]">

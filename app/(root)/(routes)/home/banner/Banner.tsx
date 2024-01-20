@@ -27,7 +27,7 @@ export default function Banner() {
     },
   ];
   return (
-    <div className="banner pt-[70px]">
+    <div className="banner xl:pt-[70px] pt-[60px]">
       <Swiper
         autoplay={{
           delay: 2500,

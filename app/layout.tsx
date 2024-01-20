@@ -3,6 +3,7 @@ import "./globals.css";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import { Toaster } from "sonner";
+import "@vercel/analytics";
 
 export default function RootLayout({
   children,

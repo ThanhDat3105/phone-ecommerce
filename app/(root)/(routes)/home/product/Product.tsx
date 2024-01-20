@@ -15,7 +15,7 @@ export default function Product() {
   };
 
   return (
-    <div className="product pt-[45px] pb-[20px]">
+    <div className="product xl:pt-[45px] pt-10 pb-[20px]">
       <div className="container_all flex flex-col gap-[50px]">
         <ListItemProduct
           title="Iphone"

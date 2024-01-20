@@ -78,7 +78,7 @@
 @media (max-width: 428px) {
   .container_all {
     padding: 0 10px;
-    max-width: 340px;
+    max-width: 390px;
     margin-right: auto;
     margin-left: auto;
   }
@@ -87,7 +87,7 @@
 @media (min-width: 428px) {
   .container_all {
     padding: 0 10px;
-    max-width: 340px;
+    max-width: 390px;
     margin-right: auto;
     margin-left: auto;
   }

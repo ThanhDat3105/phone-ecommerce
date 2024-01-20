@@ -46,19 +46,19 @@ export default function NewPage() {
 
   return (
     <MainLayout>
-      <div className="new_page py-[120px] bg-white">
+      <div className="new_page xl:py-[120px] py-[80px] bg-white">
         <div className="container_all">
           <div className="new">
             <div className="title">
               <p className="text-3xl font-semibold text-center">NEWS</p>
             </div>
-            <div className="content flex justify-between gap-[30px] mt-[30px]">
+            <div className="content flex max-[428px]:flex-col justify-between xl:gap-[30px] gap-16 mt-[30px]">
               <div
                 className="left relative cursor-pointer"
                 onClick={() => router.push(`/news/${1}`)}
               >
                 <img src={new1.src} alt="new" />
-                <p className="absolute text-2xl font-semibold text-center w-[490px] px-[35px] bottom-[5%] rounded-[20px] py-5 right-[50%] translate-x-[50%] bg-white">
+                <p className="absolute xl:text-2xl text-lg font-semibold text-center xl:w-[490px] w-[300px] xl:bottom-[5%] bottom-[-20%] rounded-[20px] xl:py-5 py-3 xl:px-[35px] right-[50%] translate-x-[50%] bg-white">
                   Tiêu điểm cuối năm 2023: Tổng hợp sản phẩm MacBook và iMac mới
                   nhất của Apple
                 </p>
@@ -88,10 +88,17 @@ export default function NewPage() {
               </div>
             </div>
           </div>
-          <div className="flex justify-between mt-[60px]">
+          <div
+            className="flex justify-between mt-[60px] xl:overflow-visible overflow-auto gap-[20px] xl:gap-0"
+            style={{ scrollSnapType: "x mandatory" }}
+          >
             {arr.map((ele) => {
               return (
-                <Button key={ele.id} className="text-black w-[120px] text-center py-2 bg-[#E5E7EB] rounded-[10px] hover:text-white">
+                <Button
+                  key={ele.id}
+                  className="text-black w-[120px] text-center py-2 bg-[#E5E7EB] rounded-[10px] hover:text-white"
+                  style={{ scrollSnapAlign: "start" }}
+                >
                   {ele.name}
                 </Button>
               );

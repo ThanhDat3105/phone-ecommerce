@@ -180,7 +180,7 @@ export default function Header() {
         <div className="container_all flex justify-between items-center text-white md:h-[70px] h-[60px]">
           <div
             onClick={() => router.push("/")}
-            className="header_logo cursor-pointer"
+            className="header_logo cursor-pointer xl:w-10 xl:h-10 w-[35px] h-[35px]"
           >
             <Logo />
           </div>
@@ -225,7 +225,7 @@ export default function Header() {
               </div>
               <Button
                 onClick={() => setShowMenu(!showMenu)}
-                className="bg-transparent hover:bg-[#D2D2D2]"
+                className="bg-transparent xl:hover:bg-[#D2D2D2] hover:bg-transparent max-[428px]:rounded-full max-[428px]:p-0"
               >
                 <IoMenu className="text-black text-3xl cursor-pointer" />
               </Button>
