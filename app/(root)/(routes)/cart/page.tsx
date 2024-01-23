@@ -59,7 +59,7 @@ export default function CartPage() {
       if (user) {
         setProgress(true);
       } else {
-        toast("Login to continue");
+        toast.success("Login to continue");
         router.push(`/sign_in?urlBack=/cart`);
       }
     }

@@ -18,7 +18,7 @@ export default function NewsPage(props: Props) {
   return (
     <MainLayout>
       <div className="new_detail bg-white py-[120px]">
-        <div className="w-[800px] mr-auto ml-auto">
+        <div className="xl:w-[800px] min-[768px]:w-[700px] w-[380px]  mr-auto ml-auto">
           <div className="menu_back mb-[20px] flex text-[#5D5D5D] tracking-wider gap-6 ">
             <p
               onClick={() => router.push("/")}
@@ -36,11 +36,11 @@ export default function NewsPage(props: Props) {
             <IoIosArrowForward className="cursor-pointer" />
             <p className="text-black cursor-pointer">Tin tức Apple</p>
           </div>
-          <div className="image">
+          <div className="image xl:h-[500px]">
             <img
               src={item?.img.src}
-              alt=""
-              className="w-full h-[500px] rounded-[20px]"
+              alt="img"
+              className="w-full h-full rounded-[20px]"
             />
           </div>
           <div className="content rounded-[20px] mt-[50px] border-[1px] border-[#D5D5D5] p-10 flex flex-col gap-[20px]">

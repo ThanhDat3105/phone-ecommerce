@@ -46,13 +46,13 @@ export default function NewPage() {
 
   return (
     <MainLayout>
-      <div className="new_page xl:py-[120px] py-[80px] bg-white">
+      <div className="new_page xl:py-[120px] py-[90px] bg-white">
         <div className="container_all">
           <div className="new">
             <div className="title">
               <p className="text-3xl font-semibold text-center">NEWS</p>
             </div>
-            <div className="content flex max-[428px]:flex-col justify-between xl:gap-[30px] gap-16 mt-[30px]">
+            <div className="content flex max-[1024px]:flex-col justify-between xl:gap-[30px] gap-[70px] mt-[30px]">
               <div
                 className="left relative cursor-pointer"
                 onClick={() => router.push(`/news/${1}`)}
@@ -63,7 +63,7 @@ export default function NewPage() {
                   nhất của Apple
                 </p>
               </div>
-              <div className="right flex flex-col gap-[30px]">
+              <div className="right flex flex-col xl:gap-[30px] gap-[70px]">
                 <div
                   className="top justify-center relative flex cursor-pointer"
                   onClick={() => router.push(`/news/${2}`)}
@@ -105,10 +105,10 @@ export default function NewPage() {
             })}
           </div>
           <div className="new_apple">
-            <div className="title my-[60px] text-3xl font-semibold">
+            <div className="title xl:my-[60px] my-[30px] text-3xl font-semibold">
               <p>News Apple</p>
             </div>
-            <div className="item_all grid grid-cols-2 gap-[30px]">
+            <div className="item_all grid xl:grid-cols-2 grid-cols-1 gap-[30px]">
               {news
                 .filter((ele) => ele.type === "apple")
                 .map((filter) => {
@@ -121,10 +121,10 @@ export default function NewPage() {
             </div>
           </div>
           <div className="review">
-            <div className="title my-[60px] text-3xl font-semibold">
+            <div className="title xl:my-[60px] my-[30px] text-3xl font-semibold">
               <p>Review</p>
             </div>
-            <div className="item_all grid grid-cols-2 gap-[30px]">
+            <div className="item_all grid xl:grid-cols-2 grid-cols-1 gap-[30px]">
               {news
                 .filter((ele) => ele.type === "review")
                 .map((filter) => {
@@ -137,10 +137,10 @@ export default function NewPage() {
             </div>
           </div>
           <div className="discover">
-            <div className="title my-[60px] text-3xl font-semibold">
+            <div className="title xl:my-[60px] my-[30px] text-3xl font-semibold">
               <p>Discover</p>
             </div>
-            <div className="item_all grid grid-cols-2 gap-[30px]">
+            <div className="item_all grid xl:grid-cols-2 grid-cols-1 gap-[30px]">
               {news
                 .filter((ele) => ele.type === "discover")
                 .map((filter) => {
@@ -153,10 +153,10 @@ export default function NewPage() {
             </div>
           </div>
           <div className="other_new">
-            <div className="title my-[60px] text-3xl font-semibold">
-              <p>other</p>
+            <div className="title xl:my-[60px] my-[30px] text-3xl font-semibold">
+              <p>Other</p>
             </div>
-            <div className="item_all grid grid-cols-2 gap-[30px]">
+            <div className="item_all grid xl:grid-cols-2 grid-cols-1 gap-[30px]">
               {news
                 .filter((ele) => ele.type === "other")
                 .map((filter) => {

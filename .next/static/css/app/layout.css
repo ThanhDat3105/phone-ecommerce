@@ -680,13 +680,16 @@ video {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+.my-\[30px\] {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
 .my-\[50px\] {
   margin-top: 50px;
   margin-bottom: 50px;
 }
-.my-\[60px\] {
-  margin-top: 60px;
-  margin-bottom: 60px;
+.\!mt-0 {
+  margin-top: 0px !important;
 }
 .mb-10 {
   margin-bottom: 2.5rem;
@@ -889,8 +892,8 @@ video {
 .h-\[40px\] {
   height: 40px;
 }
-.h-\[500px\] {
-  height: 500px;
+.h-\[50px\] {
+  height: 50px;
 }
 .h-\[60px\] {
   height: 60px;
@@ -1057,9 +1060,6 @@ video {
 .w-\[754px\] {
   width: 754px;
 }
-.w-\[800px\] {
-  width: 800px;
-}
 .w-\[850px\] {
   width: 850px;
 }
@@ -1225,8 +1225,8 @@ video {
 .list-disc {
   list-style-type: disc;
 }
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 .flex-col {
   flex-direction: column;
@@ -1314,6 +1314,9 @@ video {
 }
 .gap-\[60px\] {
   gap: 60px;
+}
+.gap-\[70px\] {
+  gap: 70px;
 }
 .gap-\[75px\] {
   gap: 75px;
@@ -1718,6 +1721,10 @@ video {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -1774,12 +1781,15 @@ video {
   padding-top: 6px;
   padding-bottom: 6px;
 }
-.py-\[80px\] {
-  padding-top: 80px;
-  padding-bottom: 80px;
+.py-\[90px\] {
+  padding-top: 90px;
+  padding-bottom: 90px;
 }
 .\!pb-10 {
   padding-bottom: 2.5rem !important;
+}
+.pb-0 {
+  padding-bottom: 0px;
 }
 .pb-1 {
   padding-bottom: 0.25rem;
@@ -1816,6 +1826,9 @@ video {
 }
 .pb-\[40px\] {
   padding-bottom: 40px;
+}
+.pb-\[50px\] {
+  padding-bottom: 50px;
 }
 .pb-\[70px\] {
   padding-bottom: 70px;
@@ -2410,6 +2423,10 @@ img {
   }
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .file\:border-0::file-selector-button {
   border-width: 0px;
 }
@@ -2792,18 +2809,25 @@ img {
   --tw-enter-translate-y: -48%;
 }
 
+@media (max-width: 1024px) {
+
+  .max-\[1024px\]\:flex-col {
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 428px) {
 
   .max-\[428px\]\:inline-block {
     display: inline-block;
   }
 
-  .max-\[428px\]\:grid-cols-1 {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+  .max-\[428px\]\:max-w-\[330px\] {
+    max-width: 330px;
   }
 
-  .max-\[428px\]\:flex-col {
-    flex-direction: column;
+  .max-\[428px\]\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   .max-\[428px\]\:gap-10 {
@@ -2948,12 +2972,40 @@ img {
   .md\:tracking-normal {
     letter-spacing: 0em;
   }
+
+  .min-\[768px\]\:h-\[60px\] {
+    height: 60px;
+  }
+
+  .min-\[768px\]\:w-\[700px\] {
+    width: 700px;
+  }
+
+  .min-\[768px\]\:py-10 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .min-\[768px\]\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .min-\[768px\]\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
 }
 
 @media (min-width: 1280px) {
 
   .xl\:bottom-\[5\%\] {
     bottom: 5%;
+  }
+
+  .xl\:my-\[60px\] {
+    margin-top: 60px;
+    margin-bottom: 60px;
   }
 
   .xl\:mb-0 {
@@ -2984,8 +3036,16 @@ img {
     width: 490px;
   }
 
+  .xl\:w-\[800px\] {
+    width: 800px;
+  }
+
   .xl\:max-w-none {
     max-width: none;
+  }
+
+  .xl\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .xl\:grid-cols-3 {
@@ -3039,6 +3099,11 @@ img {
     padding-right: 35px;
   }
 
+  .xl\:py-10 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
   .xl\:py-5 {
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
@@ -3047,6 +3112,10 @@ img {
   .xl\:py-\[120px\] {
     padding-top: 120px;
     padding-bottom: 120px;
+  }
+
+  .xl\:pb-10 {
+    padding-bottom: 2.5rem;
   }
 
   .xl\:pb-28 {
@@ -3061,8 +3130,16 @@ img {
     padding-bottom: 50px;
   }
 
+  .xl\:pb-\[70px\] {
+    padding-bottom: 70px;
+  }
+
   .xl\:pt-11 {
     padding-top: 2.75rem;
+  }
+
+  .xl\:pt-\[140px\] {
+    padding-top: 140px;
   }
 
   .xl\:pt-\[45px\] {
@@ -3089,6 +3166,11 @@ img {
   .xl\:text-base {
     font-size: 1rem;
     line-height: 1.5rem;
+  }
+
+  .xl\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 
   .xl\:tracking-wider {

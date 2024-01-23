@@ -1,7 +1,8 @@
 import axios from "axios";
+import { env } from "process";
 
 const axiosRequest = axios.create({
-  baseURL: "https://be-phone-eu7f.onrender.com/",
+  baseURL: env.apiUrl,
   withCredentials: false,
   headers: { "Content-Type": "application/x-www-form-urlencoded" },
 });

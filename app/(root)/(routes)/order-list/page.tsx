@@ -35,21 +35,20 @@ import { formatDate } from "@/utils/moment";
 import { OrderList } from "@/interface/order";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
-import {
-  fetchOrderAction,
-  fetchOrderByIdAction,
-} from "@/redux/features/phoneSlice";
+import { fetchOrderAction } from "@/redux/features/phoneSlice";
 import { formatPrice } from "@/utils/price";
 import MainLayout from "../../MainLayout";
 import { useEffect, useState } from "react";
 import Loading from "@/app/components/loading/Loading";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function DataTableDemo() {
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
   const [animation, setAnimation] = useState<boolean>(false);
-
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -60,11 +59,18 @@ export default function DataTableDemo() {
   };
 
   useEffect(() => {
-    handleFetchApi();
+    if (typeof window !== "undefined") {
+      const user = localStorage.getItem("USER_INFO_KEY");
+      if (user) {
+        handleFetchApi();
+      } else {
+        toast.success("Login to continue");
+        router.push(`/sign_in?urlBack=/order-list`);
+      }
+    }
   }, []);
 
   const viewDetail = async (id: number) => {
-    const data = await dispatch(fetchOrderByIdAction(id));
     setAnimation(true);
     setOpen(true);
   };
@@ -192,8 +198,8 @@ export default function DataTableDemo() {
                     ))}
                   </TableHeader>
                   <TableBody>
-                    {table.getRowModel().rows?.length ? (
-                      table.getRowModel().rows.map((row) => (
+                    {table?.getRowModel().rows?.length ? (
+                      table?.getRowModel().rows.map((row) => (
                         <TableRow
                           key={row.id}
                           data-state={row.getIsSelected() && "selected"}

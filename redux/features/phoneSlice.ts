@@ -275,6 +275,10 @@ export const phoneSlice = createSlice({
         state.cartList.splice(indexToDelete, 1);
       }
     },
+
+    setCloseLoading: (state, action: PayloadAction<any>) => {
+      state.isLoading = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -325,21 +329,6 @@ export const phoneSlice = createSlice({
           state.isLoading = false;
         }
       );
-    // builder
-    //   .addCase(createOrderAction.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(
-    //     createOrderAction.fulfilled,
-    //     (state, action: PayloadAction<Order>) => {
-    //       const result = action.payload;
-    //       // state.cartList = [];
-    //       if (result) {
-    //         toast.success("Order Success");
-    //       }
-    //       state.isLoading = false;
-    //     }
-    //   );
     builder
       .addCase(fetchOrderByIdAction.pending, (state) => {
         state.isLoading = true;
@@ -383,7 +372,12 @@ export const phoneSlice = createSlice({
 
 export const phoneAction = phoneSlice.actions;
 
-export const { addToCart, increaseQuantity, decreaseQuantity, deleteCart } =
-  phoneSlice.actions;
+export const {
+  addToCart,
+  increaseQuantity,
+  decreaseQuantity,
+  deleteCart,
+  setCloseLoading,
+} = phoneSlice.actions;
 
 export const phoneReducer = phoneSlice.reducer;
