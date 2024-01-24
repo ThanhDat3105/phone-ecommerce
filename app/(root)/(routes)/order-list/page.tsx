@@ -174,9 +174,11 @@ export default function DataTableDemo() {
         <div className="min-h-[600px]"></div>
       ) : (
         <MainLayout>
-          <div className="container_order px-[32px] h-screen">
+          <div className="container_order px-[32px] h-screen bg-white">
             <div className="w-full pt-[110px]">
-              <div className="title text-2xl font-bold mb-5">Order list</div>
+              <div className="title xl:text-2xl text-lg font-bold mb-5">
+                Order list
+              </div>
               <div className="rounded-md border">
                 <Table>
                   <TableHeader>
@@ -198,8 +200,8 @@ export default function DataTableDemo() {
                     ))}
                   </TableHeader>
                   <TableBody>
-                    {table?.getRowModel().rows?.length ? (
-                      table?.getRowModel().rows.map((row) => (
+                    {table.getRowModel().rows?.length ? (
+                      table.getRowModel().rows.map((row) => (
                         <TableRow
                           key={row.id}
                           data-state={row.getIsSelected() && "selected"}

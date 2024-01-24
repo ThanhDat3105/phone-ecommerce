@@ -1,4 +1,10 @@
 {
   "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/(root)/(routes)/order-list/page": "app/(root)/(routes)/order-list/page.js",
+  "/(root)/(routes)/cart/page": "app/(root)/(routes)/cart/page.js",
+  "/(root)/(routes)/product/page": "app/(root)/(routes)/product/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/(root)/(routes)/sign_in/page": "app/(root)/(routes)/sign_in/page.js",
+  "/(root)/(routes)/forgot-password/page": "app/(root)/(routes)/forgot-password/page.js",
+  "/(root)/(routes)/sign_up/page": "app/(root)/(routes)/sign_up/page.js"
 }

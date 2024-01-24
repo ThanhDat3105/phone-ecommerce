@@ -330,6 +330,17 @@ export const phoneSlice = createSlice({
         }
       );
     builder
+      .addCase(createOrderAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(
+        createOrderAction.fulfilled,
+        (state, action: PayloadAction<Order>) => {
+          state.cartList = [];
+          state.isLoading = false;
+        }
+      );
+    builder
       .addCase(fetchOrderByIdAction.pending, (state) => {
         state.isLoading = true;
       })

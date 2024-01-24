@@ -1,8 +1,7 @@
 import axios from "axios";
-import { env } from "process";
 
 const axiosRequest = axios.create({
-  baseURL: env.apiUrl,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: false,
   headers: { "Content-Type": "application/x-www-form-urlencoded" },
 });
