@@ -84,6 +84,8 @@ export default function DataTableDemo() {
 
   const data: OrderList[] = phoneReducer?.orderList;
 
+  console.log(data)
+
   const columns: ColumnDef<OrderList>[] = [
     {
       accessorKey: "id_order",

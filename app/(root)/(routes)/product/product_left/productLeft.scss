@@ -1,4 +1,8 @@
-.filter_left {
+.product_left {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 0.2s ease-in-out;
+  
   .content {
     .filter_collapse {
       .separate {
@@ -6,4 +10,10 @@
       }
     }
   }
+}
+
+.product_left.active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.2s ease-in-out;
 }

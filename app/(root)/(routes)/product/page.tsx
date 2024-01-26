@@ -15,6 +15,7 @@ import Loading from "@/app/components/loading/Loading";
 export default function ProductPage() {
   const [filterBrand, setFilterBrand] = useState<string>("");
   const [filterType, setFilterType] = useState<string>("");
+  const [menu, setMenu] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
@@ -34,9 +35,9 @@ export default function ProductPage() {
       {phoneReducer.isLoading ? (
         <div className="min-h-[600px]"></div>
       ) : (
-        <div className="filter pt-[130px] bg-white pb-[130px]">
-          <div className="container_all">
-            <div className="content flex gap-10">
+        <div className="filter xl:pt-[130px] min-[768px]:pt-[70px] pt-[60px] bg-white pb-[130px]">
+          <div className="container_all xl:!px-[10px] !p-0">
+            <div className="content xl:flex gap-10 relative">
               <ProductLeft
                 setFilterBrand={setFilterBrand}
                 setFilterType={setFilterType}

@@ -1,13 +1,14 @@
 "use client";
 import "./productLeft.scss";
 import { useEffect, useState } from "react";
-import { formatPrice } from "@/utils/price";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { Brand } from "@/interface/brand";
 import { Category } from "@/interface/category";
 import { useRouter } from "next/navigation";
-
+import { useSetting } from "@/hook/useSetting";
+import { AiOutlineClose } from "react-icons/ai";
+import { Button } from "@/components/ui/button";
 interface Props {
   setFilterBrand: (value: string) => void;
   setFilterType: (value: string) => void;
@@ -17,6 +18,7 @@ interface Props {
 
 export default function ProductLeft(props: Props) {
   const router = useRouter();
+  const setting = useSetting();
   const [activeIdType, setActiveIdType] = useState<number>(0);
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
@@ -31,8 +33,14 @@ export default function ProductLeft(props: Props) {
     props.setFilterBrand(brand);
   };
 
+  setTimeout(() => {}, 500);
+
   return (
-    <div className="filter_left absolute w-[20%] bg-white shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] rounded-[10px] pb-12">
+    <div
+      className={`product_left z-50 h-screen absolute xl:w-[20%] w-full bg-white xl:shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] rounded-[10px] pb-12 xl:translate-x-0 ${
+        setting.isOpen ? "active" : ""
+      }`}
+    >
       <div className="content">
         <div className="filter_collapse pt-5 px-5">
           <div className="company">
@@ -90,6 +98,12 @@ export default function ProductLeft(props: Props) {
             </div>
           </div>
         </div>
+        <Button
+          onClick={() => setting.onClose()}
+          className="button_close bg-white hover:bg-[#ede9e9] text-black text-2xl absolute top-0 right-0"
+        >
+          <AiOutlineClose className="btn_close transition-all duration-300 cursor-pointer hover:text-[rgba(0,0,0,0.5)]" />
+        </Button>
       </div>
     </div>
   );

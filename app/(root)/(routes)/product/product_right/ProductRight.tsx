@@ -7,6 +7,9 @@ import { RootState } from "@/redux/store";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { CgMenuGridR } from "react-icons/cg";
+import { Button } from "@/components/ui/button";
+import { useSetting } from "@/hook/useSetting";
 
 const frameworks = [
   {
@@ -32,6 +35,7 @@ interface Props {
 
 export default function ProductRight(props: Props) {
   const searchParams = useSearchParams();
+  const setting = useSetting();
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const ref = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState<number>(0);
@@ -151,9 +155,31 @@ export default function ProductRight(props: Props) {
   };
 
   return (
-    <div className="product_right min-h-[800px] w-[70%] ml-auto">
+    <div className="product_right max-[768px]:p-[10px] min-h-[800px] ml-auto">
       <div className="filter_phone">
-        <div className="total_phone flex justify-between items-center">
+        <div className="min-[1280px]:hidden">
+          <div className="total_phone flex justify-between items-center">
+            <Button
+              onClick={() => setting.toggleOpen()}
+              className="xl:hidden w-[30px] h-[30px] px-0 bg-white hover:bg-[#ede9e9]"
+            >
+              <CgMenuGridR className="text-muted-foreground text-2xl" />
+            </Button>
+            <div className="dropdown mt-3 flex items-center gap-2">
+              <Combobox
+                frameworks={frameworks}
+                title="sort by"
+                page="product"
+                filterPrice={filterPrice}
+                setFilterPrice={setFilterPrice}
+              />
+            </div>
+          </div>
+          <p className="text-base tracking-wider text-[#AAAAAA] font-medium">
+            {dataFilter?.length} Products
+          </p>
+        </div>
+        <div className="max-[1280px]:hidden total_phone flex justify-between items-center">
           <p className="text-base tracking-wider text-[#AAAAAA] font-medium">
             {dataFilter?.length} Products
           </p>
@@ -169,8 +195,8 @@ export default function ProductRight(props: Props) {
         </div>
       </div>
       <div
+        className="product_item grid xl:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]"
         ref={ref}
-        className="product_item grid xl:grid-cols-3 gap-[30px] pt-[50px]"
       >
         {currentPageData?.map((ele) => {
           return <ItemProduct key={ele.id_product} ele={ele} />;

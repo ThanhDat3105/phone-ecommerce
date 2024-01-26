@@ -26,12 +26,12 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal_cart.show {
-  animation: openModal 0.5s forwards;
-}
-
 .bg_opacity.hide {
   display: none;
+}
+
+.modal_cart.show {
+  animation: openModal 0.5s forwards;
 }
 
 .modal_cart.close {

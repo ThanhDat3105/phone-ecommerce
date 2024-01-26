@@ -336,8 +336,8 @@ export const phoneSlice = createSlice({
       .addCase(
         createOrderAction.fulfilled,
         (state, action: PayloadAction<Order>) => {
-          state.cartList = [];
           state.isLoading = false;
+          state.cartList = [];
         }
       );
     builder
