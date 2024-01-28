@@ -62,13 +62,13 @@ export default function InfoDetail(props: Props) {
   };
 
   return (
-    <div className="info_detail flex gap-[75px] mb-10">
-      <div className="detail_left w-[50%] pt-6">
+    <div className="info_detail xl:flex gap-[75px] mb-10">
+      <div className="detail_left xl:w-[50%] pt-6">
         <MultiCarousel image={props.ele?.img} />
       </div>
-      <div className="detail_right w-[50%] pt-[75px]">
+      <div className="detail_right xl:w-[50%] pt-[75px]">
         <div className="title inline-block">
-          <p className="text-3xl font-semibold">{props.ele?.name}</p>
+          <p className="xl:text-3xl text-2xl font-semibold">{props.ele?.name}</p>
           <div className="rate flex gap-[10px] items-center py-5">
             {renderStar}
             <p className="mt-1">{4} Rate</p>

@@ -35,7 +35,7 @@ export default function ProductPage() {
       {phoneReducer.isLoading ? (
         <div className="min-h-[600px]"></div>
       ) : (
-        <div className="filter xl:pt-[130px] min-[768px]:pt-[70px] pt-[60px] bg-white pb-[130px]">
+        <div className="filter xl:pt-[130px] min-[768px]:pt-[80px] pt-[70px] bg-white pb-[130px]">
           <div className="container_all xl:!px-[10px] !p-0">
             <div className="content xl:flex gap-10 relative">
               <ProductLeft

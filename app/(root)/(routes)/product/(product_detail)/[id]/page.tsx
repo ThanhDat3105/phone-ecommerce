@@ -53,9 +53,9 @@ export default function DetailProduct(props: Props) {
       {phoneReducer.isLoading ? (
         <div className="min-h-[600px]"></div>
       ) : (
-        <div className="product_detail pt-[120px] bg-white">
+        <div className="product_detail xl:pt-[120px] min-[768px]:pt-[100px] pt-[90px] bg-white">
           <div className="container_all">
-            <div className="menu_back flex text-[#5D5D5D] tracking-wider gap-6">
+            <div className="menu_back flex xl:text-base text-sm text-[#5D5D5D] tracking-wider gap-6">
               <p
                 onClick={() => router.push("/")}
                 className="cursor-pointer transition-all duration-300 hover:text-black"

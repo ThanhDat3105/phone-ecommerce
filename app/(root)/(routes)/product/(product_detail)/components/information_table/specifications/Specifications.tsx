@@ -6,15 +6,14 @@ interface Props {
 }
 
 export default function Specifications(props: Props) {
-  console.log(props.info);
   return (
     <div className="specifications pb-10 bg-white">
-      <div className="container_all">
-        <div className="item  py-[30px] items-center flex bg-[#FFFFFF]">
-          <div className="left uppercase pl-10 w-[50%]">
+      <div className="xl:container_all px-[10px]">
+        <div className="item xl:text-base text-sm py-[30px] items-center flex bg-[#FFFFFF]">
+          <div className="left uppercase xl:pl-10 w-[50%]">
             <p>Operating system</p>
           </div>
-          <div className="right text-base w-[50%]">
+          <div className="right xl:text-base text-sm w-[50%]">
             <p>
               {props.info?.categoryBrandMapping?.brand.name === "Apple"
                 ? "IOS "
@@ -25,11 +24,11 @@ export default function Specifications(props: Props) {
             </p>
           </div>
         </div>
-        <div className="item  py-[30px] items-center flex bg-[#EFEFEF]">
-          <div className="left uppercase pl-10 w-[50%]">
+        <div className="item xl:text-base text-sm py-[30px] items-center flex bg-[#EFEFEF]">
+          <div className="left uppercase xl:pl-10 w-[50%]">
             <p>color</p>
           </div>
-          <div className="right text-base w-[50%]">
+          <div className="right xl:text-base text-sm w-[50%]">
             <p>
               Black Titanium <br />
               White Titanium <br />
@@ -39,27 +38,27 @@ export default function Specifications(props: Props) {
         </div>
         {props.info?.categoryBrandMapping.category.name !== "Headphone" ? (
           <>
-            <div className="item  py-[30px] items-center flex bg-[#FFFFFF]">
-              <div className="left uppercase pl-10 w-[50%]">
+            <div className="item xl:text-base text-sm py-[30px] items-center flex bg-[#FFFFFF]">
+              <div className="left uppercase xl:pl-10 w-[50%]">
                 <p>screen</p>
               </div>
-              <div className="right text-base w-[50%]">
+              <div className="right xl:text-base text-sm w-[50%]">
                 <p>{props.info?.screen}</p>
               </div>
             </div>
-            <div className="item  py-[30px] items-center flex bg-[#EFEFEF]">
-              <div className="left uppercase pl-10 w-[50%]">
+            <div className="item xl:text-base text-sm py-[30px] items-center flex bg-[#EFEFEF]">
+              <div className="left uppercase xl:pl-10 w-[50%]">
                 <p>Rear camera</p>
               </div>
-              <div className="right text-base w-[50%]">
+              <div className="right xl:text-base text-sm w-[50%]">
                 <p>{props.info?.rear_camera}</p>
               </div>
             </div>
-            <div className="item  py-[30px] items-center flex bg-[#FFFFFF]">
-              <div className="left uppercase pl-10 w-[50%]">
+            <div className="item xl:text-base text-sm py-[30px] items-center flex bg-[#FFFFFF]">
+              <div className="left uppercase xl:pl-10 w-[50%]">
                 <p>Front camera</p>
               </div>
-              <div className="right text-base w-[50%]">
+              <div className="right xl:text-base text-sm w-[50%]">
                 <p>{props.info?.front_camera}</p>
               </div>
             </div>

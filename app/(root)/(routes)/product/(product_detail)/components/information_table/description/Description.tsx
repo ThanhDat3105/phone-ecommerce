@@ -16,27 +16,63 @@ export default function Description() {
         <img src={des1.src} alt="image" className="w-full h-full" />
       </div>
       <div className="bottom bg-[#333333] pt-[60px] pb-[150px]">
-        <div className="container_bottom max-w-[850px] w-[850px] mr-auto ml-auto">
-          <div className="item flex gap-5 ">
-            <img src={des2.src} alt="image" />
-            <img src={des3.src} alt="image" className="h-full" />
+        <div className="container_bottom xl:w-[850px] mr-auto ml-auto">
+          <div className="item flex gap-5">
+            <img
+              src={des2.src}
+              alt="image"
+              className="xl:w-full w-[45%] h-full"
+            />
+            <img
+              src={des3.src}
+              alt="image"
+              className="xl:w-full w-[45%] h-full"
+            />
           </div>
           <div className="item flex gap-5 pt-[60px]">
-            <img src={des4.src} alt="image" />
-            <img src={des5.src} alt="image" />
+            <img
+              src={des4.src}
+              alt="image"
+              className="xl:w-full w-[45%] h-full"
+            />
+            <img
+              src={des5.src}
+              alt="image"
+              className="xl:w-full w-[45%] h-full"
+            />
           </div>
           <div className="item flex gap-5 pt-[60px]">
-            <img src={des6.src} alt="image" />
-            <img src={des7.src} alt="image" className="h-full" />
+            <img
+              src={des6.src}
+              alt="image"
+              className="xl:w-full w-[45%] h-full"
+            />
+            <img
+              src={des7.src}
+              alt="image"
+              className="xl:w-full w-[45%] h-full"
+            />
           </div>
           <div className="item">
             <div className="item flex gap-5 pt-[60px]">
-              <img src={des8.src} alt="image" />
+              <img
+                src={des8.src}
+                alt="image"
+                className="w-full h-full"
+              />
             </div>
           </div>
           <div className="item flex gap-5 pt-[60px]">
-            <img src={des9.src} alt="image" className="h-full" />
-            <img src={des10.src} alt="image" />
+            <img
+              src={des9.src}
+              alt="image"
+              className="xl:w-full w-[45%] h-full"
+            />
+            <img
+              src={des10.src}
+              alt="image"
+              className="xl:w-full w-[45%] h-full"
+            />
           </div>
         </div>
       </div>

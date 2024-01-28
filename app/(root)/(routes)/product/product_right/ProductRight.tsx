@@ -179,7 +179,7 @@ export default function ProductRight(props: Props) {
             {dataFilter?.length} Products
           </p>
         </div>
-        <div className="max-[1280px]:hidden total_phone flex justify-between items-center">
+        <div className="max-[1200px]:hidden total_phone flex justify-between items-center">
           <p className="text-base tracking-wider text-[#AAAAAA] font-medium">
             {dataFilter?.length} Products
           </p>
