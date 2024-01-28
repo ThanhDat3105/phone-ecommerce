@@ -20,6 +20,7 @@ export default function CartPage() {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [progress, setProgress] = useState<boolean>(false);
+  const [mobile, setMobile] = useState<boolean>(false);
   const [user, setUser] = useState<User>();
 
   const scrollToSection = () => {
@@ -46,6 +47,10 @@ export default function CartPage() {
         setUser(userInfoObject);
       }
     }
+
+    if (Number(ref.current?.clientWidth) < 768) {
+      setMobile(true);
+    }
   }, []);
 
   const totalAmount = phoneReducer.cartList.reduce(
@@ -68,9 +73,9 @@ export default function CartPage() {
   return (
     <MainLayout>
       {phoneReducer?.cartList?.length > 0 ? (
-        <div ref={ref} className="cart py-[115px] bg-white">
-          <div className="container_all flex gap-[60px]">
-            <div className="left w-[70%]">
+        <div ref={ref} className="cart xl:py-[115px] py-[90px] bg-white">
+          <div className="container_all xl:flex gap-[60px]">
+            <div className="left xl:w-[70%]">
               <div className="menu_back flex text-[#5D5D5D] tracking-wider gap-6 pb-[25px]">
                 <p
                   onClick={() => router.push("/")}
@@ -83,10 +88,10 @@ export default function CartPage() {
                   Shopping Cart
                 </p>
               </div>
-              <div className="title uppercase text-2xl font-bold tracking-wider">
+              <div className="title uppercase xl:text-2xl text-xl font-bold tracking-wider">
                 shopping cart
               </div>
-              <div className="progress flex gap-16 mt-[50px] mb-[70px]">
+              <div className="progress flex md:gap-16 max-[768px]:justify-normal max-[767px]:justify-between xl:mt-[50px] mt-[30px] xl:mb-[70px] mb-[50px]">
                 <div
                   onClick={() => setProgress(false)}
                   className={`shopping relative ${
@@ -135,57 +140,67 @@ export default function CartPage() {
                   />
                 </div>
               </div>
-              {!progress ? <TotalProduct /> : <InfoCheckout user={user} />}
+              {!progress ? (
+                <TotalProduct mobile={mobile} />
+              ) : (
+                <InfoCheckout user={user} />
+              )}
             </div>
-            <div className="right">
-              <div className="content p-[30px] mt-48 bg-[#FFFFFF] rounded-[15px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)]">
-                <div className="title">
-                  <p className="text-xl font-bold text-[#000]">Cart Summary</p>
-                </div>
-                <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
-                <div className="voucher">
-                  <p className="font-semibold">Voucher</p>
-                  <div className="input_voucher mt-[15px] relative">
-                    <input
-                      type="text"
-                      placeholder="Add Voucher"
-                      className="border-[#AAAAAA] border-[1px] rounded-[10px] py-[6px] pl-[10px] pr-[100px] focus-visible:outline-none"
-                    />
-                    <div className="separate absolute top-[50%] translate-y-[-50%] right-[26%] h-[80%] w-[1px] bg-[#D5D5D5]" />
-                    <IoIosArrowDown className="absolute top-[50%] translate-y-[-50%] right-[31%] cursor-pointer" />
-                    <Button className="absolute right-0 bottom-0 h-full rounded-[10px] rounded-tl-none rounded-bl-none bg-transparent text-black font-bold hover:text-white">
-                      Submit
+            {!progress ? (
+              <div className="right">
+                <div className="content p-[30px] xl:mt-48 bg-[#FFFFFF] rounded-[15px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)]">
+                  <div className="title">
+                    <p className="text-xl font-bold text-[#000]">
+                      Cart Summary
+                    </p>
+                  </div>
+                  <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
+                  <div className="voucher">
+                    <p className="font-semibold">Voucher</p>
+                    <div className="input_voucher mt-[15px] relative">
+                      <input
+                        type="text"
+                        placeholder="Add Voucher"
+                        className="border-[#AAAAAA] border-[1px] rounded-[10px] py-[6px] pl-[10px] pr-[100px] focus-visible:outline-none"
+                      />
+                      <div className="separate absolute top-[50%] translate-y-[-50%] right-[26%] h-[80%] w-[1px] bg-[#D5D5D5]" />
+                      <IoIosArrowDown className="absolute top-[50%] translate-y-[-50%] right-[31%] cursor-pointer" />
+                      <Button className="absolute right-0 bottom-0 h-full rounded-[10px] rounded-tl-none rounded-bl-none bg-transparent text-black font-bold hover:text-white">
+                        Submit
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
+                  <div className="discount">
+                    <div className="total_discount">
+                      <div className="text-sm text-[#444444] flex justify-between pb-1">
+                        <p>{phoneReducer.cartList.length} Item</p>
+                        <p>{formatPrice(Number(totalAmount))}</p>
+                      </div>
+                      <div className="text-sm text-[#444444] flex justify-between">
+                        <p>Discount</p>
+                        <p>-0%</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
+                  <div className="total flex justify-between pb-6">
+                    <p className="font-semibold">Total</p>
+                    <p>{formatPrice(Number(totalAmount))}đ</p>
+                  </div>
+                  <div className="button_checkout ">
+                    <Button
+                      onClick={() => handleCheckout()}
+                      className=" bg-[#444444] rounded-[15px] w-full"
+                    >
+                      CHECKOUT
                     </Button>
                   </div>
                 </div>
-                <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
-                <div className="discount">
-                  <div className="total_discount">
-                    <div className="text-sm text-[#444444] flex justify-between pb-1">
-                      <p>{phoneReducer.cartList.length} Item</p>
-                      <p>{formatPrice(Number(totalAmount))}</p>
-                    </div>
-                    <div className="text-sm text-[#444444] flex justify-between">
-                      <p>Discount</p>
-                      <p>-0%</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
-                <div className="total flex justify-between pb-6">
-                  <p className="font-semibold">Total</p>
-                  <p>{formatPrice(Number(totalAmount))}đ</p>
-                </div>
-                <div className="button_checkout ">
-                  <Button
-                    onClick={() => handleCheckout()}
-                    className=" bg-[#444444] rounded-[15px] w-full"
-                  >
-                    CHECKOUT
-                  </Button>
-                </div>
               </div>
-            </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       ) : (

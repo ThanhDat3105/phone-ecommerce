@@ -66,7 +66,6 @@ export default function Header() {
 
   useEffect(() => {
     if (cartList !== undefined && cartList !== phoneReducer.cartList) {
-      console.log("run");
       openHeader();
     }
   }, [phoneReducer.cartList]);
