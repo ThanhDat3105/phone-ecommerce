@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { CgMenuGridR } from "react-icons/cg";
 import { Button } from "@/components/ui/button";
 import { useSetting } from "@/hook/useSetting";
+import { Divide } from "lucide-react";
 
 const frameworks = [
   {
@@ -194,14 +195,18 @@ export default function ProductRight(props: Props) {
           </div>
         </div>
       </div>
-      <div
-        className="product_item grid xl:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]"
-        ref={ref}
-      >
-        {currentPageData?.map((ele) => {
-          return <ItemProduct key={ele.id_product} ele={ele} />;
-        })}
-      </div>
+      {currentPageData.length > 0 ? (
+        <div
+          className="product_item grid xl:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]"
+          ref={ref}
+        >
+          {currentPageData?.map((ele) => {
+            return <ItemProduct key={ele.id_product} ele={ele} />;
+          })}
+        </div>
+      ) : (
+        <div className="xl:w-[858px] h-[57%]"></div>
+      )}
       <div className="pt-20">
         <Pagination
           items={currentPageData}

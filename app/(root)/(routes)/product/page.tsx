@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MainLayout from "../../MainLayout";
 import ProductLeft from "./product_left/ProductLeft";
 import ProductRight from "./product_right/ProductRight";
@@ -15,9 +15,10 @@ import Loading from "@/app/components/loading/Loading";
 export default function ProductPage() {
   const [filterBrand, setFilterBrand] = useState<string>("");
   const [filterType, setFilterType] = useState<string>("");
-  const [menu, setMenu] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
+  const [screen, setScreen] = useState<boolean>(false);
+  const productRef = useRef<HTMLDivElement>(null);
 
   const handleFetchApi = () => {
     dispatch(fetchListBrandAction());
@@ -27,6 +28,10 @@ export default function ProductPage() {
 
   useEffect(() => {
     handleFetchApi();
+
+    if (Number(productRef.current?.clientWidth) < 1280) {
+      setScreen(true);
+    }
   }, []);
 
   return (
@@ -35,10 +40,14 @@ export default function ProductPage() {
       {phoneReducer.isLoading ? (
         <div className="min-h-[600px]"></div>
       ) : (
-        <div className="filter xl:pt-[130px] min-[768px]:pt-[80px] pt-[70px] bg-white pb-[130px]">
+        <div
+          ref={productRef}
+          className="filter xl:pt-[130px] min-[768px]:pt-[80px] pt-[70px] bg-white pb-[130px]"
+        >
           <div className="container_all xl:!px-[10px] !p-0">
             <div className="content xl:flex gap-10 relative">
               <ProductLeft
+                screen={screen}
                 setFilterBrand={setFilterBrand}
                 setFilterType={setFilterType}
                 filterBrand={filterBrand}

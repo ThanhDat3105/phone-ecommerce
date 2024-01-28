@@ -15,7 +15,7 @@ export default function Description() {
       <div className="top">
         <img src={des1.src} alt="image" className="w-full h-full" />
       </div>
-      <div className="bottom bg-[#333333] pt-[60px] pb-[150px]">
+      <div className="bottom bg-[#333333] pt-[60px] xl:pb-[150px] pb-[100px]">
         <div className="container_bottom xl:w-[850px] mr-auto ml-auto">
           <div className="item flex gap-5">
             <img

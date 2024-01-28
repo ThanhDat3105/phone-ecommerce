@@ -30,7 +30,7 @@ export default function ItemProduct(props: Props) {
         </div>
       </div>
       <div className="item_bottom">
-        <div className="title_item pb-6 text-center">
+        <div className="title_item pb-6 text-center flex flex-col items-center">
           <h1 className="xl:text-base text-sm truncate w-[150px]">{props.ele.name}</h1>
           <div className="xl:text-base text-sm flex justify-center gap-1 items-center">
             <h1>{props.ele.storage[0].name}</h1>

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 
 interface Props {
+  pathName: string;
   handleLogOut: () => void;
   login: boolean;
   setShowMenu: (value: boolean) => void;
@@ -24,7 +25,9 @@ export default function ModalMenu(props: Props) {
             <div
               role="button"
               onClick={() => router.push("/product")}
-              className="font-normal text-base"
+              className={`text-base ${
+                props.pathName === "/product" ? "font-bold" : "font-normal"
+              }`}
             >
               All Categories
             </div>
@@ -33,7 +36,9 @@ export default function ModalMenu(props: Props) {
             <div
               onClick={() => router.push("/news")}
               role="button"
-              className="font-normal text-base"
+              className={`text-base ${
+                props.pathName === "/news" ? "font-bold" : "font-normal"
+              }`}
             >
               News
             </div>

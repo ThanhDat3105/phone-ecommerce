@@ -6,7 +6,7 @@ import { IoMdPerson } from "react-icons/io";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { IoMenu } from "react-icons/io5";
 import { FaShoppingBag } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 import "./header.scss";
@@ -24,6 +24,7 @@ export default function Header() {
   const elRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const pathName = usePathname();
   const [login, setLogin] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
   const [presentHeight, setPresentHeight] = useState<number>(0);
@@ -173,7 +174,7 @@ export default function Header() {
     <>
       <div
         ref={headerRef}
-        className={`header transition-all duration-100 fixed w-full z-50 bg-white drop-shadow-md ${
+        className={`header transition-all duration-100 fixed w-full !z-[100] bg-white drop-shadow-md ${
           headerOpen ? "translate-y-[0px]" : "translate-y-[-70px]"
         }`}
       >
@@ -237,7 +238,9 @@ export default function Header() {
                   <div
                     role="button"
                     onClick={() => router.push("/product")}
-                    className="font-normal text-base"
+                    className={`text-base ${
+                      pathName === "/product" ? "font-bold" : "font-normal"
+                    }`}
                   >
                     All Categories
                   </div>
@@ -246,7 +249,9 @@ export default function Header() {
                   <div
                     onClick={() => router.push("/news")}
                     role="button"
-                    className="font-normal text-base"
+                    className={`text-base ${
+                      pathName === "/news" ? "font-bold" : "font-normal"
+                    }`}
                   >
                     News
                   </div>
@@ -358,6 +363,7 @@ export default function Header() {
       <ModalCart show={show} setShow={setShow} handleClose={handleClose} />
       {mobile ? (
         <ModalMenu
+          pathName={pathName}
           handleLogOut={handleLogOut}
           login={login}
           showMenu={showMenu}

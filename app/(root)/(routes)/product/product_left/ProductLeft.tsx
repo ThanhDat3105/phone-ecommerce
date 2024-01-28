@@ -14,6 +14,7 @@ interface Props {
   setFilterType: (value: string) => void;
   filterBrand: string;
   filterType: string;
+  screen: boolean;
 }
 
 export default function ProductLeft(props: Props) {
@@ -33,11 +34,9 @@ export default function ProductLeft(props: Props) {
     props.setFilterBrand(brand);
   };
 
-  setTimeout(() => {}, 500);
-
   return (
     <div
-      className={`product_left z-50 h-screen absolute xl:w-[20%] w-full bg-white xl:shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] rounded-[10px] pb-12 xl:!translate-x-0 xl:!opacity-[1] ${
+      className={`product_left z-50 h-screen xl:h-fit absolute xl:w-[20%] w-full bg-white xl:shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] rounded-[10px] pb-12 xl:!translate-x-0 xl:!opacity-[1] ${
         setting.isOpen ? "active" : ""
       }`}
     >
@@ -45,10 +44,10 @@ export default function ProductLeft(props: Props) {
         <div className="filter_collapse pt-5 px-5">
           <div className="company">
             <div title="brand">
-              <div className="collapse_title flex justify-between items-center font-bold cursor-pointer">
+              <div className="collapse_title flex justify-between items-center font-bold">
                 <h5 className="text-lg">Brand</h5>
               </div>
-              <div className="collapse_check pl-5 py-5 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden cursor-pointer tracking-widest">
+              <div className="collapse_check pl-5 py-5 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden tracking-widest">
                 {phoneReducer.brandList.map((ele: Brand) => {
                   return (
                     <div key={ele.id_brand}>
@@ -56,8 +55,8 @@ export default function ProductLeft(props: Props) {
                         onClick={() => handleActiveBrand(ele.name)}
                         className={`${
                           props.filterBrand === ele.name
-                            ? "font-bold"
-                            : "font-normal"
+                            ? "font-bold cursor-pointer"
+                            : "font-normal cursor-pointer"
                         }`}
                       >
                         {ele.name}
@@ -71,10 +70,10 @@ export default function ProductLeft(props: Props) {
           <div className="separate" />
           <div className="type pt-5">
             <div>
-              <div className="collapse_title flex justify-between items-center font-bold cursor-pointer">
+              <div className="collapse_title flex justify-between items-center font-bold">
                 <h5 className="text-lg">Type</h5>
               </div>
-              <div className="collapse_check pl-5 py-5 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden cursor-pointer tracking-widest">
+              <div className="collapse_check pl-5 py-5 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden tracking-widest">
                 {phoneReducer.categoryList.map((ele: Category) => {
                   return (
                     <div key={ele.id_category}>
@@ -85,8 +84,8 @@ export default function ProductLeft(props: Props) {
                         className={`${
                           activeIdType === ele.id_category &&
                           props.filterType === ele.name
-                            ? "font-bold"
-                            : "font-normal"
+                            ? "font-bold cursor-pointer"
+                            : "font-normal cursor-pointer"
                         }`}
                       >
                         {ele.name}
@@ -98,12 +97,16 @@ export default function ProductLeft(props: Props) {
             </div>
           </div>
         </div>
-        <Button
-          onClick={() => setting.onClose()}
-          className="button_close bg-white hover:bg-[#ede9e9] text-black text-2xl absolute top-0 right-0"
-        >
-          <AiOutlineClose className="btn_close transition-all duration-300 cursor-pointer hover:text-[rgba(0,0,0,0.5)]" />
-        </Button>
+        {props.screen ? (
+          <Button
+            onClick={() => setting.onClose()}
+            className="button_close bg-white hover:bg-[#ede9e9] text-black text-2xl absolute top-0 right-0"
+          >
+            <AiOutlineClose className="btn_close transition-all duration-300 cursor-pointer hover:text-[rgba(0,0,0,0.5)]" />
+          </Button>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
