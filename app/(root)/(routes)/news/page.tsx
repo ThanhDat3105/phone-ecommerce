@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MainLayout from "../../MainLayout";
 
 import "./new.scss";
@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 
 export default function NewPage() {
   const router = useRouter();
+  const [blur, setBlur] = useState<string>("blur-[15px]");
 
   const arr = [
     {
@@ -44,6 +45,12 @@ export default function NewPage() {
     },
   ];
 
+  useEffect(() => {
+    setTimeout(() => {
+      setBlur("blur-0");
+    }, 500);
+  }, []);
+
   return (
     <MainLayout>
       <div className="new_page xl:py-[120px] py-[90px] bg-white">
@@ -57,7 +64,11 @@ export default function NewPage() {
                 className="left relative cursor-pointer"
                 onClick={() => router.push(`/news/${1}`)}
               >
-                <img src={new1.src} alt="new" />
+                <img
+                  src={new1.src}
+                  alt="new"
+                  className={`${blur} transition-all duration-300`}
+                />
                 <p className="absolute xl:text-2xl text-lg font-semibold text-center xl:w-[490px] w-[300px] xl:bottom-[5%] bottom-[-20%] rounded-[20px] xl:py-5 py-3 xl:px-[35px] right-[50%] translate-x-[50%] bg-white">
                   Tiêu điểm cuối năm 2023: Tổng hợp sản phẩm MacBook và iMac mới
                   nhất của Apple
@@ -68,7 +79,11 @@ export default function NewPage() {
                   className="top justify-center relative flex cursor-pointer"
                   onClick={() => router.push(`/news/${2}`)}
                 >
-                  <img src={new2.src} alt="new" className="rounded-[20px]" />
+                  <img
+                    src={new2.src}
+                    alt="new"
+                    className={`rounded-[20px] ${blur} transition-all duration-300`}
+                  />
                   <div className="liner_gradient" />
                   <p className="absolute text-xl font-semibold text-center text-white bottom-0 w-[330px]">
                     Thông số MacBook Air M2 15 inch 2023 có gì mới? Có đáng để
@@ -79,7 +94,11 @@ export default function NewPage() {
                   className="bottom justify-center relative flex cursor-pointer"
                   onClick={() => router.push(`/news/${3}`)}
                 >
-                  <img src={new3.src} alt="new" className="rounded-[20px]" />
+                  <img
+                    src={new3.src}
+                    alt="new"
+                    className={`rounded-[20px] ${blur} transition-all duration-300`}
+                  />
                   <div className="liner_gradient" />
                   <p className="absolute text-xl font-semibold text-center text-white bottom-0 w-[330px]">
                     iPad đang dần thay thế Macbook như thế nào?

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { newsItem } from "@/interface/news";
 import "./itemNew.scss";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ interface Props {
 export default function ItemNew(props: Props) {
   const router = useRouter();
   const imgRef = useRef<HTMLImageElement>(null);
+  const [blur, setBlur] = useState<boolean>(true);
 
   useEffect(() => {
     if (imgRef) {
@@ -24,6 +25,7 @@ export default function ItemNew(props: Props) {
 
     if (url) {
       img.setAttribute("src", url);
+      setBlur(false);
 
       setTimeout(() => {
         img.removeAttribute("lazy-src");
@@ -53,7 +55,11 @@ export default function ItemNew(props: Props) {
         onClick={() => router.push(`/news/${props.data.id}`)}
         className="item flex gap-[30px] hover:scale-[1.03] transition-all duration-300 cursor-pointer"
       >
-        <div className="image w-[50%]">
+        <div
+          className={`image w-[50%] transition-all duration-300 ${
+            blur ? "blur-lg" : "blur-0"
+          }`}
+        >
           <img
             ref={imgRef}
             src="https://img1.hscicdn.com/image/upload/f_auto,t_ds_w_1200/lsci/db/PICTURES/CMS/3200/3253.jpg"
