@@ -25,8 +25,8 @@ interface Props {
 }
 
 export default function Combobox(props: Props) {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [open, setOpen] = useState<boolean>(false);
+  const [value, setValue] = useState<string>("");
 
   const { frameworks } = props;
 

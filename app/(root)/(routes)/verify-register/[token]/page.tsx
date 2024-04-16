@@ -18,11 +18,12 @@ export default function VerifyRegister(props: Props) {
   };
 
   useEffect(() => {
+    notificationSuccess();
     fetchVerifyEmail();
   }, []);
 
   const router = useRouter();
-  
+
   const notificationSuccess = () => {
     Swal.fire({
       title: "Verify done!",
@@ -35,10 +36,6 @@ export default function VerifyRegister(props: Props) {
       },
     });
   };
-
-  useEffect(() => {
-    notificationSuccess();
-  }, []);
 
   return <div></div>;
 }

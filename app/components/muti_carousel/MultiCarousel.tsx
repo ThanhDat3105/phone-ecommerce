@@ -2,10 +2,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
 import "./multiCarousel.scss";
-import { Image } from "@/interface/product";
+import { ImageInterface } from "@/interface/product";
 
 interface Props {
-  image: Image[] | undefined;
+  image: ImageInterface[] | undefined;
 }
 
 export default function MultiCarousel(props: Props) {

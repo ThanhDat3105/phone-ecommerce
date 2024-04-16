@@ -38,7 +38,7 @@ export default function NewsPage(props: Props) {
           </div>
           <div className="image xl:h-[500px]">
             <img
-              src={item?.img.src}
+              src={item?.img?.src}
               alt="img"
               className="w-full h-full rounded-[20px]"
             />

@@ -15,13 +15,30 @@ import { RootState } from "@/redux/store";
 import { User } from "@/interface/user";
 import { toast } from "sonner";
 import EmptyCart from "@/public/image/cart/empty-cart.png";
+import { ValueFormOrder } from "@/interface/product";
+
 export default function CartPage() {
-  const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
+  const cartList = useSelector(
+    (state: RootState) => state.phoneReducer.cartList
+  );
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const [progress, setProgress] = useState<boolean>(false);
   const [mobile, setMobile] = useState<boolean>(false);
   const [user, setUser] = useState<User>();
+  const [payment_method, setPaymentMethod] = useState<string>("");
+  const [formOrder, setFormOrder] = useState<ValueFormOrder>({
+    values: {
+      id_user: Number(user?.id_user),
+      name: String(user?.name),
+      phone: "",
+      address: "",
+      payment_method: payment_method,
+      delivery_by: "Shopee Express",
+      total: Number(0),
+      productItem: [],
+    },
+  });
 
   const scrollToSection = () => {
     const destination = ref.current;
@@ -53,7 +70,7 @@ export default function CartPage() {
     }
   }, []);
 
-  const totalAmount = phoneReducer.cartList.reduce(
+  const totalAmount = cartList.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
@@ -72,7 +89,7 @@ export default function CartPage() {
 
   return (
     <MainLayout>
-      {phoneReducer?.cartList?.length > 0 ? (
+      {cartList?.length > 0 ? (
         <div ref={ref} className="cart xl:py-[115px] py-[90px] bg-white">
           <div className="container_all xl:flex gap-[60px]">
             <div className="left xl:w-[70%]">
@@ -136,17 +153,23 @@ export default function CartPage() {
                       progress
                         ? "scale-x-[0,5.0,5] bg-[#444444]"
                         : "scale-[0.0,5] bg-[white]"
-                    } `}
+                    }`}
                   />
                 </div>
               </div>
               {!progress ? (
-                <TotalProduct mobile={mobile} />
+                <TotalProduct mobile={mobile} cartList={cartList} />
               ) : (
-                <InfoCheckout user={user} />
+                <InfoCheckout
+                  cartList={cartList}
+                  formOrder={formOrder}
+                  setFormOrder={setFormOrder}
+                  payment_method={payment_method}
+                  setPaymentMethod={setPaymentMethod}
+                />
               )}
             </div>
-            {!progress ? (
+            {!progress && (
               <div className="right">
                 <div className="content p-[30px] xl:mt-48 bg-[#FFFFFF] rounded-[15px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)]">
                   <div className="title">
@@ -174,7 +197,7 @@ export default function CartPage() {
                   <div className="discount">
                     <div className="total_discount">
                       <div className="text-sm text-[#444444] flex justify-between pb-1">
-                        <p>{phoneReducer.cartList.length} Item</p>
+                        <p>{cartList.length} Item</p>
                         <p>{formatPrice(Number(totalAmount))}</p>
                       </div>
                       <div className="text-sm text-[#444444] flex justify-between">
@@ -198,8 +221,6 @@ export default function CartPage() {
                   </div>
                 </div>
               </div>
-            ) : (
-              ""
             )}
           </div>
         </div>

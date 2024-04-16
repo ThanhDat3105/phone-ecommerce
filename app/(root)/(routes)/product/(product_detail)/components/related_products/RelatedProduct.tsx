@@ -6,6 +6,7 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Product } from "@/interface/product";
+import { useEffect, useState } from "react";
 
 interface Props {
   ele: Product[];
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function RelatedProduct(props: Props) {
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   // Hàm xáo trộn mảng
   const shuffleArray = (array: Product[]) => {
     let shuffledArray = array.slice();
@@ -28,7 +30,12 @@ export default function RelatedProduct(props: Props) {
 
   const isRelated = "related";
 
-  const shuffledProducts = shuffleArray(props.ele);
+  useEffect(() => {
+    if (props.ele) {
+      const result = shuffleArray(props.ele);
+      setRelatedProducts(result);
+    }
+  }, []);
 
   return (
     <div className="related_products mb-[30px]">
@@ -58,7 +65,7 @@ export default function RelatedProduct(props: Props) {
             },
           }}
         >
-          {shuffledProducts
+          {relatedProducts
             .filter(
               (ele: Product) =>
                 ele.categoryBrandMapping.brand.name === props.brand

@@ -1,3 +1,24 @@
+interface CategoryBrandMapping {
+  id_categoryBrand: number;
+  id_brand: number;
+  id_category: number;
+  brand: Brand;
+  category: Category;
+}
+
+interface Brand {
+  name: string;
+}
+
+interface Category {
+  name: string;
+}
+
+interface Color {
+  hex: string;
+  name: string;
+}
+
 export interface Product {
   id_product: number;
   id_categoryBrand: number;
@@ -12,38 +33,17 @@ export interface Product {
   screen: string;
   front_camera: string;
   rear_camera: string;
-  img: Image[];
+  img: ImageInterface[];
   storage: Storage[];
   color: Color[];
   categoryBrandMapping: CategoryBrandMapping;
 }
 
-export interface Image {
+export interface ImageInterface {
   url: string;
 }
 
 export interface Storage {
-  name: string;
-}
-
-interface Color {
-  hex: string;
-  name: string;
-}
-
-interface CategoryBrandMapping {
-  id_categoryBrand: number;
-  id_brand: number;
-  id_category: number;
-  brand: Brand;
-  category: Category;
-}
-
-interface Brand {
-  name: string;
-}
-
-interface Category {
   name: string;
 }
 

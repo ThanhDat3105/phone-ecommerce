@@ -4,7 +4,6 @@ import "./home.scss";
 import Banner from "./banner/Banner";
 import Brand from "./brand/Brand";
 import MainLayout from "../../MainLayout";
-import Product from "./product/Product";
 import News from "./news/News";
 import Loading from "@/app/components/loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,19 +12,28 @@ import {
   fetchListBrandAction,
   fetchListPhoneAction,
 } from "@/redux/features/phoneSlice";
+import ProductHome from "./product/ProductHome";
+import { Product } from "@/interface/product";
 
 export default function HomePage() {
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleFetchApi = () => {
-    dispatch(fetchListBrandAction());
-    dispatch(fetchListPhoneAction());
-  };
+  // const handleFetchApi = () => {
+  //   dispatch(fetchListBrandAction());
+  //   dispatch(fetchListPhoneAction());
+  // };
 
   useEffect(() => {
-    handleFetchApi();
+    // handleFetchApi();
   }, []);
+
+  const filterPhoneHome = (brand: string) => {
+    const result = phoneReducer?.phoneList?.filter(
+      (ele: Product) => ele.categoryBrandMapping.brand.name === brand
+    );
+    return result;
+  };
 
   return (
     <>
@@ -37,7 +45,7 @@ export default function HomePage() {
           <div className="home bg-white">
             <Banner />
             <Brand />
-            <Product />
+            <ProductHome filterPhoneHome={filterPhoneHome} />
             <News />
           </div>
         </MainLayout>

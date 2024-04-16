@@ -1,20 +1,18 @@
-import BuyItem from "@/app/(root)/(routes)/cart/components/buy_item/BuyItem";
+import BuyItem from "@/app/(root)/(routes)/cart/components/BuyItem";
 import { CartItem } from "@/interface/product";
-import { RootState } from "@/redux/store";
 import React from "react";
-import { useSelector } from "react-redux";
 
 interface Props {
   mobile: boolean;
+  cartList: CartItem[];
 }
 
 export default function TotalProduct(props: Props) {
-  const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   return (
     <>
       {props.mobile ? (
         <div className="body_total pt-5">
-          {phoneReducer.cartList?.map((ele: CartItem) => {
+          {props.cartList?.map((ele: CartItem) => {
             return (
               <BuyItem mobile={props.mobile} key={ele.id_product} ele={ele} />
             );
@@ -31,7 +29,7 @@ export default function TotalProduct(props: Props) {
           </div>
           <div className="separate h-[1px] bg-black" />
           <div className="body_total pt-5">
-            {phoneReducer.cartList?.map((ele: CartItem) => {
+            {props.cartList?.map((ele: CartItem) => {
               return <BuyItem key={ele.id_product} ele={ele} />;
             })}
           </div>

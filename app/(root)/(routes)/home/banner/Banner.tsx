@@ -1,13 +1,13 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
 import banner2 from "@/public/image/home/banner/banner.png";
-import banner1 from "@/public/image/home/banner/oppo4.png";
 import banner3 from "@/public/image/home/banner/banner_samsung.webp";
+import banner1 from "@/public/image/home/banner/oppo4.png";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import "./banner.scss";
 import "swiper/css";
 import "swiper/css/pagination";
+import "./banner.scss";
 
 import { Autoplay, Pagination } from "swiper/modules";
 
