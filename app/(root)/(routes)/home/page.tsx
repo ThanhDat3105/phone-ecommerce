@@ -19,13 +19,13 @@ export default function HomePage() {
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const dispatch = useDispatch<AppDispatch>();
 
-  // const handleFetchApi = () => {
-  //   dispatch(fetchListBrandAction());
-  //   dispatch(fetchListPhoneAction());
-  // };
+  const handleFetchApi = () => {
+    dispatch(fetchListBrandAction());
+    dispatch(fetchListPhoneAction());
+  };
 
   useEffect(() => {
-    // handleFetchApi();
+    handleFetchApi();
   }, []);
 
   const filterPhoneHome = (brand: string) => {
