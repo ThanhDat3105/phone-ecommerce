@@ -1,11 +1,5 @@
 {
   "pages": {
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/page.css",
-      "static/chunks/app/page.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -24,11 +18,23 @@
       "static/css/app/(root)/(routes)/product/page.css",
       "static/chunks/app/(root)/(routes)/product/page.js"
     ],
-    "/(root)/(routes)/product/(product_detail)/[id]/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/(root)/(routes)/product/(product_detail)/[id]/page.css",
-      "static/chunks/app/(root)/(routes)/product/(product_detail)/[id]/page.js"
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
+    ],
+    "/(root)/(routes)/sign_in/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(root)/(routes)/sign_in/page.css",
+      "static/chunks/app/(root)/(routes)/sign_in/page.js"
+    ],
+    "/(root)/(routes)/sign_up/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(root)/(routes)/sign_up/page.css",
+      "static/chunks/app/(root)/(routes)/sign_up/page.js"
     ]
   }
 }

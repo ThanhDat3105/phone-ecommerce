@@ -85,7 +85,7 @@ export default function ItemProduct(props: Props) {
           </div>
         </div>
         <div className="price relative py-[5px] border-[1px] border-solid border-[#D5D5D5] rounded-[30px]">
-          <div className="price_all overflow-hidden flex justify-center xl:gap-[10px] gap-[5px]">
+          <div className="price_all overflow-hidden flex justify-center xl:gap-[10px] gap-[5px] items-center">
             <div className="price_sale xl:text-base text-xs">
               {formatPrice(props.ele.price)}đ
             </div>
