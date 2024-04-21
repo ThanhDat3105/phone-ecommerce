@@ -157,16 +157,6 @@ export default function ProductRight(props: Props) {
     }
   };
 
-  const skeletonItem = () => {
-    return (
-      <div className="relative">
-        <div
-          className={`skeleton h-[407px] w-[266px] item cursor-pointer bg-[#FFFFFF] rounded-[20px] xl:shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] xl:px-7 px-3 xl:pb-[30px] pb-5 relative transition-all duration-300 xl:mb-0 xl:max-w-none md:max-w-[300px] ml-auto mr-auto md:mb-7 xl:hover:scale-[1.03] xl:hover:shadow-[0_5px_10px_0_rgba(0,0,0,0.3)] shadow-[0_5px_10px_0_rgba(0,0,0,0.05)]`}
-        ></div>
-      </div>
-    );
-  };
-
   return (
     <div
       ref={ref}
@@ -211,7 +201,7 @@ export default function ProductRight(props: Props) {
         </div>
       </div>
       {currentPageData.length > 0 ? (
-        <div className="product_item grid xl:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]">
+        <div className="product_item grid md:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]">
           {currentPageData?.map((ele) => {
             return <ItemProduct key={ele.id_product} ele={ele} />;
           })}

@@ -71,7 +71,7 @@ export default function Footer() {
                 </ul>
               </div>
             </div>
-            <div className="right flex flex-col gap-[30px] max-w-[380px] w-[380px]">
+            <div className="right flex flex-col gap-[30px] min-[428px]:w-[380px]">
               <div className="title flex items-center gap-[20px]">
                 <HiOutlineMail className="text-2xl" />
                 <p className="text-xl">Stay up date on the latest from K15</p>

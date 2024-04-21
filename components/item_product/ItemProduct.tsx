@@ -61,7 +61,7 @@ export default function ItemProduct(props: Props) {
       onClick={() => router.push(`/product/${props.ele.id_product}`)}
     >
       <div
-        className={`item_top transition-all duration-300 pb-6 md:flex md:justify-center xl:w-[210px] w-[150px] xl:h-[275px] h-[200px] relative ${
+        className={`item_top transition-all duration-300 pb-6 md:flex md:justify-center xl:w-[210px] w-[170px] xl:h-[275px] h-[200px] relative ${
           blur ? "blur-lg" : "blur-0"
         }`}
       >

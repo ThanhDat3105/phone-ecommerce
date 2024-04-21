@@ -69,7 +69,7 @@ export default function NewPage() {
                   alt="new"
                   className={`${blur} transition-all duration-300`}
                 />
-                <p className="absolute xl:text-2xl text-lg font-semibold text-center xl:w-[490px] w-[300px] xl:bottom-[5%] bottom-[-20%] rounded-[20px] xl:py-5 py-3 xl:px-[35px] right-[50%] translate-x-[50%] bg-white">
+                <p className="absolute xl:text-2xl text-lg font-semibold text-center xl:w-[490px] w-[300px] xl:bottom-[5%] min-[500px]:bottom-[-10%] lg:bottom-[-20%] bottom-[-20%] rounded-[20px] xl:py-5 py-3 xl:px-[35px] right-[50%] translate-x-[50%] bg-white">
                   Tiêu điểm cuối năm 2023: Tổng hợp sản phẩm MacBook và iMac mới
                   nhất của Apple
                 </p>

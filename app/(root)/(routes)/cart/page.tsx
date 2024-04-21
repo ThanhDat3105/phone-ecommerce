@@ -200,9 +200,9 @@ export default function CartPage() {
                         placeholder="Add Voucher"
                         className="border-[#AAAAAA] border-[1px] rounded-[10px] py-[6px] pl-[10px] pr-[100px] focus-visible:outline-none"
                       />
-                      <div className="separate absolute top-[50%] translate-y-[-50%] right-[26%] h-[80%] w-[1px] bg-[#D5D5D5]" />
-                      <IoIosArrowDown className="absolute top-[50%] translate-y-[-50%] right-[31%] cursor-pointer" />
-                      <Button className="absolute right-0 bottom-0 h-full rounded-[10px] rounded-tl-none rounded-bl-none bg-transparent text-black font-bold hover:text-white">
+                      <div className="separate absolute top-[50%] translate-y-[-50%] right-[26%] lg:right-[26%] min-[500px]:right-[63%] h-[80%] w-[1px] bg-[#D5D5D5]" />
+                      <IoIosArrowDown className="absolute top-[50%] translate-y-[-50%] right-[31%] lg:right-[31%] min-[500px]:right-[65%] cursor-pointer" />
+                      <Button className="absolute right-0 lg:right-0 min-[500px]:right-1/2 bottom-0 h-full rounded-[10px] rounded-tl-none rounded-bl-none bg-transparent text-black font-bold hover:text-white">
                         Submit
                       </Button>
                     </div>

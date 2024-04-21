@@ -29,12 +29,12 @@ export default function News() {
     },
   ];
   return (
-    <div className="news bg-white xl:pb-28 md:pb-16 max-[428px]:pb-16">
+    <div className="news bg-white xl:pb-28 md:pb-16 pb-16">
       <div className="container_all">
-        <div className="title text-3xl tracking-wider text-center pt-[70px] xl:pb-[50px] md:pb-[40px] max-[428px]:pb-[40px]">
+        <div className="title text-3xl tracking-wider text-center pt-[70px] xl:pb-[50px] md:pb-[40px] pb-[40px]">
           News
         </div>
-        <div className="content grid xl:grid-cols-3 md:grid-cols-3 max-[428px]:grid-cols-1 xl:gap-[55px] md:gap-5 max-[428px]:gap-10">
+        <div className="content grid xl:grid-cols-3 md:grid-cols-3 grid-cols-1 xl:gap-[55px] md:gap-5 gap-10">
           {data.map((ele) => {
             return <ItemNews key={ele.id} ele={ele} />;
           })}

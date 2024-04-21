@@ -37,7 +37,7 @@ export default function ItemCart(props: Props) {
       </div>
       <div className="item_mid flex flex-col justify-between">
         <div className="info_item flex flex-col gap-[8px]">
-          <div className="name_item text-base font-semibold overflow-hidden">
+          <div className="name_item text-base font-semibold overflow-hidden max-w-[120px] truncate">
             {props.cartItem.name}
           </div>
           <div className="info_detail items-center flex text-sm tracking-widest text-[#5D5D5D] gap-[20px]">

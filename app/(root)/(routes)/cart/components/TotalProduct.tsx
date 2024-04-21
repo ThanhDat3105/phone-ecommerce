@@ -28,7 +28,7 @@ export default function TotalProduct(props: Props) {
             <p className=""></p>
           </div>
           <div className="separate h-[1px] bg-black" />
-          <div className="body_total pt-5">
+          <div className="body_total max-[1024px]:h-[538px] max-[1024px]:overflow-auto pt-5 ">
             {props.cartList?.map((ele: CartItem) => {
               return <BuyItem key={ele.id_product} ele={ele} />;
             })}
