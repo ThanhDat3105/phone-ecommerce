@@ -16,7 +16,6 @@ import {
 import { UserSignIn } from "@/interface/user";
 import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { Input } from "@/components/ui/input";
 import {
@@ -35,8 +34,8 @@ const formSchema = z.object({
   email: z.string().min(1).max(50).email(),
   password: z
     .string()
-    .min(1)
-    .max(20)
+    .min(8)
+    .max(16)
     .refine(
       (value) => {
         return /[A-Z]/.test(value) && /[!@#$%^&*(),.?":{}|<>]/.test(value);
@@ -48,8 +47,12 @@ const formSchema = z.object({
     ),
   birthday: z.any(),
   address: z.string().min(2),
-  phone: z.string().min(10).max(11),
+  phone: z
+    .string()
+    .min(10, { message: "Must be a valid mobile number" })
+    .max(11, { message: "Must be a valid mobile number" }),
 });
+
 type registerFormValues = z.infer<typeof formSchema>;
 
 export default function RegisterPage() {

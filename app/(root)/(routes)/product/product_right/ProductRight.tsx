@@ -116,7 +116,6 @@ export default function ProductRight(props: Props) {
   };
 
   const scrollToSection = () => {
-    console.log(ref.current);
     const destination = ref.current;
 
     if (destination) {

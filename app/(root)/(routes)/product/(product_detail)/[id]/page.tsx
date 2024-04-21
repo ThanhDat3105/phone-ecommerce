@@ -72,7 +72,7 @@ export default function DetailProduct(props: Props) {
             <InfoDetail ele={phoneInfo} key={phoneInfo?.id_product} />
             <RelatedProduct
               phoneList={phoneReducer.phoneList}
-              info={phoneInfo?.categoryBrandMapping}
+              info={phoneInfo}
             />
             <div className="information">
               <div className="button_information"></div>

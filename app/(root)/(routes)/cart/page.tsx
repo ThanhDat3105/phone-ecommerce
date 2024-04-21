@@ -29,13 +29,13 @@ export default function CartPage() {
   const [payment_method, setPaymentMethod] = useState<string>("");
   const [formOrder, setFormOrder] = useState<ValueFormOrder>({
     values: {
-      id_user: Number(user?.id_user),
-      name: String(user?.name),
+      id_user: 0,
+      name: "",
       phone: "",
       address: "",
-      payment_method: payment_method,
+      payment_method: "",
       delivery_by: "Shopee Express",
-      total: Number(0),
+      total: 0,
       productItem: [],
     },
   });
@@ -69,6 +69,20 @@ export default function CartPage() {
       setMobile(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      setFormOrder((formOrder) => ({
+        values: {
+          ...formOrder.values,
+          id_user: user.id_user,
+          name: user.name,
+          address: user.address,
+          phone: user.phone,
+        },
+      }));
+    }
+  }, [user]);
 
   const totalAmount = cartList.reduce(
     (acc, item) => acc + item.price * item.quantity,

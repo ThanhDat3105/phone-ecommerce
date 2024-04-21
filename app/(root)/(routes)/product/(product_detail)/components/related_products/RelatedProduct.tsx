@@ -5,12 +5,12 @@ import { Pagination } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import { CategoryBrandMapping, Product } from "@/interface/product";
+import { Product } from "@/interface/product";
 import { useEffect, useState } from "react";
 
 interface Props {
   phoneList: Product[];
-  info: CategoryBrandMapping | undefined;
+  info: Product;
 }
 
 export default function RelatedProduct(props: Props) {
@@ -39,65 +39,72 @@ export default function RelatedProduct(props: Props) {
     );
   };
 
+  const filterRelated = (data: Product[]) => {
+    return data.filter((product: Product) => {
+      return (
+        product.categoryBrandMapping.brand.name ===
+          props.info.categoryBrandMapping?.brand.name &&
+        product.categoryBrandMapping.category.name ===
+          props.info.categoryBrandMapping?.category.name &&
+        props.info.id_product !== product.id_product
+      );
+    });
+  };
+
   useEffect(() => {
     if (props.phoneList.length > 0) {
-      const result = shuffleArray(props.phoneList);
-      setRelatedProducts(result);
+      const phoneList = shuffleArray(props.phoneList);
+      const result = filterRelated(phoneList);
+      if (result.length > 0) setRelatedProducts(result);
     }
   }, [props.phoneList]);
 
   return (
-    <div className="related_products mb-[30px]">
-      <div className="title mb-[50px]">
-        <h1 className="text-3xl font-semibold tracking-wider">
-          Related Product
-        </h1>
-      </div>
-      <div className="item">
-        <Swiper
-          pagination={false}
-          modules={[Pagination]}
-          className="mySwiper !pb-10 !px-[10px]"
-          breakpoints={{
-            300: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 50,
-            },
+    relatedProducts.length > 0 && (
+      <div className="related_products mb-[30px]">
+        <div className="title mb-[50px]">
+          <h1 className="text-3xl font-semibold tracking-wider">
+            Related Product
+          </h1>
+        </div>
+        <div className="item">
+          <Swiper
+            pagination={false}
+            modules={[Pagination]}
+            className="mySwiper !pb-10 !px-[10px]"
+            breakpoints={{
+              300: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 50,
+              },
 
-            1336: {
-              slidesPerView: 4,
-              spaceBetween: 50,
-            },
-          }}
-        >
-          {relatedProducts.length > 0 ? (
-            relatedProducts
-              .filter(
-                (ele: Product) =>
-                  ele.categoryBrandMapping.brand.name ===
-                    props.info?.brand.name &&
-                  ele.categoryBrandMapping.category.name ===
-                    props.info?.category.name
-              )
-              .map((filteredEle: Product) => (
+              1336: {
+                slidesPerView: 4,
+                spaceBetween: 50,
+              },
+            }}
+          >
+            {relatedProducts.length > 0 ? (
+              relatedProducts.map((filteredEle: Product) => (
                 <SwiperSlide key={filteredEle.id_product} className="m-0">
                   <ItemProduct ele={filteredEle} value={isRelated} />
                 </SwiperSlide>
               ))
-          ) : (
-            <div className="flex gap-7">
-              {skeletonItem()}
-              {skeletonItem()}
-              {skeletonItem()}
-              {skeletonItem()}
-            </div>
-          )}
-        </Swiper>
+            ) : (
+              <div className="flex gap-7">
+                {skeletonItem()}
+                {skeletonItem()}
+                {skeletonItem()}
+                {skeletonItem()}
+              </div>
+            )}
+          </Swiper>
+        </div>
       </div>
-    </div>
+    )
   );
 }

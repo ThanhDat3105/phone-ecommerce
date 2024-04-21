@@ -6,7 +6,7 @@ import momo from "@/public/image/cart/momo 1.png";
 
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
-import { CartItem, ValueFormOrder } from "@/interface/product";
+import { CartItem, Product, ValueFormOrder } from "@/interface/product";
 import { createOrderAction } from "@/redux/features/phoneSlice";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -14,8 +14,8 @@ import { useRouter } from "next/navigation";
 interface Props {
   cartList: CartItem[];
   formOrder: ValueFormOrder;
-  setFormOrder: (value: React.SetStateAction<ValueFormOrder>) => void;
   payment_method: string;
+  setFormOrder: (value: React.SetStateAction<ValueFormOrder>) => void;
   setPaymentMethod: (value: string) => void;
 }
 
@@ -29,43 +29,20 @@ export default function InfoCheckout(props: Props) {
   );
 
   useEffect(() => {
-    if (props.cartList) {
-      const productItem = props.cartList.map((item: CartItem) => {
-        return {
-          name: item.name,
-          color: item.color,
-          price: item.price,
-          storage: item.storage,
-          quantity: item.quantity,
-        };
-      });
-
-      props.setFormOrder((prevFormOrder: ValueFormOrder) => ({
-        ...prevFormOrder.values,
-        values: {
-          ...prevFormOrder.values,
-          productItem,
-        },
-      }));
-    }
-  }, [props.cartList]);
-
-  useEffect(() => {
     props.setFormOrder((prevFormOrder) => ({
-      ...prevFormOrder,
       values: {
         ...prevFormOrder.values,
         payment_method: props.payment_method,
         total: totalAmount,
+        productItem: props.cartList,
       },
     }));
-  }, [props.payment_method, totalAmount]);
+  }, [props.payment_method, totalAmount, props.cartList]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     props.setFormOrder((prevFormOrder) => ({
-      ...prevFormOrder,
       values: {
         ...prevFormOrder.values,
         [name]: value,
@@ -79,11 +56,12 @@ export default function InfoCheckout(props: Props) {
 
   const pay = async () => {
     try {
-      const result = await dispatch(createOrderAction(props.formOrder));
-
-      if (result) {
-        toast.success("Order placed successfully");
-        router.push("/");
+      if (props.cartList) {
+        const result = await dispatch(createOrderAction(props.formOrder));
+        if (result) {
+          toast.success("Order placed successfully");
+          router.push("/");
+        }
       }
     } catch (error: any) {
       console.log(error);

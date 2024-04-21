@@ -57,12 +57,6 @@ export default function LoginPage() {
     }
   };
 
-  useEffect(() => {
-    if (searchParams.get("urlBack") !== null) {
-      console.log(searchParams.get("urlBack"));
-    }
-  }, []);
-
   return (
     <MainLayout>
       <div className="sign_in pt-[140px] pb-[70px] bg-white">
