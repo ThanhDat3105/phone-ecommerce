@@ -199,3 +199,35 @@ img {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.loadingSkeleton {
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    #00000000 0,
+    #00000000 20%,
+    #00000000 60%,
+    #F5F5F5 100%
+  );
+  animation: shimmer 1.5s infinite;
+  content: "";
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

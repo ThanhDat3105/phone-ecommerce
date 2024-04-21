@@ -28,10 +28,9 @@ export default function Header() {
   const [headerOpen, setHeaderOpen] = useState<boolean>(true);
   const [mobile, setMobile] = useState<boolean>(false);
   const [showMenu, setShowMenu] = useState<boolean>(false);
-  const [cartList, setCartList] = useState<CartItem[]>();
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
-  const debounceSearch = useDebounce(valueSearch, 200);
+  let debounceSearch = useDebounce(valueSearch, 200);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -44,8 +43,6 @@ export default function Header() {
     if (Number(headerRef.current?.clientWidth) <= 850) {
       setMobile(true);
     }
-
-    setCartList(phoneReducer.cartList);
 
     if (typeof window !== "undefined") {
       let presentHeight = 0;
@@ -63,13 +60,7 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    if (
-      cartList !== undefined &&
-      cartList !== phoneReducer.cartList &&
-      cartList.length > 0
-    ) {
-      setHeaderOpen(true);
-    }
+    setHeaderOpen(true);
   }, [phoneReducer.cartList]);
 
   useEffect(() => {
@@ -81,6 +72,7 @@ export default function Header() {
       const clientHeight = Number(dropdownRef.current.clientHeight);
       if (clientHeight > 0) {
         dropdownRef.current.style.height = "0px";
+        debounceSearch = "";
       } else {
         dropdownRef.current.style.height =
           dropdownRef.current.scrollHeight + "px";
@@ -155,8 +147,10 @@ export default function Header() {
               handleBlur={handleBlur}
               setShow={setShow}
               cartList={phoneReducer.cartList}
+              filterPhoneSearch={filterPhoneSearch}
               setShowMenu={setShowMenu}
               showMenu={showMenu}
+              debounceSearch={debounceSearch}
             />
           ) : (
             <HeaderDesktop

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainLayout from "../../MainLayout";
 
 import "./new.scss";
@@ -9,7 +9,7 @@ import new2 from "@/public/image/news/new2.png";
 import new3 from "@/public/image/news/new3.png";
 import { Button } from "@/components/ui/button";
 import { news } from "@/data/mockData";
-import ItemNew from "@/app/components/item_news/ItemNew";
+import ItemNew from "@/components/item_news/ItemNew";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { useRouter } from "next/navigation";

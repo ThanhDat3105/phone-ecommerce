@@ -20,7 +20,7 @@ import {
   forgotPasswordUser,
   setCloseLoading,
 } from "@/redux/features/phoneSlice";
-import Loading from "@/app/components/loading/Loading";
+import Loading from "@/components/loading/Loading";
 
 const formSchema = z.object({
   email: z.string().min(1).max(50).email(),

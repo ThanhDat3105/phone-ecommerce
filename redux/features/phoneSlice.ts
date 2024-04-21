@@ -19,13 +19,12 @@ import { Email, ResetPassword, UserSignIn, userLogin } from "@/interface/user";
 import { CartItem, Order, Product, ValueFormOrder } from "@/interface/product";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "sonner";
-import { fetchListPhoneApi, findProductByIdApi } from "@/api/service/phone";
+import { fetchListPhoneApi } from "@/api/service/phone";
 
 interface phoneState {
   phoneList: Product[];
   brandList: Brand[];
   categoryList: Category[];
-  phoneInfo: Product | null;
   cartList: CartItem[];
   isLoading: boolean;
   orderList: OrderList[];
@@ -61,18 +60,6 @@ export const fetchListCategoryAction = createAsyncThunk(
   async () => {
     try {
       const result = await fetchListCategoryApi();
-      return result.data.content;
-    } catch (error) {
-      console.log("Error BE");
-    }
-  }
-);
-
-export const FindProductByIdAction = createAsyncThunk(
-  "phoneReducer/FindProductByIdAction",
-  async (id: number) => {
-    try {
-      const result = await findProductByIdApi(id);
       return result.data.content;
     } catch (error) {
       console.log("Error BE");
@@ -204,7 +191,6 @@ export const phoneSlice = createSlice({
     phoneList: [],
     brandList: [],
     categoryList: [],
-    phoneInfo: null,
     cartList: [],
     isLoading: true,
     orderList: [],
@@ -271,7 +257,6 @@ export const phoneSlice = createSlice({
       );
 
       if (indexToDelete !== -1) {
-        console.log(indexToDelete);
         state.cartList.splice(indexToDelete, 1);
       }
     },
@@ -317,18 +302,7 @@ export const phoneSlice = createSlice({
           state.isLoading = false;
         }
       );
-    builder
-      .addCase(FindProductByIdAction.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(
-        FindProductByIdAction.fulfilled,
-        (state, action: PayloadAction<Product | null>) => {
-          const result = action.payload;
-          state.phoneInfo = result;
-          state.isLoading = false;
-        }
-      );
+
     builder
       .addCase(createOrderAction.pending, (state) => {
         state.isLoading = true;

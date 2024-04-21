@@ -39,7 +39,7 @@ import { fetchOrderAction } from "@/redux/features/phoneSlice";
 import { formatPrice } from "@/utils/price";
 import MainLayout from "../../MainLayout";
 import { useEffect, useState } from "react";
-import Loading from "@/app/components/loading/Loading";
+import Loading from "@/components/loading/Loading";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -83,8 +83,6 @@ export default function DataTableDemo() {
   };
 
   const data: OrderList[] = phoneReducer?.orderList;
-
-  console.log(data)
 
   const columns: ColumnDef<OrderList>[] = [
     {

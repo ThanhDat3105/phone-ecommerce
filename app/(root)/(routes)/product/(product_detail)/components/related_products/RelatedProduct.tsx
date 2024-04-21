@@ -1,20 +1,21 @@
-import ItemProduct from "@/app/components/item_product/ItemProduct";
+import ItemProduct from "@/components/item_product/ItemProduct";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Pagination } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import { Product } from "@/interface/product";
+import { CategoryBrandMapping, Product } from "@/interface/product";
 import { useEffect, useState } from "react";
 
 interface Props {
-  ele: Product[];
-  brand: string | undefined;
+  phoneList: Product[];
+  info: CategoryBrandMapping | undefined;
 }
 
 export default function RelatedProduct(props: Props) {
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const isRelated = "related";
   // Hàm xáo trộn mảng
   const shuffleArray = (array: Product[]) => {
     let shuffledArray = array.slice();
@@ -28,14 +29,22 @@ export default function RelatedProduct(props: Props) {
     return shuffledArray;
   };
 
-  const isRelated = "related";
+  const skeletonItem = () => {
+    return (
+      <div className="relative">
+        <div
+          className={`skeleton h-[407px] w-[266px] item cursor-pointer bg-[#FFFFFF] rounded-[20px] xl:shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] xl:px-7 px-3 xl:pb-[30px] pb-5 relative transition-all duration-300 xl:mb-0 xl:max-w-none md:max-w-[300px] ml-auto mr-auto md:mb-7 xl:hover:scale-[1.03] xl:hover:shadow-[0_5px_10px_0_rgba(0,0,0,0.3)] shadow-[0_5px_10px_0_rgba(0,0,0,0.05)]`}
+        ></div>
+      </div>
+    );
+  };
 
   useEffect(() => {
-    if (props.ele) {
-      const result = shuffleArray(props.ele);
+    if (props.phoneList.length > 0) {
+      const result = shuffleArray(props.phoneList);
       setRelatedProducts(result);
     }
-  }, []);
+  }, [props.phoneList]);
 
   return (
     <div className="related_products mb-[30px]">
@@ -65,16 +74,28 @@ export default function RelatedProduct(props: Props) {
             },
           }}
         >
-          {relatedProducts
-            .filter(
-              (ele: Product) =>
-                ele.categoryBrandMapping.brand.name === props.brand
-            )
-            .map((filteredEle: Product) => (
-              <SwiperSlide key={filteredEle.id_product} className="m-0">
-                <ItemProduct ele={filteredEle} value={isRelated} />
-              </SwiperSlide>
-            ))}
+          {relatedProducts.length > 0 ? (
+            relatedProducts
+              .filter(
+                (ele: Product) =>
+                  ele.categoryBrandMapping.brand.name ===
+                    props.info?.brand.name &&
+                  ele.categoryBrandMapping.category.name ===
+                    props.info?.category.name
+              )
+              .map((filteredEle: Product) => (
+                <SwiperSlide key={filteredEle.id_product} className="m-0">
+                  <ItemProduct ele={filteredEle} value={isRelated} />
+                </SwiperSlide>
+              ))
+          ) : (
+            <div className="flex gap-7">
+              {skeletonItem()}
+              {skeletonItem()}
+              {skeletonItem()}
+              {skeletonItem()}
+            </div>
+          )}
         </Swiper>
       </div>
     </div>

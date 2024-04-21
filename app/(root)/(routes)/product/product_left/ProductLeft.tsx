@@ -34,6 +34,16 @@ export default function ProductLeft(props: Props) {
     props.setFilterBrand(brand);
   };
 
+  const skeletonItem = () => {
+    return (
+      <div className="relative">
+        <div
+          className={`skeleton h-[18.4px] w-[176px] item bg-[#FFFFFF] rounded-[20px] `}
+        ></div>
+      </div>
+    );
+  };
+
   return (
     <div
       className={`product_left z-50 h-screen xl:h-fit absolute xl:w-[20%] w-full bg-white xl:shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] rounded-[10px] pb-12 xl:!translate-x-0 xl:!opacity-[1] ${
@@ -48,22 +58,32 @@ export default function ProductLeft(props: Props) {
                 <h5 className="text-lg">Brand</h5>
               </div>
               <div className="collapse_check pl-5 py-5 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden tracking-widest">
-                {phoneReducer.brandList.map((ele: Brand) => {
-                  return (
-                    <div key={ele.id_brand}>
-                      <span
-                        onClick={() => handleActiveBrand(ele.name)}
-                        className={`${
-                          props.filterBrand === ele.name
-                            ? "font-bold cursor-pointer"
-                            : "font-normal cursor-pointer"
-                        }`}
-                      >
-                        {ele.name}
-                      </span>
-                    </div>
-                  );
-                })}
+                {phoneReducer.brandList.length > 0 ? (
+                  phoneReducer.brandList.map((ele: Brand) => {
+                    return (
+                      <div key={ele.id_brand}>
+                        <span
+                          onClick={() => handleActiveBrand(ele.name)}
+                          className={`${
+                            props.filterBrand === ele.name
+                              ? "font-bold cursor-pointer"
+                              : "font-normal cursor-pointer"
+                          }`}
+                        >
+                          {ele.name}
+                        </span>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="flex flex-col gap-[10px]">
+                    {skeletonItem()}
+                    {skeletonItem()}
+                    {skeletonItem()}
+                    {skeletonItem()}
+                    {skeletonItem()}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -74,25 +94,35 @@ export default function ProductLeft(props: Props) {
                 <h5 className="text-lg">Type</h5>
               </div>
               <div className="collapse_check pl-5 py-5 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden tracking-widest">
-                {phoneReducer.categoryList.map((ele: Category) => {
-                  return (
-                    <div key={ele.id_category}>
-                      <span
-                        onClick={() =>
-                          handleActiveType(ele.id_category, ele.name)
-                        }
-                        className={`${
-                          activeIdType === ele.id_category &&
-                          props.filterType === ele.name
-                            ? "font-bold cursor-pointer"
-                            : "font-normal cursor-pointer"
-                        }`}
-                      >
-                        {ele.name}
-                      </span>
-                    </div>
-                  );
-                })}
+                {phoneReducer.categoryList.length > 0 ? (
+                  phoneReducer.categoryList.map((ele: Category) => {
+                    return (
+                      <div key={ele.id_category}>
+                        <span
+                          onClick={() =>
+                            handleActiveType(ele.id_category, ele.name)
+                          }
+                          className={`${
+                            activeIdType === ele.id_category &&
+                            props.filterType === ele.name
+                              ? "font-bold cursor-pointer"
+                              : "font-normal cursor-pointer"
+                          }`}
+                        >
+                          {ele.name}
+                        </span>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="flex flex-col gap-[10px]">
+                    {skeletonItem()}
+                    {skeletonItem()}
+                    {skeletonItem()}
+                    {skeletonItem()}
+                    {skeletonItem()}
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -1,4 +1,4 @@
-interface CategoryBrandMapping {
+export interface CategoryBrandMapping {
   id_categoryBrand: number;
   id_brand: number;
   id_category: number;

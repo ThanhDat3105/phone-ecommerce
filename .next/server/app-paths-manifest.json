@@ -1,18 +1,5 @@
 {
-  "/_not-found": "app/_not-found.js",
-  "/(root)/(routes)/forgot-password/page": "app/(root)/(routes)/forgot-password/page.js",
-  "/(root)/(routes)/home/page": "app/(root)/(routes)/home/page.js",
-  "/(root)/(routes)/order-list/page": "app/(root)/(routes)/order-list/page.js",
-  "/(root)/(routes)/news/(new_detail)/[id]/page": "app/(root)/(routes)/news/(new_detail)/[id]/page.js",
-  "/(root)/(routes)/news/page": "app/(root)/(routes)/news/page.js",
-  "/(root)/(routes)/reset-password/[token]/page": "app/(root)/(routes)/reset-password/[token]/page.js",
-  "/(root)/(routes)/sign_in/page": "app/(root)/(routes)/sign_in/page.js",
   "/(root)/(routes)/product/page": "app/(root)/(routes)/product/page.js",
-  "/(root)/(routes)/verify-register/[token]/page": "app/(root)/(routes)/verify-register/[token]/page.js",
   "/(root)/(routes)/product/(product_detail)/[id]/page": "app/(root)/(routes)/product/(product_detail)/[id]/page.js",
-  "/(root)/(routes)/sign_up/page": "app/(root)/(routes)/sign_up/page.js",
-  "/(root)/(routes)/cart/page": "app/(root)/(routes)/cart/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/[...not_found]/page": "app/[...not_found]/page.js",
   "/page": "app/page.js"
 }

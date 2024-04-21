@@ -4,12 +4,12 @@ import React, { useRef, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 
-import Collapse from "@/app/components/collapse";
+import Collapse from "@/components/collapse";
 import { IoIosArrowDown } from "react-icons/io";
 
 import "./QNA.scss";
-import { StarFill } from "@/app/components/icons/icon/StarFill";
-import { StarEmpty } from "@/app/components/icons/icon/StarEmpty";
+import { StarFill } from "@/components/icons/icon/StarFill";
+import { StarEmpty } from "@/components/icons/icon/StarEmpty";
 
 export default function QNA() {
   const elRef = useRef<HTMLDivElement>(null);

@@ -3,7 +3,7 @@ import { CartItem, Product } from "@/interface/product";
 import { formatPrice } from "@/utils/price";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { RefObject } from "react";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import { FaShoppingBag } from "react-icons/fa";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { IoMdPerson } from "react-icons/io";
@@ -14,18 +14,37 @@ interface Props {
   handleFocus: () => void;
   handleBlur: () => void;
   setShow: (value: boolean) => void;
+  handleLogOut: () => void;
+  setHeight: () => void;
   cartList: CartItem[];
   dropdownRef: RefObject<HTMLDivElement> | null;
   login: boolean;
-  setHeight: () => void;
   debounceSearch: string;
   filterPhoneSearch: Product[];
-  handleLogOut: () => void;
   pathName: string;
 }
 
 export default function HeaderDesktop(props: Props) {
+  const refSearch = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const [debounceSearch, setDebounceSearch] = useState<string>("");
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (refSearch.current && !refSearch.current.contains(event.target)) {
+        setDebounceSearch("");
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    setDebounceSearch(props.debounceSearch);
+  }, [props.debounceSearch]);
+
   return (
     <>
       <div className="header_menu flex gap-[55px] text-black">
@@ -75,15 +94,18 @@ export default function HeaderDesktop(props: Props) {
           >
             <HiOutlineMagnifyingGlass className="text-xl text-black" />
           </Button>
-          {props.debounceSearch.length > 0 && (
-            <div className="active absolute bg-white w-[270px] left-[-40px] h-[350px] top-[146%] rounded-b-[15px] overflow-auto">
+          {debounceSearch !== "" && (
+            <div
+              ref={refSearch}
+              className="active absolute bg-white w-[270px] left-[-40px] h-[350px] top-[146%] rounded-b-[15px] overflow-auto"
+            >
               {props.filterPhoneSearch && props.filterPhoneSearch.length > 0 ? (
                 props.filterPhoneSearch?.map((ele: Product) => {
                   return (
                     <div
                       key={ele.id_product}
                       onClick={() => router.push(`/product/${ele.id_product}`)}
-                      className="item_phone py-4 transition-all duration-300 flex cursor-pointer gap-[10px] bg-white px-[5px] hover:bg-[rgb(0,0,0,0.5)]"
+                      className="item_phone py-4 transition-all duration-300 flex cursor-pointer gap-[10px] bg-white px-[5px] hover:bg-[#f5f5f5]"
                     >
                       <div className="image w-[60px] h-[60px]">
                         <img

@@ -1,7 +1,7 @@
 "use client";
-import Combobox from "@/app/components/combobox/Combobox";
-import ItemProduct from "@/app/components/item_product/ItemProduct";
-import Pagination from "@/app/components/pagination/Pagination";
+import Combobox from "@/components/combobox/Combobox";
+import ItemProduct from "@/components/item_product/ItemProduct";
+import Pagination from "@/components/pagination/Pagination";
 import { Product } from "@/interface/product";
 import { RootState } from "@/redux/store";
 import { useSearchParams } from "next/navigation";
@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import { CgMenuGridR } from "react-icons/cg";
 import { Button } from "@/components/ui/button";
 import { useSetting } from "@/hook/useSetting";
-import { Divide } from "lucide-react";
 
 const frameworks = [
   {
@@ -57,11 +56,13 @@ export default function ProductRight(props: Props) {
     brandSearching(props.filterBrand);
     setFilterPrice("");
     props.setFilterType("");
+    setCurrentPage(0);
   }, [props.filterBrand]);
 
   useEffect(() => {
     if (props.filterType !== "") {
       typeSearching();
+      setCurrentPage(0);
     }
   }, [props.filterType]);
 
@@ -114,6 +115,7 @@ export default function ProductRight(props: Props) {
   };
 
   const scrollToSection = () => {
+    console.log(ref.current);
     const destination = ref.current;
 
     if (destination) {
@@ -155,8 +157,21 @@ export default function ProductRight(props: Props) {
     }
   };
 
+  const skeletonItem = () => {
+    return (
+      <div className="relative">
+        <div
+          className={`skeleton h-[407px] w-[266px] item cursor-pointer bg-[#FFFFFF] rounded-[20px] xl:shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] xl:px-7 px-3 xl:pb-[30px] pb-5 relative transition-all duration-300 xl:mb-0 xl:max-w-none md:max-w-[300px] ml-auto mr-auto md:mb-7 xl:hover:scale-[1.03] xl:hover:shadow-[0_5px_10px_0_rgba(0,0,0,0.3)] shadow-[0_5px_10px_0_rgba(0,0,0,0.05)]`}
+        ></div>
+      </div>
+    );
+  };
+
   return (
-    <div className="product_right max-[768px]:p-[10px] min-h-[800px] ml-auto">
+    <div
+      ref={ref}
+      className="product_right max-[768px]:p-[10px] min-h-[800px] ml-auto"
+    >
       <div className="filter_phone">
         <div className="min-[1280px]:hidden">
           <div className="total_phone flex justify-between items-center">
@@ -196,25 +211,34 @@ export default function ProductRight(props: Props) {
         </div>
       </div>
       {currentPageData.length > 0 ? (
-        <div
-          className="product_item grid xl:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]"
-          ref={ref}
-        >
+        <div className="product_item grid xl:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]">
           {currentPageData?.map((ele) => {
             return <ItemProduct key={ele.id_product} ele={ele} />;
           })}
         </div>
       ) : (
-        <div className="xl:w-[858px] h-[57%]"></div>
+        <div className="product_item grid xl:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]">
+          {skeletonItem()}
+          {skeletonItem()}
+          {skeletonItem()}
+          {skeletonItem()}
+          {skeletonItem()}
+          {skeletonItem()}
+          {skeletonItem()}
+          {skeletonItem()}
+          {skeletonItem()}
+        </div>
       )}
       <div className="pt-20">
-        <Pagination
-          items={currentPageData}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          totalPages={totalPages}
-          limit={limitPhonePage}
-        />
+        {totalPages > 1 && (
+          <Pagination
+            items={currentPageData}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+            limit={limitPhonePage}
+          />
+        )}
       </div>
     </div>
   );

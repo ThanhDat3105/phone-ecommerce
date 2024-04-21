@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect } from "react";
-import "./home.scss";
 import Banner from "./banner/Banner";
 import Brand from "./brand/Brand";
 import MainLayout from "../../MainLayout";
 import News from "./news/News";
-import Loading from "@/app/components/loading/Loading";
+import Loading from "@/components/loading/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import {
@@ -29,7 +28,7 @@ export default function HomePage() {
   }, []);
 
   const filterPhoneHome = (brand: string) => {
-    const result = phoneReducer?.phoneList?.filter(
+    const result = phoneReducer.phoneList.filter(
       (ele: Product) => ele.categoryBrandMapping.brand.name === brand
     );
     return result;
@@ -45,7 +44,7 @@ export default function HomePage() {
           <div className="home bg-white">
             <Banner />
             <Brand />
-            <ProductHome filterPhoneHome={filterPhoneHome} />
+            <ProductHome phoneList={phoneReducer.phoneList} />
             <News />
           </div>
         </MainLayout>

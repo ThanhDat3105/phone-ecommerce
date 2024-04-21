@@ -1,5 +1,4 @@
 import { Product } from "@/interface/product";
-import React from "react";
 
 interface Props {
   info: Product | undefined;
@@ -13,7 +12,7 @@ export default function Specifications(props: Props) {
           <div className="left uppercase xl:pl-10 w-[50%]">
             <p>Operating system</p>
           </div>
-          <div className="right xl:text-base text-sm w-[50%]">
+          <div className="right max-w-[400px] mr-auto ml-auto xl:text-base text-sm w-[50%]">
             <p>
               {props.info?.categoryBrandMapping?.brand.name === "Apple"
                 ? "IOS "
@@ -28,7 +27,7 @@ export default function Specifications(props: Props) {
           <div className="left uppercase xl:pl-10 w-[50%]">
             <p>color</p>
           </div>
-          <div className="right xl:text-base text-sm w-[50%]">
+          <div className="right max-w-[400px] mr-auto ml-auto xl:text-base text-sm w-[50%]">
             <p>
               Black Titanium <br />
               White Titanium <br />
@@ -42,7 +41,7 @@ export default function Specifications(props: Props) {
               <div className="left uppercase xl:pl-10 w-[50%]">
                 <p>screen</p>
               </div>
-              <div className="right xl:text-base text-sm w-[50%]">
+              <div className="right max-w-[400px] mr-auto ml-auto xl:text-base text-sm w-[50%]">
                 <p>{props.info?.screen}</p>
               </div>
             </div>
@@ -50,7 +49,7 @@ export default function Specifications(props: Props) {
               <div className="left uppercase xl:pl-10 w-[50%]">
                 <p>Rear camera</p>
               </div>
-              <div className="right xl:text-base text-sm w-[50%]">
+              <div className="right max-w-[400px] mr-auto ml-auto xl:text-base text-sm w-[50%]">
                 <p>{props.info?.rear_camera}</p>
               </div>
             </div>
@@ -58,7 +57,7 @@ export default function Specifications(props: Props) {
               <div className="left uppercase xl:pl-10 w-[50%]">
                 <p>Front camera</p>
               </div>
-              <div className="right xl:text-base text-sm w-[50%]">
+              <div className="right max-w-[400px] mr-auto ml-auto xl:text-base text-sm w-[50%]">
                 <p>{props.info?.front_camera}</p>
               </div>
             </div>

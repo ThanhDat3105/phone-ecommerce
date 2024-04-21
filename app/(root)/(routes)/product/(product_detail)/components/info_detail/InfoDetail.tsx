@@ -1,5 +1,5 @@
 "use client";
-import MultiCarousel from "@/app/components/muti_carousel/MultiCarousel";
+import MultiCarousel from "@/components/muti_carousel/MultiCarousel";
 import { Product, Storage } from "@/interface/product";
 
 import { formatPrice } from "@/utils/price";
@@ -9,8 +9,8 @@ import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { addToCart } from "@/redux/features/phoneSlice";
-import { StarFill } from "@/app/components/icons/icon/StarFill";
-import { StarEmpty } from "@/app/components/icons/icon/StarEmpty";
+import { StarFill } from "@/components/icons/icon/StarFill";
+import { StarEmpty } from "@/components/icons/icon/StarEmpty";
 
 interface Props {
   ele: Product | undefined;
@@ -68,7 +68,9 @@ export default function InfoDetail(props: Props) {
       </div>
       <div className="detail_right xl:w-[50%] pt-[75px]">
         <div className="title inline-block">
-          <p className="xl:text-3xl text-2xl font-semibold">{props.ele?.name}</p>
+          <p className="xl:text-3xl text-2xl font-semibold">
+            {props.ele?.name}
+          </p>
           <div className="rate flex gap-[10px] items-center py-5">
             {renderStar}
             <p className="mt-1">{4} Rate</p>
@@ -168,14 +170,6 @@ export default function InfoDetail(props: Props) {
             className="transition-all duration-300 w-full py-[30px] rounded-[15px] text-xl   font-medium bg-[#000] hover:bg-[#5d5d5d] hover:text-[#fff] border-[#5D5D5D] border-[1px]"
           >
             Add to cart
-          </Button>
-        </div>
-        <div className="buy flex gap-10 mb-8">
-          <Button className="transition-all duration-300 w-[50%] py-[30px] rounded-[15px] text-xl border-[1px] border-[#5D5D5D] text-[#5D5D5D] bg-white font-medium hover:bg-[#5D5D5D] hover:text-[white]">
-            Installment
-          </Button>
-          <Button className="transition-all duration-300 w-[50%] py-[30px] rounded-[15px] text-xl border-[1px] border-[#5D5D5D] text-[#5D5D5D] bg-white font-medium hover:bg-[#5D5D5D] hover:text-[white]">
-            Trade - In
           </Button>
         </div>
         <div className="hotline border-[1px] border-[#5D5D5D] rounded-[10px] px-10 py-5">

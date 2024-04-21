@@ -10,7 +10,7 @@ import {
   fetchListCategoryAction,
   fetchListPhoneAction,
 } from "@/redux/features/phoneSlice";
-import Loading from "@/app/components/loading/Loading";
+import Loading from "@/components/loading/Loading";
 
 export default function ProductPage() {
   const [filterBrand, setFilterBrand] = useState<string>("");

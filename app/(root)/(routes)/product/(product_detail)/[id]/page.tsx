@@ -9,12 +9,10 @@ import { useEffect, useState } from "react";
 import { Product } from "@/interface/product";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
-import {
-  FindProductByIdAction,
-  fetchListPhoneAction,
-} from "@/redux/features/phoneSlice";
-import Loading from "@/app/components/loading/Loading";
+import { fetchListPhoneAction } from "@/redux/features/phoneSlice";
+import Loading from "@/components/loading/Loading";
 import { useRouter } from "next/navigation";
+import { findProductByIdApi } from "@/api/service/phone";
 interface Props {
   params: { id: number };
 }
@@ -25,8 +23,9 @@ export default function DetailProduct(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const [phoneInfo, setPhoneInfo] = useState<Product>();
 
-  const findProductById = (id: number) => {
-    dispatch(FindProductByIdAction(id));
+  const findProductById = async (id: number) => {
+    const data = await findProductByIdApi(id);
+    if (data) setPhoneInfo(data.data.content);
   };
 
   const fetchPhoneList = () => {
@@ -36,21 +35,15 @@ export default function DetailProduct(props: Props) {
   useEffect(() => {
     findProductById(props.params.id);
 
-    if (!phoneReducer.phoneInfo) {
+    if (phoneReducer.phoneList.length === 0) {
       fetchPhoneList();
     }
-  }, []);
-
-  useEffect(() => {
-    if (phoneReducer.phoneInfo) {
-      setPhoneInfo(phoneReducer.phoneInfo);
-    }
-  }, [phoneReducer.phoneInfo]);
+  }, [props.params.id]);
 
   return (
     <MainLayout>
-      {phoneReducer.isLoading && <Loading />}
-      {phoneReducer.isLoading ? (
+      {!phoneInfo && <Loading />}
+      {!phoneInfo ? (
         <div className="min-h-[600px]"></div>
       ) : (
         <div className="product_detail xl:pt-[120px] min-[768px]:pt-[100px] pt-[90px] bg-white">
@@ -78,13 +71,13 @@ export default function DetailProduct(props: Props) {
             </div>
             <InfoDetail ele={phoneInfo} key={phoneInfo?.id_product} />
             <RelatedProduct
-              ele={phoneReducer.phoneList}
-              brand={phoneReducer.phoneInfo?.categoryBrandMapping.brand.name}
+              phoneList={phoneReducer.phoneList}
+              info={phoneInfo?.categoryBrandMapping}
             />
-          </div>
-          <div className="information">
-            <div className="button_information"></div>
-            <InformationTable info={phoneInfo} />
+            <div className="information">
+              <div className="button_information"></div>
+              <InformationTable info={phoneInfo} />
+            </div>
           </div>
         </div>
       )}
