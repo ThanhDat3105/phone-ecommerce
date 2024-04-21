@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { CgMenuGridR } from "react-icons/cg";
 import { Button } from "@/components/ui/button";
 import { useSetting } from "@/hook/useSetting";
+import notFound from "../../../../../public/no_products_found.png";
 
 const frameworks = [
   {
@@ -217,16 +218,12 @@ export default function ProductRight(props: Props) {
           })}
         </div>
       ) : (
-        <div className="product_item grid xl:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]">
-          {skeletonItem()}
-          {skeletonItem()}
-          {skeletonItem()}
-          {skeletonItem()}
-          {skeletonItem()}
-          {skeletonItem()}
-          {skeletonItem()}
-          {skeletonItem()}
-          {skeletonItem()}
+        <div className="w-[858px] h-[500px] relative">
+          <img
+            src={notFound.src}
+            alt="Not Found"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+          />
         </div>
       )}
       <div className="pt-20">

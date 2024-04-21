@@ -53,7 +53,6 @@ const formSchema = z.object({
 type registerFormValues = z.infer<typeof formSchema>;
 
 export default function RegisterPage() {
-  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const form = useForm<registerFormValues>({
     resolver: zodResolver(formSchema),
