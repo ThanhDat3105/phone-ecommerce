@@ -65,7 +65,7 @@ export default function ItemProduct(props: Props) {
           blur ? "blur-lg" : "blur-0"
         }`}
       >
-        <div className="image">
+        <div className="image ">
           <img
             ref={imgRef}
             lazy-src={props.ele.thumbnail}

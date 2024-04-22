@@ -56,21 +56,25 @@ export default function ModalCart(props: Props) {
               })}
             </div>
           ) : (
-            <img
-              src={emptyCart.src}
-              alt="emptyCart"
-              className="empty_cart absolute bottom-[50%] right-[50%] translate-x-[50%] translate-y-[50%]"
-            />
+            <div className="empty_cart h-[70%] relative">
+              <img
+                src={emptyCart.src}
+                alt="emptyCart"
+                className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"
+              />
+            </div>
           )}
           <p className="mt-5 flex justify-end font-semibold">
             Total: {formatPrice(Number(totalAmount))}đ
           </p>
-          <Button
-            onClick={() => router.push("/cart")}
-            className="absolute bottom-[5%] right-[50%] translate-x-[50%] w-[90%] py-[25px] text-xl"
-          >
-            Go to checkout
-          </Button>
+          <div className="button_checkout mt-5 flex justify-center">
+            <Button
+              onClick={() => router.push("/cart")}
+              className="text-xl w-full"
+            >
+              Go to checkout
+            </Button>
+          </div>
         </div>
       </div>
     </div>

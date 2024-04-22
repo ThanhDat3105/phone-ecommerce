@@ -11,7 +11,11 @@ export default function TotalProduct(props: Props) {
   return (
     <>
       {props.mobile ? (
-        <div className="body_total h-[400px] overflow-auto pt-5">
+        <div
+          className={`body_total overflow-auto pt-5 ${
+            props.cartList.length > 1 ? "h-[400px]" : "h-[200px]"
+          }`}
+        >
           {props.cartList?.map((ele: CartItem) => {
             return (
               <BuyItem mobile={props.mobile} key={ele.id_product} ele={ele} />
@@ -28,7 +32,7 @@ export default function TotalProduct(props: Props) {
             <p className=""></p>
           </div>
           <div className="separate h-[1px] bg-black" />
-          <div className="body_total max-[1024px]:h-[538px] max-[1024px]:overflow-auto pt-5 ">
+          <div className="body_total max-[1024px]:h-[538px] h-[260px] overflow-auto pt-5">
             {props.cartList?.map((ele: CartItem) => {
               return <BuyItem key={ele.id_product} ele={ele} />;
             })}

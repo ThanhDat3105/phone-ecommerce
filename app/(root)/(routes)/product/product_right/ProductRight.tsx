@@ -46,18 +46,22 @@ export default function ProductRight(props: Props) {
   const [dataFilterBrand, setDataFilterBrand] = useState<Product[]>([]);
 
   const quantityItemRender = 18;
+  const limitPhonePage = 5;
+  const totalPages = Math.ceil(dataFilter?.length / quantityItemRender);
 
   const startItemIndex = currentPage * quantityItemRender;
   const endItemIndex = startItemIndex + quantityItemRender;
   const currentPageData = dataFilter?.slice(startItemIndex, endItemIndex);
-  const limitPhonePage = 5;
-  const totalPages = Math.ceil(dataFilter?.length / quantityItemRender);
 
   useEffect(() => {
-    brandSearching(props.filterBrand);
-    setFilterPrice("");
-    props.setFilterType("");
-    setCurrentPage(0);
+    if (props.filterBrand !== "") {
+      brandSearching(props.filterBrand);
+      setFilterPrice("");
+      props.setFilterType("");
+      setCurrentPage(0);
+    } else {
+      setDataFilter(phoneReducer.phoneList);
+    }
   }, [props.filterBrand]);
 
   useEffect(() => {

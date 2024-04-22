@@ -21,17 +21,26 @@ export default function ProductLeft(props: Props) {
   const router = useRouter();
   const setting = useSetting();
   const [activeIdType, setActiveIdType] = useState<number>(0);
+  const [activeIdBrand, setActiveIdBrand] = useState<number>(0);
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
+
+  const handleActiveBrand = (brand: string, id: number) => {
+    if (id !== -1 && activeIdBrand !== id) {
+      router.push(`/product?brand=${brand}`);
+      setActiveIdBrand(id);
+      setActiveIdType(-1);
+      props.setFilterBrand(brand);
+    } else {
+      router.push(`/product?brand=`);
+      setActiveIdBrand(-1);
+      setActiveIdType(-1);
+      props.setFilterBrand("");
+    }
+  };
 
   const handleActiveType = (id: number, type: string) => {
     setActiveIdType(id);
     props.setFilterType(type);
-  };
-
-  const handleActiveBrand = (brand: string) => {
-    router.push(`/product?brand=${brand}`);
-    setActiveIdType(-1);
-    props.setFilterBrand(brand);
   };
 
   const skeletonItem = () => {
@@ -63,8 +72,11 @@ export default function ProductLeft(props: Props) {
                     return (
                       <div key={ele.id_brand}>
                         <span
-                          onClick={() => handleActiveBrand(ele.name)}
+                          onClick={() =>
+                            handleActiveBrand(ele.name, ele.id_brand)
+                          }
                           className={`${
+                            activeIdBrand === ele.id_brand &&
                             props.filterBrand === ele.name
                               ? "font-bold cursor-pointer"
                               : "font-normal cursor-pointer"
@@ -127,15 +139,13 @@ export default function ProductLeft(props: Props) {
             </div>
           </div>
         </div>
-        {props.screen ? (
+        {props.screen && (
           <Button
             onClick={() => setting.onClose()}
             className="button_close bg-white hover:bg-[#ede9e9] text-black text-2xl absolute top-0 right-0"
           >
             <AiOutlineClose className="btn_close transition-all duration-300 cursor-pointer hover:text-[rgba(0,0,0,0.5)]" />
           </Button>
-        ) : (
-          ""
         )}
       </div>
     </div>

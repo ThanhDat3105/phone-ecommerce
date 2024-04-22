@@ -184,7 +184,7 @@ export default function CartPage() {
               )}
             </div>
             {!progress ? (
-              <div className="right">
+              <div className="right pt-10">
                 <div className="content p-[30px] xl:mt-48 bg-[#FFFFFF] rounded-[15px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)]">
                   <div className="title">
                     <p className="text-xl font-bold text-[#000]">
@@ -203,7 +203,7 @@ export default function CartPage() {
                         />
                         <IoIosArrowDown className="absolute top-[50%] translate-y-[-50%] right-[5%] cursor-pointer" />
                       </div>
-                      <button className="border py-[6px] px-1 border-[#AAAAAA] bottom-0 h-full rounded-[10px] rounded-tl-none rounded-bl-none bg-transparent text-black font-bold hover:text-white hover:bg-black duration-200">
+                      <button className="border py-[6px] px-3 border-[#AAAAAA] hover:border-transparent bottom-0 h-full rounded-[10px] rounded-tl-none rounded-bl-none bg-transparent text-black font-bold hover:text-white hover:bg-black duration-200">
                         Submit
                       </button>
                     </div>
@@ -212,8 +212,8 @@ export default function CartPage() {
                   <div className="discount">
                     <div className="total_discount">
                       <div className="text-sm text-[#444444] flex justify-between pb-1">
-                        <p>{cartList.length} Item</p>
-                        <p>{formatPrice(Number(totalAmount))}</p>
+                        <p>Total products ({cartList.length})</p>
+                        <p>{formatPrice(Number(totalAmount))}đ</p>
                       </div>
                       <div className="text-sm text-[#444444] flex justify-between">
                         <p>Discount</p>
@@ -241,7 +241,7 @@ export default function CartPage() {
                 <div className="content w-[35%] h-[550px] p-[30px] xl:mt-48 bg-[#FFFFFF] rounded-[15px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)]">
                   <div className="title">
                     <p className="text-xl font-bold text-[#000]">
-                      Cart Summary
+                      Cart Summary ({cartList.length})
                     </p>
                   </div>
                   <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
@@ -251,8 +251,10 @@ export default function CartPage() {
                         return (
                           <div
                             key={item.id_product}
-                            className={`item_cart flex justify-between border-b-[1px] border-b-[#D5D5D5] py-[15px] ${
-                              cartList.length - 1 === index && "border-b-0"
+                            className={`item_cart flex justify-between  py-[15px] ${
+                              cartList.length - 1 === index
+                                ? "border-b-0"
+                                : "border-b-[1px] border-b-[#D5D5D5]"
                             }`}
                           >
                             <div className="item_left w-1/2">
@@ -295,10 +297,10 @@ export default function CartPage() {
                   </div>
                   <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
                   <div className="discount">
-                    <div className="total_discount">
-                      <div className="text-sm text-[#444444] flex justify-between pb-1">
-                        <p>{cartList.length} Item</p>
-                        <p>{formatPrice(Number(totalAmount))}</p>
+                    <div className="total_discount flex flex-col gap-1">
+                      <div className="text-sm text-[#444444] flex justify-between">
+                        <p>Total products ({cartList.length})</p>
+                        <p>{formatPrice(Number(totalAmount))}đ</p>
                       </div>
                       <div className="text-sm text-[#444444] flex justify-between">
                         <p>Delivery</p>

@@ -28,11 +28,13 @@ export default function ProductPage() {
 
   useEffect(() => {
     handleFetchApi();
+  }, []);
 
+  useEffect(() => {
     if (Number(productRef.current?.clientWidth) < 1280) {
       setScreen(true);
     }
-  }, []);
+  }, [phoneReducer.categoryList]);
 
   return (
     <MainLayout>

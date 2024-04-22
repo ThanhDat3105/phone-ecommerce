@@ -48,7 +48,7 @@ export default function NewPage() {
   useEffect(() => {
     setTimeout(() => {
       setBlur("blur-0");
-    }, 500);
+    }, 200);
   }, []);
 
   return (
@@ -69,7 +69,7 @@ export default function NewPage() {
                   alt="new"
                   className={`${blur} transition-all duration-300`}
                 />
-                <p className="absolute xl:text-2xl text-lg font-semibold text-center xl:w-[490px] w-[300px] xl:bottom-[5%] min-[500px]:bottom-[-10%] lg:bottom-[-20%] bottom-[-20%] rounded-[20px] xl:py-5 py-3 xl:px-[35px] right-[50%] translate-x-[50%] bg-white">
+                <p className="absolute xl:text-2xl text-lg font-semibold text-center xl:w-[490px] w-[300px] xl:bottom-[5%] min-[500px]:bottom-[-10%] lg:bottom-[15%] bottom-[-20%] rounded-[20px] xl:py-5 py-3 xl:px-[35px] right-[50%] translate-x-[50%] bg-white">
                   Tiêu điểm cuối năm 2023: Tổng hợp sản phẩm MacBook và iMac mới
                   nhất của Apple
                 </p>
@@ -85,7 +85,7 @@ export default function NewPage() {
                     className={`rounded-[20px] ${blur} transition-all duration-300`}
                   />
                   <div className="liner_gradient" />
-                  <p className="absolute text-xl font-semibold text-center text-white bottom-0 w-[330px]">
+                  <p className="absolute xl:text-xl text-sm xl:w-[330px] font-semibold text-center text-white bottom-0 ">
                     Thông số MacBook Air M2 15 inch 2023 có gì mới? Có đáng để
                     “xuống tiền?
                   </p>
@@ -100,7 +100,7 @@ export default function NewPage() {
                     className={`rounded-[20px] ${blur} transition-all duration-300`}
                   />
                   <div className="liner_gradient" />
-                  <p className="absolute text-xl font-semibold text-center text-white bottom-0 w-[330px]">
+                  <p className="absolute  xl:text-xl xl:w-[330px] text-sm font-semibold text-center text-white bottom-0 ">
                     iPad đang dần thay thế Macbook như thế nào?
                   </p>
                 </div>

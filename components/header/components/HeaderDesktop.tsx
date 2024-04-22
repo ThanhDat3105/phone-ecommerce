@@ -164,7 +164,7 @@ export default function HeaderDesktop(props: Props) {
             {!props.login ? (
               <>
                 <div
-                  className="login px-5 py-3 cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
+                  className="login px-5 py-3 cursor-pointer bg-white text-black hover:bg-[#f5f5f5] transition-all duration-300"
                   onClick={() => {
                     router.push("/sign_in?urlBack=/"), props.setHeight();
                   }}
@@ -172,7 +172,7 @@ export default function HeaderDesktop(props: Props) {
                   Login
                 </div>
                 <div
-                  className="register px-5 py-3 bg-white text-black cursor-pointer hover:opacity-80 transition-all duration-300"
+                  className="register px-5 py-3 bg-white text-black cursor-pointer hover:bg-[#f5f5f5] transition-all duration-300"
                   onClick={() => {
                     router.push("/sign_up"), props.setHeight();
                   }}
@@ -183,13 +183,13 @@ export default function HeaderDesktop(props: Props) {
             ) : (
               <>
                 <div
-                  className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
+                  className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:bg-[#f5f5f5] transition-all duration-300"
                   onClick={() => router.push("/order-list")}
                 >
                   Order list
                 </div>
                 <div
-                  className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300"
+                  className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:bg-[#f5f5f5] transition-all duration-300"
                   onClick={() => props.handleLogOut()}
                 >
                   Log out
