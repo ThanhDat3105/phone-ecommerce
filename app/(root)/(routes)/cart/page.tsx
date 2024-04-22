@@ -248,7 +248,10 @@ export default function CartPage() {
                     {cartList.length > 0 &&
                       cartList.map((item: CartItem) => {
                         return (
-                          <div className="item_cart flex justify-between border-b-[1px] border-b-[#D5D5D5] py-[15px]">
+                          <div
+                            key={item.id_product}
+                            className="item_cart flex justify-between border-b-[1px] border-b-[#D5D5D5] py-[15px]"
+                          >
                             <div className="item_left w-1/2">
                               <div className="image_item w-[120px] h-[120px] relative">
                                 <img
