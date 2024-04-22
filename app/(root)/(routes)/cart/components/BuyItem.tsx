@@ -47,7 +47,7 @@ export default function BuyItem(props: Props) {
   return (
     <>
       {props.mobile ? (
-        <div className="item flex justify-between pb-10">
+        <div className="item flex justify-between pb-10 items-center">
           <div className="item_left">
             <div className="image flex items-center w-[70px]">
               <img

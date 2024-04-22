@@ -11,7 +11,7 @@ export default function TotalProduct(props: Props) {
   return (
     <>
       {props.mobile ? (
-        <div className="body_total pt-5">
+        <div className="body_total h-[400px] overflow-auto pt-5">
           {props.cartList?.map((ele: CartItem) => {
             return (
               <BuyItem mobile={props.mobile} key={ele.id_product} ele={ele} />

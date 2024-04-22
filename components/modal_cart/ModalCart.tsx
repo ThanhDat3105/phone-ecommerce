@@ -11,6 +11,7 @@ import { CartItem } from "@/interface/product";
 import { Button } from "@/components/ui/button";
 import ItemCart from "./ItemCart";
 import { useRouter } from "next/navigation";
+import { formatPrice } from "@/utils/price";
 
 interface Props {
   show: boolean;
@@ -21,6 +22,10 @@ interface Props {
 export default function ModalCart(props: Props) {
   const router = useRouter();
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
+  const totalAmount = phoneReducer.cartList?.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
 
   useEffect(() => {
     if (props.show === true) {
@@ -57,6 +62,9 @@ export default function ModalCart(props: Props) {
               className="empty_cart absolute bottom-[50%] right-[50%] translate-x-[50%] translate-y-[50%]"
             />
           )}
+          <p className="mt-5 flex justify-end font-semibold">
+            Total: {formatPrice(Number(totalAmount))}đ
+          </p>
           <Button
             onClick={() => router.push("/cart")}
             className="absolute bottom-[5%] right-[50%] translate-x-[50%] w-[90%] py-[25px] text-xl"

@@ -30,6 +30,11 @@
       "static/css/app/(root)/(routes)/cart/page.css",
       "static/chunks/app/(root)/(routes)/cart/page.js"
     ],
+    "/[...not_found]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/[...not_found]/page.js"
+    ],
     "/(root)/(routes)/product/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

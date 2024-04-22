@@ -194,17 +194,18 @@ export default function CartPage() {
                   <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
                   <div className="voucher">
                     <p className="font-semibold">Voucher</p>
-                    <div className="input_voucher mt-[15px] relative">
-                      <input
-                        type="text"
-                        placeholder="Add Voucher"
-                        className="border-[#AAAAAA] border-[1px] rounded-[10px] py-[6px] pl-[10px] pr-[100px] focus-visible:outline-none"
-                      />
-                      <div className="separate absolute top-[50%] translate-y-[-50%] right-[26%] lg:right-[26%] min-[500px]:right-[63%] h-[80%] w-[1px] bg-[#D5D5D5]" />
-                      <IoIosArrowDown className="absolute top-[50%] translate-y-[-50%] right-[31%] lg:right-[31%] min-[500px]:right-[65%] cursor-pointer" />
-                      <Button className="absolute right-0 lg:right-0 min-[500px]:right-1/2 bottom-0 h-full rounded-[10px] rounded-tl-none rounded-bl-none bg-transparent text-black font-bold hover:text-white">
+                    <div className="input_voucher mt-[15px] flex">
+                      <div className="input relative">
+                        <input
+                          type="text"
+                          placeholder="Add Voucher"
+                          className="border-[#AAAAAA] border-[1px] rounded-[10px] py-[6px] pl-[10px] rounded-r-none focus-visible:outline-none"
+                        />
+                        <IoIosArrowDown className="absolute top-[50%] translate-y-[-50%] right-[5%] cursor-pointer" />
+                      </div>
+                      <button className="border py-[6px] px-1 border-[#AAAAAA] bottom-0 h-full rounded-[10px] rounded-tl-none rounded-bl-none bg-transparent text-black font-bold hover:text-white hover:bg-black duration-200">
                         Submit
-                      </Button>
+                      </button>
                     </div>
                   </div>
                   <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
@@ -237,20 +238,22 @@ export default function CartPage() {
               </div>
             ) : (
               !mobile && (
-                <div className="content w-[35%] p-[30px] xl:mt-48 bg-[#FFFFFF] rounded-[15px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)]">
+                <div className="content w-[35%] h-[550px] p-[30px] xl:mt-48 bg-[#FFFFFF] rounded-[15px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)]">
                   <div className="title">
                     <p className="text-xl font-bold text-[#000]">
                       Cart Summary
                     </p>
                   </div>
                   <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
-                  <div className="product_order my-[15px] h-[500px] overflow-auto">
+                  <div className="product_order my-[15px] h-[300px] overflow-auto">
                     {cartList.length > 0 &&
-                      cartList.map((item: CartItem) => {
+                      cartList.map((item: CartItem, index: number) => {
                         return (
                           <div
                             key={item.id_product}
-                            className="item_cart flex justify-between border-b-[1px] border-b-[#D5D5D5] py-[15px]"
+                            className={`item_cart flex justify-between border-b-[1px] border-b-[#D5D5D5] py-[15px] ${
+                              cartList.length - 1 === index && "border-b-0"
+                            }`}
                           >
                             <div className="item_left w-1/2">
                               <div className="image_item w-[120px] h-[120px] relative">
@@ -290,6 +293,7 @@ export default function CartPage() {
                         );
                       })}
                   </div>
+                  <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
                   <div className="discount">
                     <div className="total_discount">
                       <div className="text-sm text-[#444444] flex justify-between pb-1">
