@@ -15,7 +15,7 @@ import { RootState } from "@/redux/store";
 import { User } from "@/interface/user";
 import { toast } from "sonner";
 import EmptyCart from "@/public/image/cart/empty-cart.png";
-import { ValueFormOrder } from "@/interface/product";
+import { CartItem, ValueFormOrder } from "@/interface/product";
 
 export default function CartPage() {
   const cartList = useSelector(
@@ -65,7 +65,7 @@ export default function CartPage() {
       }
     }
 
-    if (Number(ref.current?.clientWidth) < 768) {
+    if (Number(ref.current?.clientWidth) < 1280) {
       setMobile(true);
     }
   }, []);
@@ -106,7 +106,7 @@ export default function CartPage() {
       {cartList?.length > 0 ? (
         <div ref={ref} className="cart xl:py-[115px] py-[90px] bg-white">
           <div className="container_all xl:flex gap-[60px]">
-            <div className="left xl:w-[70%]">
+            <div className="left xl:w-[65%]">
               <div className="menu_back flex text-[#5D5D5D] tracking-wider gap-6 pb-[25px]">
                 <p
                   onClick={() => router.push("/")}
@@ -183,7 +183,7 @@ export default function CartPage() {
                 />
               )}
             </div>
-            {!progress && (
+            {!progress ? (
               <div className="right">
                 <div className="content p-[30px] xl:mt-48 bg-[#FFFFFF] rounded-[15px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)]">
                   <div className="title">
@@ -235,6 +235,81 @@ export default function CartPage() {
                   </div>
                 </div>
               </div>
+            ) : (
+              !mobile && (
+                <div className="content w-[35%] p-[30px] xl:mt-48 bg-[#FFFFFF] rounded-[15px] shadow-[0_5px_10px_0_rgb(0,0,0,0.2)]">
+                  <div className="title">
+                    <p className="text-xl font-bold text-[#000]">
+                      Cart Summary
+                    </p>
+                  </div>
+                  <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
+                  <div className="product_order my-[15px] h-[500px] overflow-auto">
+                    {cartList.length > 0 &&
+                      cartList.map((item: CartItem) => {
+                        return (
+                          <div className="item_cart flex justify-between border-b-[1px] border-b-[#D5D5D5] py-[15px]">
+                            <div className="item_left w-1/2">
+                              <div className="image_item w-[120px] h-[120px] relative">
+                                <img
+                                  src={item.thumbnail}
+                                  alt={item.name}
+                                  className="absolute top-1/2 -translate-x-1/2 -right-1/2 -translate-y-1/2"
+                                />
+                              </div>
+                            </div>
+                            <div className="item_mid flex flex-col justify-center w-1/2">
+                              <div className="info_item flex flex-col gap-[8px]">
+                                <div className="name_item text-base font-semibold overflow-hidden max-w-[120px] truncate">
+                                  {item.name}
+                                </div>
+                                <div className="info_detail items-center flex text-sm tracking-widest text-[#5D5D5D] gap-[20px]">
+                                  <p>{item.storage}</p>
+                                  <p
+                                    style={{
+                                      backgroundColor: `${item.color}`,
+                                    }}
+                                    className={`max-w-[20px] max-h-[20px] w-[20px] h-[20px] rounded-full`}
+                                  ></p>
+                                </div>
+                                <div className="price_item text-xs font-semibold tracking-widest">
+                                  {formatPrice(
+                                    Number(item.price * item.quantity)
+                                  )}
+                                  đ
+                                </div>
+                                <div className="number w-full">
+                                  <p>Quantity: {item.quantity}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                  <div className="discount">
+                    <div className="total_discount">
+                      <div className="text-sm text-[#444444] flex justify-between pb-1">
+                        <p>{cartList.length} Item</p>
+                        <p>{formatPrice(Number(totalAmount))}</p>
+                      </div>
+                      <div className="text-sm text-[#444444] flex justify-between">
+                        <p>Delivery</p>
+                        <p>{formatPrice(Number(0))}</p>
+                      </div>
+                      <div className="text-sm text-[#444444] flex justify-between">
+                        <p>Discount</p>
+                        <p>-0%</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="separate h-[1px] my-[15px] bg-[#D5D5D5]" />
+                  <div className="total flex justify-between pb-6">
+                    <p className="font-semibold">Total</p>
+                    <p>{formatPrice(Number(totalAmount))}đ</p>
+                  </div>
+                </div>
+              )
             )}
           </div>
         </div>
