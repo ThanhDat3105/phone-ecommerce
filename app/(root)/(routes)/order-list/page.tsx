@@ -329,7 +329,10 @@ export default function DataTableDemo() {
                       <ul>
                         {dataDetail.productItem?.map((item: CartItem) => {
                           return (
-                            <li className="text-gray-600 py-4 ">
+                            <li
+                              key={item.id_product}
+                              className="text-gray-600 py-4 "
+                            >
                               <div className="flex items-center justify-between">
                                 <p>{item.name}</p>
                                 <p>{formatPrice(item.price)}&nbsp;₫ </p>
