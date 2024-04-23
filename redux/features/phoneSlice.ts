@@ -1,9 +1,4 @@
-import {
-  createOrderApi,
-  fetchOrderApi,
-  fetchOrderByIdUserApi,
-} from "@/api/service/order";
-import { OrderList } from "@/interface/order";
+import { createOrderApi } from "@/api/service/order";
 import {
   forgotPasswordApi,
   loginApi,
@@ -18,7 +13,6 @@ import { toast } from "sonner";
 
 interface phoneState {
   cartList: CartItem[];
-  orderList: OrderList[];
   isLoading: boolean;
 }
 
@@ -27,30 +21,6 @@ export const createOrderAction = createAsyncThunk(
   async (data: ValueFormOrder) => {
     try {
       const result = await createOrderApi(data.values);
-      return result.data.content;
-    } catch (error) {
-      console.log("Error BE");
-    }
-  }
-);
-
-export const fetchOrderAction = createAsyncThunk(
-  "phoneReducer/fetchOrderAction",
-  async () => {
-    try {
-      const result = await fetchOrderApi();
-      return result.data.content;
-    } catch (error) {
-      console.log("Error BE");
-    }
-  }
-);
-
-export const fetchOrderByIdUserAction = createAsyncThunk(
-  "phoneReducer/fetchOrderByIdUserAction",
-  async (id: number) => {
-    try {
-      const result = await fetchOrderByIdUserApi(id);
       return result.data.content;
     } catch (error) {
       console.log("Error BE");
@@ -145,7 +115,6 @@ export const phoneSlice = createSlice({
   initialState: {
     cartList: [],
     isLoading: true,
-    orderList: [],
   } as phoneState,
 
   reducers: {
@@ -224,24 +193,6 @@ export const phoneSlice = createSlice({
         createOrderAction.fulfilled,
         (state, action: PayloadAction<Order>) => {
           state.cartList = [];
-        }
-      );
-    builder
-      .addCase(fetchOrderByIdUserAction.pending, (state) => {})
-      .addCase(
-        fetchOrderByIdUserAction.fulfilled,
-        (state, action: PayloadAction<OrderList[]>) => {
-          const result = action.payload;
-          state.orderList = result;
-        }
-      );
-    builder
-      .addCase(fetchOrderAction.pending, (state) => {})
-      .addCase(
-        fetchOrderAction.fulfilled,
-        (state, action: PayloadAction<OrderList[]>) => {
-          const result = action.payload;
-          state.orderList = result;
         }
       );
   },

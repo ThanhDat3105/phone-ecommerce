@@ -33,12 +33,6 @@ import {
 } from "@/components/ui/table";
 import { formatDate } from "@/utils/moment";
 import { OrderList } from "@/interface/order";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/redux/store";
-import {
-  fetchOrderAction,
-  fetchOrderByIdUserAction,
-} from "@/redux/features/phoneSlice";
 import { formatPrice } from "@/utils/price";
 import MainLayout from "../../MainLayout";
 import { useEffect, useState } from "react";
@@ -47,12 +41,13 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { User } from "@/interface/user";
 import { CartItem } from "@/interface/product";
+import useSWR from "swr";
+import { fetchOrderByIdUserApi } from "@/api/service/order";
 
 export default function DataTableDemo() {
-  const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
-  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+  const [user, setUSer] = useState<User>();
   const [dataDetail, setDataDetail] = useState<OrderList>();
   const [animation, setAnimation] = useState<boolean>(false);
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -60,26 +55,32 @@ export default function DataTableDemo() {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
-  const handleFetchApi = (id: number) => {
-    dispatch(fetchOrderByIdUserAction(id));
-  };
-
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const getUserLocalStorage = localStorage.getItem("USER_INFO_KEY");
-      if (getUserLocalStorage) {
-        const user: User = JSON.parse(getUserLocalStorage);
-        handleFetchApi(user.id_user);
-      } else {
-        toast.success("Login to continue");
-        router.push(`/sign_in?urlBack=/order-list`);
-      }
+    const getUserLocalStorage = localStorage.getItem("USER_INFO_KEY");
+    if (getUserLocalStorage) {
+      const user: User = JSON.parse(getUserLocalStorage);
+      setUSer(user);
+    } else {
+      toast.success("Login to continue");
+      router.push(`/sign_in?urlBack=/order-list`);
     }
   }, []);
 
+  const dataPhoneSWR = useSWR(
+    user ? `order/find-order-user/${user?.id_user}` : null,
+    fetchOrderByIdUserApi,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
+
   const viewDetail = async (id: number) => {
     setDataDetail(
-      phoneReducer.orderList.find((item: OrderList) => item.id_order === id)
+      dataPhoneSWR?.data?.data?.content.find(
+        (item: OrderList) => item.id_order === id
+      )
     );
     setAnimation(true);
     setOpen(true);
@@ -92,9 +93,7 @@ export default function DataTableDemo() {
     }, 150);
   };
 
-  console.log(dataDetail?.productItem[0]);
-
-  const data: OrderList[] = phoneReducer?.orderList;
+  const data: OrderList[] = dataPhoneSWR?.data?.data?.content;
 
   const columns: ColumnDef<OrderList>[] = [
     {
@@ -181,9 +180,10 @@ export default function DataTableDemo() {
 
   return (
     <>
-      {phoneReducer.isLoading && <Loading />}
-      {phoneReducer.isLoading ? (
-        <div className="min-h-[600px]"></div>
+      {dataPhoneSWR?.data === undefined ? (
+        <div className="min-h-screen">
+          <Loading />
+        </div>
       ) : (
         <MainLayout>
           <div className="container_order px-[32px] h-screen bg-white">
@@ -212,8 +212,8 @@ export default function DataTableDemo() {
                     ))}
                   </TableHeader>
                   <TableBody>
-                    {table.getRowModel().rows?.length ? (
-                      table.getRowModel().rows.map((row) => (
+                    {table?.getRowModel().rows?.length ? (
+                      table?.getRowModel().rows.map((row) => (
                         <TableRow
                           key={row.id}
                           data-state={row.getIsSelected() && "selected"}
