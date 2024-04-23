@@ -87,7 +87,6 @@ export default function ProductRight(props: Props) {
         );
         setDataFilter(data);
       }
-      // setCurrentPage(0);
     }
   }, [props.filterType]);
 

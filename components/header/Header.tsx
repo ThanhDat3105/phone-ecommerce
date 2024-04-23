@@ -14,6 +14,8 @@ import ModalMenu from "./modal_menu/ModalMenu";
 import useDebounce from "@/hook/useDebounce";
 import HeaderMobile from "./components/HeaderMobile";
 import HeaderDesktop from "./components/HeaderDesktop";
+import useSWR from "swr";
+import { fetchListPhoneApi } from "@/api/service/phone";
 
 export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -31,6 +33,12 @@ export default function Header() {
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
   let debounceSearch = useDebounce(valueSearch, 200);
+
+  const dataPhoneSWR = useSWR("product/product-list", fetchListPhoneApi, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -93,7 +101,7 @@ export default function Header() {
   };
 
   const filterPhone = () => {
-    const filterPhone = phoneReducer?.phoneList?.filter((ele) => {
+    const filterPhone = dataPhoneSWR?.data?.data?.content.filter((ele: Product) => {
       return (
         ele.name
           .normalize("NFD")
