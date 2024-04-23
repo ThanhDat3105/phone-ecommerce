@@ -16,9 +16,9 @@ export const fetchOrderApi = () => {
   });
 };
 
-export const fetchOrderByIdApi = (id: number) => {
+export const fetchOrderByIdUserApi = (id: number) => {
   return axiosRequest({
-    url: `order/find-order/${id}`,
+    url: `order/find-order-user/${id}`,
     method: "GET",
   });
 };

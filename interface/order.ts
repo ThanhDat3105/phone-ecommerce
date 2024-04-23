@@ -1,8 +1,10 @@
 interface ProductItem {
+  id_product: number;
+  thumbnail: string;
   name: string;
+  storage: string;
   color: string;
   price: number;
-  storage: string;
   quantity: number;
 }
 

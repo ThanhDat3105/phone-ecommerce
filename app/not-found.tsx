@@ -1,13 +1,10 @@
-"use client";
-
 import notFound from "@/public/not_found.png";
 
-import { useRouter } from "next/navigation";
-import MainLayout from "./(root)/MainLayout";
 import { Button } from "@/components/ui/button";
+import MainLayout from "./(root)/MainLayout";
+import Link from "next/link";
 
 export default function NotFound() {
-  const router = useRouter();
   return (
     <MainLayout>
       <div className="not_found h-screen pt-[140px]">
@@ -25,11 +22,8 @@ export default function NotFound() {
                 To back or head over to k.vn to choose a new direction
               </p>
             </div>
-            <Button
-              className="button_back px-[35px] py-[15px] border-none rounded-[6px] text-white bg-black transition-all duration-300"
-              onClick={() => router.push("/")}
-            >
-              Go To Home
+            <Button className="button_back px-[35px] py-[15px] border-none rounded-[6px] bg-black transition-all duration-300">
+              <Link className="text-white" href="/">Go To Home</Link>
             </Button>
           </div>
         </div>

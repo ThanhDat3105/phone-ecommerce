@@ -35,34 +35,41 @@ import { formatDate } from "@/utils/moment";
 import { OrderList } from "@/interface/order";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
-import { fetchOrderAction } from "@/redux/features/phoneSlice";
+import {
+  fetchOrderAction,
+  fetchOrderByIdUserAction,
+} from "@/redux/features/phoneSlice";
 import { formatPrice } from "@/utils/price";
 import MainLayout from "../../MainLayout";
 import { useEffect, useState } from "react";
 import Loading from "@/components/loading/Loading";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { User } from "@/interface/user";
+import { CartItem } from "@/interface/product";
 
 export default function DataTableDemo() {
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
+  const [dataDetail, setDataDetail] = useState<OrderList>();
   const [animation, setAnimation] = useState<boolean>(false);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
-  const handleFetchApi = () => {
-    dispatch(fetchOrderAction());
+  const handleFetchApi = (id: number) => {
+    dispatch(fetchOrderByIdUserAction(id));
   };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const user = localStorage.getItem("USER_INFO_KEY");
-      if (user) {
-        handleFetchApi();
+      const getUserLocalStorage = localStorage.getItem("USER_INFO_KEY");
+      if (getUserLocalStorage) {
+        const user: User = JSON.parse(getUserLocalStorage);
+        handleFetchApi(user.id_user);
       } else {
         toast.success("Login to continue");
         router.push(`/sign_in?urlBack=/order-list`);
@@ -71,6 +78,9 @@ export default function DataTableDemo() {
   }, []);
 
   const viewDetail = async (id: number) => {
+    setDataDetail(
+      phoneReducer.orderList.find((item: OrderList) => item.id_order === id)
+    );
     setAnimation(true);
     setOpen(true);
   };
@@ -81,6 +91,8 @@ export default function DataTableDemo() {
       setOpen(false);
     }, 150);
   };
+
+  console.log(dataDetail?.productItem[0]);
 
   const data: OrderList[] = phoneReducer?.orderList;
 
@@ -251,7 +263,7 @@ export default function DataTableDemo() {
               </div>
             </div>
           </div>
-          {open ? (
+          {open && dataDetail && (
             <>
               <div
                 onClick={() => close()}
@@ -260,7 +272,7 @@ export default function DataTableDemo() {
                 }`}
               />
               <div
-                className={`item_order fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg md:w-full ${
+                className={`item_order fixed left-[50%] top-[55%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg md:w-full ${
                   animation
                     ? "animate-in fade-in-0 zoom-in-95 slide-in-from-left-1/2 slide-in-from-top-[48%]"
                     : "animate-out fade-out-0 zoom-out-95 slide-out-to-left-1/2 slide-out-to-top-[48%]"
@@ -271,7 +283,7 @@ export default function DataTableDemo() {
                     id="radix-:r1j:"
                     className="text-lg font-semibold leading-none tracking-tight"
                   >
-                    Order of Hung
+                    Order of {dataDetail.name}
                   </h2>
                   <p id="radix-:r1k:" className="text-sm text-muted-foreground">
                     This is the order detail
@@ -285,15 +297,19 @@ export default function DataTableDemo() {
                       </h2>
                       <div className="flex  items-start justify-between">
                         <div>
-                          <p className="text-gray-600">Order ID: 1</p>
                           <p className="text-gray-600">
-                            Order Date: 31/12/2023
+                            Order ID: {dataDetail.id_order}
+                          </p>
+                          <p className="text-gray-600">
+                            Order Date: {dataDetail.created_date}
                           </p>
                         </div>
                         <div>
-                          <p className="text-gray-600">Payment Method: Momo</p>
                           <p className="text-gray-600">
-                            Delivery: Shopee Express
+                            Payment Method: {dataDetail.payment_method}
+                          </p>
+                          <p className="text-gray-600">
+                            Delivery: {dataDetail.delivery_by}
                           </p>
                         </div>
                       </div>
@@ -302,42 +318,35 @@ export default function DataTableDemo() {
                       <h2 className="text-lg font-semibold mb-2">
                         Customer Information
                       </h2>
-                      <p className="text-gray-600">Name: Hung</p>
-                      <p className="text-gray-600">Phone: 0797720574</p>
+                      <p className="text-gray-600">Name: {dataDetail.name}</p>
+                      <p className="text-gray-600">Phone: {dataDetail.phone}</p>
                       <p className="text-gray-600">
-                        Address: Quận 1, Tp. Hồ Chí Minh
+                        Address: {dataDetail.address}
                       </p>
                     </div>
                     <div className="mt-4">
                       <h2 className="text-lg font-semibold mb-2">Products</h2>
                       <ul>
-                        <li className="text-gray-600 py-4 ">
-                          <div className="flex items-center justify-between">
-                            <p>Iphone 15 pro max</p> <p>32.990.000&nbsp;₫ </p>
-                          </div>
-                          <div className="flex items-center justify-between text-gray-400 text-sm font-light">
-                            <p> Storage: 256GB </p>
-                            <span>|</span>
-                            <p> Color: Black </p>
-                            <span>|</span>
-                            <p> Quantity: 1</p>
-                          </div>
-                        </li>
-                        <li className="text-gray-600 py-4 ">
-                          <div className="flex items-center justify-between">
-                            <p>Iphone 15 pro max</p> <p>32.990.000&nbsp;₫ </p>
-                          </div>
-                          <div className="flex items-center justify-between text-gray-400 text-sm font-light">
-                            <p> Storage: 512GB </p>
-                            <span>|</span>
-                            <p> Color: Pink </p>
-                            <span>|</span>
-                            <p> Quantity: 1</p>
-                          </div>
-                        </li>
+                        {dataDetail.productItem?.map((item: CartItem) => {
+                          return (
+                            <li className="text-gray-600 py-4 ">
+                              <div className="flex items-center justify-between">
+                                <p>{item.name}</p>
+                                <p>{formatPrice(item.price)}&nbsp;₫ </p>
+                              </div>
+                              <div className="flex items-center justify-between text-gray-400 text-sm font-light">
+                                <p> Storage: {item.storage}GB</p>
+                                <span>|</span>
+                                <p> Color: {item.color} </p>
+                                <span>|</span>
+                                <p> Quantity: {item.quantity}</p>
+                              </div>
+                            </li>
+                          );
+                        })}
                       </ul>
                       <p className="text-gray-800 pt-5 border-t-2">
-                        Total Amount: 65.980.000&nbsp;₫
+                        Total Amount: {formatPrice(dataDetail.total)}&nbsp;₫
                       </p>
                     </div>
                   </div>
@@ -366,8 +375,6 @@ export default function DataTableDemo() {
                 </button>
               </div>
             </>
-          ) : (
-            ""
           )}
         </MainLayout>
       )}

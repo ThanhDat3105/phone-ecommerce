@@ -7,44 +7,38 @@ import InformationTable from "../components/information_table/InformationTable";
 import InfoDetail from "../components/info_detail/InfoDetail";
 import { useEffect, useState } from "react";
 import { Product } from "@/interface/product";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/redux/store";
-import { fetchListPhoneAction } from "@/redux/features/phoneSlice";
 import Loading from "@/components/loading/Loading";
 import { useRouter } from "next/navigation";
-import { findProductByIdApi } from "@/api/service/phone";
+import { fetchListPhoneApi, findProductByIdApi } from "@/api/service/phone";
+import useSWR from "swr";
 interface Props {
   params: { id: number };
 }
 
 export default function DetailProduct(props: Props) {
   const router = useRouter();
-  const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
-  const dispatch = useDispatch<AppDispatch>();
-  const [phoneInfo, setPhoneInfo] = useState<Product>();
 
-  const findProductById = async (id: number) => {
-    const data = await findProductByIdApi(id);
-    if (data) setPhoneInfo(data.data.content);
+  const optionSWR = {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
   };
 
-  const fetchPhoneList = () => {
-    dispatch(fetchListPhoneAction());
-  };
+  const PhoneInfo = useSWR(
+    `product/find-product/${props.params.id}`,
+    findProductByIdApi
+  );
 
-  useEffect(() => {
-    findProductById(props.params.id);
+  const phoneList = useSWR("/", fetchListPhoneApi, optionSWR);
 
-    if (phoneReducer.phoneList.length === 0) {
-      fetchPhoneList();
-    }
-  }, [props.params.id]);
+  const phone = PhoneInfo.data?.data.content;
 
   return (
     <MainLayout>
-      {!phoneInfo && <Loading />}
-      {!phoneInfo ? (
-        <div className="min-h-[600px]"></div>
+      {PhoneInfo.data === undefined ? (
+        <div className="min-h-screen">
+          <Loading />
+        </div>
       ) : (
         <div className="product_detail xl:pt-[120px] min-[768px]:pt-[100px] pt-[90px] bg-white">
           <div className="container_all">
@@ -59,24 +53,27 @@ export default function DetailProduct(props: Props) {
               <p
                 onClick={() =>
                   router.push(
-                    `/product?brand=${phoneInfo?.categoryBrandMapping.brand.name}`
+                    `/product?brand=${phone?.categoryBrandMapping?.brand?.name}`
                   )
                 }
                 className="cursor-pointer hover:text-black transition-all duration-300"
               >
-                {phoneInfo?.categoryBrandMapping.brand.name}
+                {phone?.categoryBrandMapping?.brand?.name}
               </p>
               <IoIosArrowForward className="cursor-pointer" />
-              <p className="text-black cursor-pointer">{phoneInfo?.name}</p>
+              <p className="text-black cursor-pointer">{phone?.name}</p>
             </div>
-            <InfoDetail ele={phoneInfo} key={phoneInfo?.id_product} />
+            <InfoDetail
+              ele={PhoneInfo.data?.data.content}
+              key={phone?.id_product}
+            />
             <RelatedProduct
-              phoneList={phoneReducer.phoneList}
-              info={phoneInfo}
+              phoneList={phoneList.data?.data.content}
+              info={PhoneInfo.data?.data.content}
             />
             <div className="information">
               <div className="button_information"></div>
-              <InformationTable info={phoneInfo} />
+              <InformationTable info={PhoneInfo.data?.data.content} />
             </div>
           </div>
         </div>

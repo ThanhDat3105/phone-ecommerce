@@ -52,7 +52,7 @@ export default function RelatedProduct(props: Props) {
   };
 
   useEffect(() => {
-    if (props.phoneList.length > 0) {
+    if (props.phoneList?.length > 0) {
       const phoneList = shuffleArray(props.phoneList);
       const result = filterRelated(phoneList);
       if (result.length > 0) setRelatedProducts(result);

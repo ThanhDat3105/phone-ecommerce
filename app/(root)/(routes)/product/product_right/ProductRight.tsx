@@ -32,12 +32,12 @@ interface Props {
   setFilterType: (value: string) => void;
   filterBrand: string;
   filterType: string;
+  phoneList: Product[];
 }
 
 export default function ProductRight(props: Props) {
   const searchParams = useSearchParams();
   const setting = useSetting();
-  const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const ref = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [hasScrolled, setHasScrolled] = useState<boolean>(false);
@@ -51,23 +51,43 @@ export default function ProductRight(props: Props) {
 
   const startItemIndex = currentPage * quantityItemRender;
   const endItemIndex = startItemIndex + quantityItemRender;
+
   const currentPageData = dataFilter?.slice(startItemIndex, endItemIndex);
 
   useEffect(() => {
     if (props.filterBrand !== "") {
-      brandSearching(props.filterBrand);
+      const data = props.phoneList?.filter((ele) =>
+        ele.categoryBrandMapping?.brand.name.includes(props.filterBrand)
+      );
+
+      if (data.length > 0) {
+        setDataFilter(data);
+        setDataFilterBrand(data);
+      }
+
       setFilterPrice("");
       props.setFilterType("");
       setCurrentPage(0);
     } else {
-      setDataFilter(phoneReducer.phoneList);
+      setDataFilter(props.phoneList);
+      setDataFilterBrand([]);
     }
   }, [props.filterBrand]);
 
   useEffect(() => {
     if (props.filterType !== "") {
-      typeSearching();
-      setCurrentPage(0);
+      if (dataFilterBrand.length > 0) {
+        const data = dataFilterBrand?.filter((ele) =>
+          ele.categoryBrandMapping.category.name.includes(props.filterType)
+        );
+        setDataFilter(data);
+      } else {
+        const data = props.phoneList?.filter((ele) =>
+          ele.categoryBrandMapping.category.name.includes(props.filterType)
+        );
+        setDataFilter(data);
+      }
+      // setCurrentPage(0);
     }
   }, [props.filterType]);
 
@@ -88,36 +108,10 @@ export default function ProductRight(props: Props) {
 
   useEffect(() => {
     if (searchParams.get("brand") !== null) {
-      brandSearching(String(searchParams.get("brand")));
+      // brandSearching(String(searchParams.get("brand")));
       props.setFilterBrand(String(searchParams.get("brand")));
-    } else setDataFilter(phoneReducer.phoneList);
-  }, [phoneReducer.phoneList]);
-
-  const brandSearching = (name: string) => {
-    const data = phoneReducer.phoneList?.filter(
-      (ele) => ele.categoryBrandMapping.brand.name === name
-    );
-    if (data) {
-      setDataFilter(data);
-      setDataFilterBrand(data);
-    }
-  };
-
-  const typeSearching = () => {
-    if (dataFilterBrand.length > 0) {
-      const data = dataFilterBrand?.filter(
-        (ele) => ele.categoryBrandMapping.category.name === props.filterType
-      );
-      setDataFilter(data);
-    } else {
-      const data = phoneReducer.phoneList?.filter(
-        (ele) => ele.categoryBrandMapping.category.name === props.filterType
-      );
-      if (data) {
-        setDataFilter(data);
-      }
-    }
-  };
+    } else setDataFilter(props.phoneList);
+  }, [props.phoneList]);
 
   const scrollToSection = () => {
     const destination = ref.current;
@@ -137,7 +131,7 @@ export default function ProductRight(props: Props) {
         );
       } else {
         setDataFilter(
-          phoneReducer.phoneList.slice().sort((a, b) => a.price - b.price)
+          props.phoneList.slice().sort((a, b) => a.price - b.price)
         );
       }
     } else if (value === "hightolow") {
@@ -147,16 +141,14 @@ export default function ProductRight(props: Props) {
         );
       } else {
         setDataFilter(
-          phoneReducer.phoneList.slice().sort((a, b) => b.price - a.price)
+          props.phoneList.slice().sort((a, b) => b.price - a.price)
         );
       }
     } else if (value === "popular") {
       if (dataFilterBrand.length > 0) {
         setDataFilter(dataFilterBrand.filter((item) => item.new_release));
       } else {
-        setDataFilter(
-          phoneReducer.phoneList.filter((item) => item.new_release)
-        );
+        setDataFilter(props.phoneList.filter((item) => item.new_release));
       }
     }
   };
@@ -204,7 +196,7 @@ export default function ProductRight(props: Props) {
           </div>
         </div>
       </div>
-      {currentPageData.length > 0 ? (
+      {currentPageData?.length > 0 ? (
         <div className="product_item grid md:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]">
           {currentPageData?.map((ele) => {
             return <ItemProduct key={ele.id_product} ele={ele} />;

@@ -1,8 +1,8 @@
 import { axiosRequest } from "@/configs/axios.config";
 
-export const fetchListBrandApi = () => {
+export const fetchListBrandApi = (url: string) => {
   return axiosRequest({
-    url: "brand/brand-list",
+    url,
     method: "GET",
   });
 };

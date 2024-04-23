@@ -1,15 +1,15 @@
 import { axiosRequest } from "@/configs/axios.config";
 
-export const fetchListPhoneApi = () => {
+export const fetchListPhoneApi = (url:string) => {
   return axiosRequest({
-    url: "product/product-list",
+    url,
     method: "GET",
   });
 };
 
-export const findProductByIdApi = (id: number) => {
+export const findProductByIdApi = (url: string) => {
   return axiosRequest({
-    url: `product/find-product/${id}`,
+    url,
     method: "GET",
   });
 };

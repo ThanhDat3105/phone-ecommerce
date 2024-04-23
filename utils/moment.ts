@@ -1,5 +1,5 @@
 import moment from "moment";
 
 export const formatDate = (date: any) => {
-  return moment(new Date(date)).format("LL");
+  if (date) return moment(new Date(date)).format("LL");
 };

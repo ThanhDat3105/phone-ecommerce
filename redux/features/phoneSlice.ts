@@ -1,12 +1,8 @@
-import { fetchListBrandApi } from "@/api/service/brand";
-import { fetchListCategoryApi } from "@/api/service/category";
 import {
   createOrderApi,
   fetchOrderApi,
-  fetchOrderByIdApi,
+  fetchOrderByIdUserApi,
 } from "@/api/service/order";
-import { Brand } from "@/interface/brand";
-import { Category } from "@/interface/category";
 import { OrderList } from "@/interface/order";
 import {
   forgotPasswordApi,
@@ -16,56 +12,15 @@ import {
   verifyEmail,
 } from "@/api/service/user";
 import { Email, ResetPassword, UserSignIn, userLogin } from "@/interface/user";
-import { CartItem, Order, Product, ValueFormOrder } from "@/interface/product";
+import { CartItem, Order, ValueFormOrder } from "@/interface/product";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "sonner";
-import { fetchListPhoneApi } from "@/api/service/phone";
 
 interface phoneState {
-  phoneList: Product[];
-  brandList: Brand[];
-  categoryList: Category[];
   cartList: CartItem[];
-  isLoading: boolean;
   orderList: OrderList[];
-  orderInfo: OrderList | null;
+  isLoading: boolean;
 }
-
-export const fetchListPhoneAction = createAsyncThunk(
-  "phoneReducer/fetchListPhoneAction",
-  async () => {
-    try {
-      const result = await fetchListPhoneApi();
-      return result.data.content;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
-
-export const fetchListBrandAction = createAsyncThunk(
-  "brandReducer/fetchListBrandAction",
-  async () => {
-    try {
-      const result = await fetchListBrandApi();
-      return result.data.content;
-    } catch (error) {
-      console.log("Error BE");
-    }
-  }
-);
-
-export const fetchListCategoryAction = createAsyncThunk(
-  "brandReducer/fetchListCategoryAction",
-  async () => {
-    try {
-      const result = await fetchListCategoryApi();
-      return result.data.content;
-    } catch (error) {
-      console.log("Error BE");
-    }
-  }
-);
 
 export const createOrderAction = createAsyncThunk(
   "phoneReducer/createOrderAction",
@@ -91,11 +46,11 @@ export const fetchOrderAction = createAsyncThunk(
   }
 );
 
-export const fetchOrderByIdAction = createAsyncThunk(
-  "phoneReducer/fetchOrderByIdAction",
+export const fetchOrderByIdUserAction = createAsyncThunk(
+  "phoneReducer/fetchOrderByIdUserAction",
   async (id: number) => {
     try {
-      const result = await fetchOrderByIdApi(id);
+      const result = await fetchOrderByIdUserApi(id);
       return result.data.content;
     } catch (error) {
       console.log("Error BE");
@@ -188,13 +143,9 @@ export const verifyEmailAction = createAsyncThunk(
 export const phoneSlice = createSlice({
   name: "phone",
   initialState: {
-    phoneList: [],
-    brandList: [],
-    categoryList: [],
     cartList: [],
     isLoading: true,
     orderList: [],
-    orderInfo: null,
   } as phoneState,
 
   reducers: {
@@ -268,90 +219,31 @@ export const phoneSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-      .addCase(fetchListPhoneAction.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(
-        fetchListPhoneAction.fulfilled,
-        (state, action: PayloadAction<Product[]>) => {
-          state.phoneList = action.payload;
-          state.isLoading = false;
-        }
-      );
-    builder
-      .addCase(fetchListBrandAction.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(
-        fetchListBrandAction.fulfilled,
-        (state, action: PayloadAction<Brand[]>) => {
-          const result = action.payload;
-          state.brandList = result;
-          state.isLoading = false;
-        }
-      );
-    builder
-      .addCase(fetchListCategoryAction.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(
-        fetchListCategoryAction.fulfilled,
-        (state, action: PayloadAction<Category[]>) => {
-          const result = action.payload;
-          state.categoryList = result;
-          state.isLoading = false;
-        }
-      );
-
-    builder
-      .addCase(createOrderAction.pending, (state) => {
-        state.isLoading = true;
-      })
+      .addCase(createOrderAction.pending, (state) => {})
       .addCase(
         createOrderAction.fulfilled,
         (state, action: PayloadAction<Order>) => {
-          state.isLoading = false;
           state.cartList = [];
         }
       );
     builder
-      .addCase(fetchOrderByIdAction.pending, (state) => {
-        state.isLoading = true;
-      })
+      .addCase(fetchOrderByIdUserAction.pending, (state) => {})
       .addCase(
-        fetchOrderByIdAction.fulfilled,
-        (state, action: PayloadAction<OrderList>) => {
+        fetchOrderByIdUserAction.fulfilled,
+        (state, action: PayloadAction<OrderList[]>) => {
           const result = action.payload;
-          state.orderInfo = result;
-          state.isLoading = false;
+          state.orderList = result;
         }
       );
     builder
-      .addCase(fetchOrderAction.pending, (state) => {
-        state.isLoading = true;
-      })
+      .addCase(fetchOrderAction.pending, (state) => {})
       .addCase(
         fetchOrderAction.fulfilled,
         (state, action: PayloadAction<OrderList[]>) => {
           const result = action.payload;
           state.orderList = result;
-          state.isLoading = false;
         }
       );
-    builder
-      .addCase(loginUser.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(loginUser.fulfilled, (state, action: PayloadAction<any>) => {
-        state.isLoading = false;
-      });
-    builder
-      .addCase(registerUser.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(registerUser.fulfilled, (state, action: PayloadAction<any>) => {
-        state.isLoading = false;
-      });
   },
 });
 

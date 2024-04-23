@@ -36,7 +36,7 @@ export default function ListItemProduct(props: Props) {
           className="product_thumbnail xl:pt-11 pt-5 xl:gap-[45px] gap-5 flex xl:overflow-visible overflow-auto"
           style={{ scrollSnapType: "x mandatory" }}
         >
-          {props.ele.length > 0 ? (
+          {props.ele?.length > 0 ? (
             props.ele?.map((ele: Product) => {
               return <ItemProduct key={ele.id_product} ele={ele} />;
             })

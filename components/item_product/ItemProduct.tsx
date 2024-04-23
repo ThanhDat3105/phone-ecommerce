@@ -68,7 +68,7 @@ export default function ItemProduct(props: Props) {
         <div className="image ">
           <img
             ref={imgRef}
-            lazy-src={props.ele.thumbnail}
+            lazy-src={props.ele?.thumbnail}
             src="https://img1.hscicdn.com/image/upload/f_auto,t_ds_w_1200/lsci/db/PICTURES/CMS/3200/3253.jpg"
             alt="iphone"
             className="absolute top-[50%] h-[200px] translate-y-[-50%] right-[50%] translate-x-[50%] !object-contain"
@@ -78,19 +78,19 @@ export default function ItemProduct(props: Props) {
       <div className="item_bottom">
         <div className="title_item pb-6 text-center flex flex-col items-center">
           <h1 className="xl:text-base text-sm truncate w-[150px]">
-            {props.ele.name}
+            {props.ele?.name}
           </h1>
           <div className="xl:text-base text-sm flex justify-center gap-1 items-center">
-            <h1>{props.ele.storage[0].name}</h1>
+            {/* <h1>{props.ele?.storage[0].name}</h1> */}
           </div>
         </div>
         <div className="price relative py-[5px] border-[1px] border-solid border-[#D5D5D5] rounded-[30px]">
           <div className="price_all overflow-hidden flex justify-center xl:gap-[10px] gap-[5px] items-center">
             <div className="price_sale xl:text-base text-xs">
-              {formatPrice(props.ele.price)}đ
+              {formatPrice(props.ele?.price)}đ
             </div>
             <div className="original_price text-xs flex items-end text-[#B9B9B9]">
-              <del>{formatPrice(props.ele.original_price)}đ</del>
+              <del>{formatPrice(props.ele?.original_price)}đ</del>
             </div>
           </div>
         </div>

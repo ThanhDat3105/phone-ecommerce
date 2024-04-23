@@ -1,8 +1,6 @@
 "use client";
 import "./productLeft.scss";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { useState } from "react";
 import { Brand } from "@/interface/brand";
 import { Category } from "@/interface/category";
 import { useRouter } from "next/navigation";
@@ -15,6 +13,8 @@ interface Props {
   filterBrand: string;
   filterType: string;
   screen: boolean;
+  brandList: Brand[];
+  categoryList: Category[];
 }
 
 export default function ProductLeft(props: Props) {
@@ -22,19 +22,19 @@ export default function ProductLeft(props: Props) {
   const setting = useSetting();
   const [activeIdType, setActiveIdType] = useState<number>(0);
   const [activeIdBrand, setActiveIdBrand] = useState<number>(0);
-  const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
   const handleActiveBrand = (brand: string, id: number) => {
-    if (id !== -1 && activeIdBrand !== id) {
+    if (id !== 0 && activeIdBrand !== id) {
       router.push(`/product?brand=${brand}`);
       setActiveIdBrand(id);
-      setActiveIdType(-1);
+      setActiveIdType(0);
       props.setFilterBrand(brand);
     } else {
-      router.push(`/product?brand=`);
-      setActiveIdBrand(-1);
-      setActiveIdType(-1);
+      router.push(`/product`);
+      setActiveIdBrand(0);
+      setActiveIdType(0);
       props.setFilterBrand("");
+      props.setFilterType("");
     }
   };
 
@@ -67,8 +67,8 @@ export default function ProductLeft(props: Props) {
                 <h5 className="text-lg">Brand</h5>
               </div>
               <div className="collapse_check pl-5 py-5 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden tracking-widest">
-                {phoneReducer.brandList.length > 0 ? (
-                  phoneReducer.brandList.map((ele: Brand) => {
+                {props.brandList?.length > 0 ? (
+                  props.brandList.map((ele: Brand) => {
                     return (
                       <div key={ele.id_brand}>
                         <span
@@ -106,8 +106,8 @@ export default function ProductLeft(props: Props) {
                 <h5 className="text-lg">Type</h5>
               </div>
               <div className="collapse_check pl-5 py-5 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden tracking-widest">
-                {phoneReducer.categoryList.length > 0 ? (
-                  phoneReducer.categoryList.map((ele: Category) => {
+                {props.categoryList?.length > 0 ? (
+                  props.categoryList.map((ele: Category) => {
                     return (
                       <div key={ele.id_category}>
                         <span

@@ -1,8 +1,8 @@
 import { axiosRequest } from "@/configs/axios.config";
 
-export const fetchListCategoryApi = () => {
+export const fetchListCategoryApi = (url: string) => {
   return axiosRequest({
-    url: "category/category-list",
+    url,
     method: "GET",
   });
 };

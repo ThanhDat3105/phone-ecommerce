@@ -7,8 +7,8 @@ interface Props {
 
 export default function ProductHome(props: Props) {
   const filterPhoneHome = (brand: string) => {
-    const result = props.phoneList.filter(
-      (ele: Product) => ele.categoryBrandMapping.brand.name === brand
+    const result = props.phoneList?.filter(
+      (ele: Product) => ele.categoryBrandMapping?.brand.name === brand
     );
     return result;
   };
