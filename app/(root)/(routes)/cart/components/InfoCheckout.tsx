@@ -6,7 +6,7 @@ import momo from "@/public/image/cart/momo 1.png";
 
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
-import { CartItem, Product, ValueFormOrder } from "@/interface/product";
+import { CartItem, ValueFormOrder } from "@/interface/product";
 import { createOrderAction } from "@/redux/features/phoneSlice";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";

@@ -2,9 +2,9 @@
 
 import MainLayout from "@/app/(root)/MainLayout";
 import { IoIosArrowForward } from "react-icons/io";
-import RelatedProduct from "../components/related_products/RelatedProduct";
-import InformationTable from "../components/information_table/InformationTable";
-import InfoDetail from "../components/info_detail/InfoDetail";
+import RelatedProduct from "./components/related_products/RelatedProduct";
+import InformationTable from "./components/information_table/InformationTable";
+import InfoDetail from "./components/info_detail/InfoDetail";
 import { useEffect, useState } from "react";
 import { Product } from "@/interface/product";
 import Loading from "@/components/loading/Loading";
@@ -29,7 +29,11 @@ export default function DetailProduct(props: Props) {
     findProductByIdApi
   );
 
-  const phoneList = useSWR("/", fetchListPhoneApi, optionSWR);
+  const phoneList = useSWR(
+    "product/product-list",
+    fetchListPhoneApi,
+    optionSWR
+  );
 
   const phone = PhoneInfo.data?.data.content;
 

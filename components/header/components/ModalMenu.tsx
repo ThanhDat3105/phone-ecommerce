@@ -4,10 +4,10 @@ import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 
 interface Props {
-  pathName: string;
   handleLogOut: () => void;
-  login: boolean;
   setShowMenu: (value: boolean) => void;
+  pathName: string;
+  login: boolean;
   showMenu: boolean;
 }
 

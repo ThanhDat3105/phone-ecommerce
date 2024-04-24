@@ -2,19 +2,29 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import MainLayout from "../../MainLayout";
+import EmptyCart from "@/public/image/cart/empty-cart.png";
+import dynamic from "next/dynamic";
+import Loading from "@/components/loading/Loading";
+
+
+const TotalProduct = dynamic(() => import("./components/TotalProduct"), {
+  ssr: false,
+  loading: () => <Loading />,
+});
+const InfoCheckout = dynamic(() => import("./components/InfoCheckout"), {
+  ssr: false,
+  loading: () => <Loading />,
+});
+
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
-
 import { formatPrice } from "@/utils/price";
 import { Button } from "@/components/ui/button";
-import TotalProduct from "./components/TotalProduct";
-import InfoCheckout from "./components/InfoCheckout";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { User } from "@/interface/user";
 import { toast } from "sonner";
-import EmptyCart from "@/public/image/cart/empty-cart.png";
 import { CartItem, ValueFormOrder } from "@/interface/product";
 
 export default function CartPage() {
@@ -171,9 +181,10 @@ export default function CartPage() {
                   />
                 </div>
               </div>
-              {!progress ? (
+              {!progress && (
                 <TotalProduct mobile={mobile} cartList={cartList} />
-              ) : (
+              )}
+              {progress && (
                 <InfoCheckout
                   cartList={cartList}
                   formOrder={formOrder}

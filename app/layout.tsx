@@ -15,7 +15,7 @@ export default function RootLayout({
     // debugger;
   }
 
-  setInterval(checkDevTools, 1000);
+  setInterval(checkDevTools, 200);
 
   return (
     <html lang="en">

@@ -2,19 +2,28 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-
+import dynamic from "next/dynamic";
 import "./header.scss";
 import Logo from "../icons/icon/Logo";
-import { toast } from "sonner";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { CartItem, Product } from "@/interface/product";
-import ModalCart from "../modal_cart/ModalCart";
-import ModalMenu from "./modal_menu/ModalMenu";
 import useDebounce from "@/hook/useDebounce";
 import HeaderMobile from "./components/HeaderMobile";
 import HeaderDesktop from "./components/HeaderDesktop";
 import useSWR from "swr";
+import Loading from "../loading/Loading";
+
+const ModalCart = dynamic(() => import("../modal_cart/ModalCart"), {
+  ssr: false,
+  loading: () => <Loading />,
+});
+const ModalMenu = dynamic(() => import("./components/ModalMenu"), {
+  ssr: false,
+  loading: () => <Loading />,
+});
+
+import { toast } from "sonner";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { Product } from "@/interface/product";
 import { fetchListPhoneApi } from "@/api/service/phone";
 
 export default function Header() {
@@ -68,7 +77,7 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    setHeaderOpen(true);
+    if (pathName !== "/cart") setHeaderOpen(true);
   }, [phoneReducer.cartList]);
 
   useEffect(() => {
@@ -101,17 +110,19 @@ export default function Header() {
   };
 
   const filterPhone = () => {
-    const filterPhone = dataPhoneSWR?.data?.data?.content.filter((ele: Product) => {
-      return (
-        ele.name
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .replace(/đ/g, "d")
-          .replace(/Đ/g, "D")
-          .toLowerCase()
-          .indexOf(valueSearch?.toLowerCase()) !== -1
-      );
-    });
+    const filterPhone = dataPhoneSWR?.data?.data?.content.filter(
+      (ele: Product) => {
+        return (
+          ele.name
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/đ/g, "d")
+            .replace(/Đ/g, "D")
+            .toLowerCase()
+            .indexOf(valueSearch?.toLowerCase()) !== -1
+        );
+      }
+    );
 
     if (filterPhone.length > 0) setFilterPhoneSearch(filterPhone);
   };
@@ -183,7 +194,9 @@ export default function Header() {
         onClick={() => handleClose()}
         className={`bg_opacity ${show ? "show" : "hide"} `}
       />
-      <ModalCart show={show} setShow={setShow} handleClose={handleClose} />
+      {show && (
+        <ModalCart show={show} setShow={setShow} handleClose={handleClose} />
+      )}
       {mobile && (
         <ModalMenu
           pathName={pathName}
