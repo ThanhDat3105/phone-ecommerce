@@ -1,6 +1,6 @@
 "use client";
-import { verifyEmailAction } from "@/lib/redux/features/phoneSlice";
-import { AppDispatch } from "@/lib/redux/store";
+import { verifyEmailAction } from "@/src/lib/redux/features/phoneSlice";
+import { AppDispatch } from "@/src/lib/redux/store";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
