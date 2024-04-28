@@ -1,8 +1,8 @@
 import notFound from "@/public/not_found.png";
 
 import { Button } from "@/src/components/ui/button";
-import MainLayout from "./(root)/MainLayout";
 import Link from "next/link";
+import MainLayout from "./(root)/MainLayout";
 
 export default function NotFound() {
   return (

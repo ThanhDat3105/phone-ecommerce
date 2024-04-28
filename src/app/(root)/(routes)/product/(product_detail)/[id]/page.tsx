@@ -1,6 +1,5 @@
 "use client";
 
-import MainLayout from "@/src/app/(root)/MainLayout";
 import { IoIosArrowForward } from "react-icons/io";
 import RelatedProduct from "./components/related_products/RelatedProduct";
 import InformationTable from "./components/information_table/InformationTable";
@@ -9,6 +8,7 @@ import Loading from "@/src/components/loading/Loading";
 import { useRouter } from "next/navigation";
 import { fetchListPhoneApi, findProductByIdApi } from "@/src/api/service/phone";
 import useSWR from "swr";
+import MainLayout from "@/src/app/(root)/MainLayout";
 interface Props {
   params: { id: number };
 }

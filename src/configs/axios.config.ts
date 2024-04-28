@@ -10,7 +10,9 @@ axiosRequest.interceptors.request.use((config) => {
   if (localStorage.getItem("USER_INFO_KEY")) {
     const userInfo = JSON.parse(localStorage.getItem("USER_INFO_KEY") || "{}");
     const accessToken = userInfo.accessToken;
+    const refreshToken = userInfo.refreshToken;
     config.headers.Authorization = `Bearer ${accessToken}`;
+    config.headers["refreshToken"] = `${refreshToken}`;
   }
 
   return config;

@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import MainLayout from "@/src/app/(root)/MainLayout";
 import { Button } from "@/src/components/ui/button";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/src/lib/redux/store";
@@ -19,6 +18,7 @@ import { Input } from "@/src/components/ui/input";
 import { Password } from "@/src/interface/user";
 import { toast } from "sonner";
 import { resetPasswordUser } from "@/src/lib/redux/features/phoneSlice";
+import MainLayout from "../../MainLayout";
 
 interface Props {
   params: { token: string };

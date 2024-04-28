@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import MainLayout from "@/src/app/(root)/MainLayout";
 import { news } from "@/src/data/mockData";
 import { IoIosArrowForward } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import MainLayout from "@/src/app/(root)/MainLayout";
 
 interface Props {
   params: { id: number };

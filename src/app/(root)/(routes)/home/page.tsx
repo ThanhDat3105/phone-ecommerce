@@ -1,12 +1,12 @@
 "use client";
 import Banner from "./banner/Banner";
 import Brand from "./brand/Brand";
-import MainLayout from "../../MainLayout";
 import News from "./news/News";
 import ProductHome from "./product/ProductHome";
 import useSWR from "swr";
 import Loading from "@/src/components/loading/Loading";
 import { fetchListPhoneApi } from "@/src/api/service/phone";
+import MainLayout from "../../MainLayout";
 
 export default function HomePage() {
   const dataPhoneSWR = useSWR("product/product-list", fetchListPhoneApi, {

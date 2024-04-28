@@ -61,7 +61,7 @@ export default function DataTableDemo() {
       const user: User = JSON.parse(getUserLocalStorage);
       setUSer(user);
     } else {
-      toast.success("Login to continue");
+      toast.warning("Login to continue!");
       router.push(`/sign_in?urlBack=/order-list`);
     }
   }, []);

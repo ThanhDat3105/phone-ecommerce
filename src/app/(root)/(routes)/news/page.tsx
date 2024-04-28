@@ -13,6 +13,7 @@ import ItemNew from "@/src/components/item_news/ItemNew";
 
 import { IoIosArrowForward } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function NewPage() {
   const router = useRouter();

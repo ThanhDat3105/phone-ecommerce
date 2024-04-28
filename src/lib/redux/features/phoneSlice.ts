@@ -6,11 +6,15 @@ import {
   resetPasswordApi,
   verifyEmail,
 } from "@/src/api/service/user";
-import { Email, ResetPassword, UserSignIn, userLogin } from "@/src/interface/user";
+import {
+  Email,
+  ResetPassword,
+  UserSignIn,
+  userLogin,
+} from "@/src/interface/user";
 import { CartItem, Order, ValueFormOrder } from "@/src/interface/product";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { toast } from "sonner";
-
 interface phoneState {
   cartList: CartItem[];
   isLoading: boolean;
@@ -39,6 +43,28 @@ export const loginUser = createAsyncThunk(
           "USER_INFO_KEY",
           JSON.stringify(result.data.content)
         );
+
+        // save access token on Cookie
+        var expiresAccess = "";
+        var date = new Date();
+        date.setTime(date.getTime() + 2 * 24 * 60 * 60 * 1000);
+        expiresAccess = "; expires=" + date.toUTCString();
+        document.cookie =
+          "accessToken=" +
+          (result.data.content.accessToken || "") +
+          expiresAccess +
+          "; path=/";
+
+        // save refresh token on Cookie
+        var expiresRefresh = "";
+        date.setTime(date.getTime() + 5 * 1000);
+        expiresRefresh = "; expires=" + date.toUTCString();
+        document.cookie =
+          "refreshToken=" +
+          (result.data.content.refreshToken || "") +
+          expiresRefresh +
+          "; path=/";
+
         toast.success("Login Successfully");
         return result;
       }

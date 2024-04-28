@@ -1,8 +1,7 @@
 `use client`;
-import { FaMinus, FaPlus } from "react-icons/fa";
-import { formatPrice } from "@/src/utils/price";
-import { FaTrash } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
+import { formatPrice } from "@/src/utils/price";
 import { CartItem } from "@/src/interface/product";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/lib/redux/store";

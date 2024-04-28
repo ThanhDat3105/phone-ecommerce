@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import StoreProvider from "./StoreProvider";
 
 import { Metadata } from "next";
+import RouteGuard from "../components/guard/RouteGuard";
 
 export const metadata: Metadata = {
   title: "Phone E-Commerce",
@@ -30,10 +31,12 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <SpeedInsights />
-        <StoreProvider>
-          {children}
-          <Toaster position="bottom-center" />
-        </StoreProvider>
+        <RouteGuard>
+          <StoreProvider>
+            {children}
+            <Toaster position="bottom-center" />
+          </StoreProvider>
+        </RouteGuard>
       </body>
     </html>
   );
