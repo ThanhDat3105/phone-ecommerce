@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import MainLayout from "../../MainLayout";
+import MainLayout from ;
 import EmptyCart from "@/public/image/cart/empty-cart.png";
 import dynamic from "next/dynamic";
 import Loading from "@/src/components/loading/Loading";

@@ -18,7 +18,7 @@ import { Input } from "@/src/components/ui/input";
 import { Password } from "@/src/interface/user";
 import { toast } from "sonner";
 import { resetPasswordUser } from "@/src/lib/redux/features/phoneSlice";
-import MainLayout from "../../MainLayout";
+import MainLayout from "../../../MainLayout";
 
 interface Props {
   params: { token: string };

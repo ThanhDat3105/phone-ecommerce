@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import MainLayout from "../../MainLayout";
 import { Button } from "@/src/components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/src/lib/redux/store";
@@ -21,6 +20,7 @@ import {
   setCloseLoading,
 } from "@/src/lib/redux/features/phoneSlice";
 import Loading from "@/src/components/loading/Loading";
+import MainLayout from "../../MainLayout";
 
 const formSchema = z.object({
   email: z.string().min(1).max(50).email(),
