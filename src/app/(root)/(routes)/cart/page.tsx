@@ -6,7 +6,6 @@ import EmptyCart from "@/public/image/cart/empty-cart.png";
 import dynamic from "next/dynamic";
 import Loading from "@/src/components/loading/Loading";
 
-
 const TotalProduct = dynamic(() => import("./components/TotalProduct"), {
   ssr: false,
   loading: () => <Loading />,
@@ -105,7 +104,7 @@ export default function CartPage() {
       if (user) {
         setProgress(true);
       } else {
-        toast.success("Login to continue");
+        toast.warning("Login to continue");
         router.push(`/sign_in?urlBack=/cart`);
       }
     }

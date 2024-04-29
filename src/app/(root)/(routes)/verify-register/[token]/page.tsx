@@ -32,7 +32,7 @@ export default function VerifyRegister(props: Props) {
       showConfirmButton: false,
       timer: 3000,
       willClose: () => {
-        router.push("/");
+        router.push("/sign_in");
       },
     });
   };
