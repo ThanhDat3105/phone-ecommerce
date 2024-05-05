@@ -1,7 +1,18 @@
 {
-  "/(root)/(routes)/product/page": "app/(root)/(routes)/product/page.js",
-  "/(root)/(routes)/product/(product_detail)/[id]/page": "app/(root)/(routes)/product/(product_detail)/[id]/page.js",
-  "/(root)/(routes)/home/page": "app/(root)/(routes)/home/page.js",
-  "/(root)/(routes)/news/page": "app/(root)/(routes)/news/page.js",
-  "/(root)/(routes)/sign_in/page": "app/(root)/(routes)/sign_in/page.js"
+  "/_not-found": "app/_not-found.js",
+  "/cart/page": "app/cart/page.js",
+  "/forgot-password/page": "app/forgot-password/page.js",
+  "/api/auth/route": "app/api/auth/route.js",
+  "/news/[id]/page": "app/news/[id]/page.js",
+  "/news/page": "app/news/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/order-list/page": "app/order-list/page.js",
+  "/page": "app/page.js",
+  "/product/(product_detail)/[id]/page": "app/product/(product_detail)/[id]/page.js",
+  "/product/page": "app/product/page.js",
+  "/reset-password/[token]/page": "app/reset-password/[token]/page.js",
+  "/sign_in/page": "app/sign_in/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/sign_up/page": "app/sign_up/page.js",
+  "/verify-register/[token]/page": "app/verify-register/[token]/page.js"
 }

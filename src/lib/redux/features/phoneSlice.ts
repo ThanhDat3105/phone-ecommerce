@@ -18,6 +18,9 @@ import { toast } from "sonner";
 interface phoneState {
   cartList: CartItem[];
   isLoading: boolean;
+  filterBrand: string;
+  filterType: string;
+  sessionToken: string;
 }
 
 export const createOrderAction = createAsyncThunk(
@@ -27,7 +30,7 @@ export const createOrderAction = createAsyncThunk(
       const result = await createOrderApi(data.values);
       return result.data.content;
     } catch (error) {
-      console.log("Error BE");
+      console.log("Error BE: ", error);
     }
   }
 );
@@ -47,7 +50,7 @@ export const loginUser = createAsyncThunk(
         // save access token on Cookie
         var expiresAccess = "";
         var date = new Date();
-        date.setTime(date.getTime() + 2 * 24 * 60 * 60 * 1000);
+        date.setTime(date.getTime() + 3 * 24 * 60 * 60 * 1000);
         expiresAccess = "; expires=" + date.toUTCString();
         document.cookie =
           "accessToken=" +
@@ -57,7 +60,7 @@ export const loginUser = createAsyncThunk(
 
         // save refresh token on Cookie
         var expiresRefresh = "";
-        date.setTime(date.getTime() + 5 * 1000);
+        date.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000);
         expiresRefresh = "; expires=" + date.toUTCString();
         document.cookie =
           "refreshToken=" +
@@ -141,6 +144,9 @@ export const phoneSlice = createSlice({
   initialState: {
     cartList: [],
     isLoading: true,
+    filterBrand: "",
+    filterType: "",
+    sessionToken: "",
   } as phoneState,
 
   reducers: {
@@ -210,6 +216,18 @@ export const phoneSlice = createSlice({
     setCloseLoading: (state, action: PayloadAction<any>) => {
       state.isLoading = action.payload;
     },
+
+    setFilterBrand: (state, action: PayloadAction<string>) => {
+      state.filterBrand = action.payload;
+    },
+
+    setFilterType: (state, action: PayloadAction<string>) => {
+      state.filterType = action.payload;
+    },
+
+    setSessionToken: (state, action: PayloadAction<string>) => {
+      state.sessionToken = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -232,6 +250,9 @@ export const {
   decreaseQuantity,
   deleteCart,
   setCloseLoading,
+  setFilterBrand,
+  setFilterType,
+  setSessionToken,
 } = phoneSlice.actions;
 
 export const phoneReducer = phoneSlice.reducer;

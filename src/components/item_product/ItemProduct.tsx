@@ -81,7 +81,7 @@ export default function ItemProduct(props: Props) {
             {props.ele?.name}
           </h1>
           <div className="xl:text-base text-sm flex justify-center gap-1 items-center">
-            {/* <h1>{props.ele?.storage[0].name}</h1> */}
+            <h1>{props.ele?.storage[0].name}</h1>
           </div>
         </div>
         <div className="price relative py-[5px] border-[1px] border-solid border-[#D5D5D5] rounded-[30px]">

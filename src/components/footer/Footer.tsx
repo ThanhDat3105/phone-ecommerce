@@ -12,6 +12,7 @@ import { IoArrowForward } from "react-icons/io5";
 
 import "./footer.scss";
 import { Button } from "@/src/components/ui/button";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -22,10 +23,12 @@ export default function Footer() {
             <div className="left max-w-[160px]">
               <div className="logo flex gap-[12px] ">
                 <div className="image">
-                  <img
+                  <Image
                     src={logo.src}
                     alt="logo"
-                    className="text-3xl max-w-none relative top-[50%] translate-y-[-50%] "
+                    className="text-3xl max-w-none relative top-[50%] translate-y-[-50%]"
+                    width={40}
+                    height={40}
                   />
                 </div>
                 <div className="separate relative w-[1px] bg-white"></div>

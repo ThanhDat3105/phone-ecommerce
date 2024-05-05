@@ -1,9 +1,9 @@
-import HomePage from "./(root)/(routes)/home/page";
+import HomePage from "../components/home/page";
 
 export default function Home() {
   return (
-    <div className="home_page">
+    <>
       <HomePage />
-    </div>
+    </>
   );
 }

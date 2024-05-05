@@ -12,6 +12,7 @@ import { Button } from "@/src/components/ui/button";
 import ItemCart from "./ItemCart";
 import { useRouter } from "next/navigation";
 import { formatPrice } from "@/src/utils/price";
+import Image from "next/image";
 
 interface Props {
   show: boolean;
@@ -57,7 +58,9 @@ export default function ModalCart(props: Props) {
             </div>
           ) : (
             <div className="empty_cart h-[70%] relative">
-              <img
+              <Image
+                width={360}
+                height={270}
                 src={emptyCart.src}
                 alt="emptyCart"
                 className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"

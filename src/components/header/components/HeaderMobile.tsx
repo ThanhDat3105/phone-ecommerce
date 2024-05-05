@@ -6,6 +6,7 @@ import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { IoMenu } from "react-icons/io5";
 import { formatPrice } from "@/src/utils/price";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface Props {
   inputFocus: boolean;
@@ -79,11 +80,7 @@ export default function HeaderMobile(props: Props) {
                     className="item_phone py-4 transition-all duration-300 flex cursor-pointer gap-[10px] bg-white px-[5px] hover:bg-[rgb(0,0,0,0.5)]"
                   >
                     <div className="image w-[60px] h-[60px]">
-                      <img
-                        className="relative top-[50%] translate-y-[-50%]"
-                        src={ele.thumbnail}
-                        alt={ele.name}
-                      />
+                      <Image fill src={ele.thumbnail} alt={ele.name} />
                     </div>
                     <div className="info flex flex-col justify-center">
                       <div className="name text-xs text-black font-semibold">

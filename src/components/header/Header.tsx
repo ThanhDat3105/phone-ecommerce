@@ -25,6 +25,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/src/lib/redux/store";
 import { Product } from "@/src/interface/product";
 import { fetchListPhoneApi } from "@/src/api/service/phone";
+import { logoutApi } from "@/src/api/service/user";
 
 export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -127,12 +128,15 @@ export default function Header() {
     if (filterPhone.length > 0) setFilterPhoneSearch(filterPhone);
   };
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     if (login) {
-      localStorage.removeItem("USER_INFO_KEY");
-      setLogin(false);
-      setHeight();
-      toast.success("Log out successfully");
+      const userLogout = await logoutApi();
+      if (userLogout.data.statusCode === 200) {
+        localStorage.removeItem("USER_INFO_KEY");
+        setLogin(false);
+        setHeight();
+        toast.success("Log out successfully");
+      }
     }
   };
 
@@ -153,7 +157,7 @@ export default function Header() {
       >
         <div className="container_all flex justify-between items-center text-white md:h-[70px] h-[60px]">
           <div
-            onClick={() => router.push("/home")}
+            onClick={() => router.push("/")}
             className="header_logo cursor-pointer xl:w-10 xl:h-10 w-[35px] h-[35px]"
           >
             <Logo />

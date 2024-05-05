@@ -1,11 +1,23 @@
 import { axiosRequest } from "@/src/configs/axios.config";
-import { Email, ResetPassword, User, userLogin } from "@/src/interface/user";
+import {
+  Email,
+  ResetPassword,
+  UserData,
+  userLogin,
+} from "@/src/interface/user";
 
 export const loginApi = (data: userLogin) => {
   return axiosRequest({
     url: `auth/login`,
     method: "POST",
     data,
+  });
+};
+
+export const logoutApi = () => {
+  return axiosRequest({
+    url: `auth/logout`,
+    method: "PATCH",
   });
 };
 
@@ -40,7 +52,7 @@ export const verifyEmail = (email: string) => {
   });
 };
 
-export const refreshTokenApi = (user: User) => {
+export const refreshTokenApi = (user: UserData) => {
   return axiosRequest({
     url: `auth/refresh-token`,
     method: "POST",

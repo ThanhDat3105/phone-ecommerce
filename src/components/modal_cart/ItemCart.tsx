@@ -9,6 +9,7 @@ import {
   deleteCart,
   increaseQuantity,
 } from "@/src/lib/redux/features/phoneSlice";
+import Image from "next/image";
 
 interface Props {
   cartItem: CartItem;
@@ -31,8 +32,12 @@ export default function ItemCart(props: Props) {
   return (
     <div className="item_cart flex justify-between border-b-[1px] border-b-[#dee2e6] py-[30px]">
       <div className="item_left">
-        <div className="image_item w-[130px] h-[130px]">
-          <img src={props.cartItem.thumbnail} alt={props.cartItem.name} />
+        <div className="image_item w-[130px] h-[130px] relative">
+          <Image
+            fill
+            src={props.cartItem.thumbnail}
+            alt={props.cartItem.name}
+          />
         </div>
       </div>
       <div className="item_mid flex flex-col justify-between">

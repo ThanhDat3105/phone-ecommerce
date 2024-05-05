@@ -2,6 +2,7 @@ import { Button } from "@/src/components/ui/button";
 import { CartItem, Product } from "@/src/interface/product";
 import { formatPrice } from "@/src/utils/price";
 import { LogOut } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { RefObject, useEffect, useRef, useState } from "react";
 import { FaShoppingBag } from "react-icons/fa";
@@ -107,9 +108,9 @@ export default function HeaderDesktop(props: Props) {
                       onClick={() => router.push(`/product/${ele.id_product}`)}
                       className="item_phone py-4 transition-all duration-300 flex cursor-pointer gap-[10px] bg-white px-[5px] hover:bg-[#f5f5f5]"
                     >
-                      <div className="image w-[60px] h-[60px]">
-                        <img
-                          className="relative top-[50%] translate-y-[-50%]"
+                      <div className="image w-[60px] h-[60px] relative">
+                        <Image
+                          fill
                           src={ele.thumbnail}
                           alt={ele.name}
                         />

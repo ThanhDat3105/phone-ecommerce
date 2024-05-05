@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "next --coverage",
     "lint": "next lint"
   },
   "dependencies": {
@@ -37,7 +38,7 @@
     "react-icons": "^4.12.0",
     "react-redux": "^9.0.4",
     "react-responsive-carousel": "^3.2.23",
-    "sass": "^1.69.5",
+    "sass": "^1.76.0",
     "sonner": "^1.2.4",
     "sweetalert2": "^11.10.2",
     "swiper": "^11.0.5",
