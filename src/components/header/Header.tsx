@@ -58,14 +58,14 @@ export default function Header() {
     }
   );
 
-  if (typeof window !== "undefined") {
-    const userLocal = localStorage.getItem("USER_INFO_KEY");
+  // if (typeof window !== "undefined") {
+  //   const userLocal = localStorage.getItem("USER_INFO_KEY");
 
-    if (userLocal) {
-      setUser(JSON.parse(userLocal));
-      setLogin(true);
-    }
-  }
+  //   if (userLocal) {
+  //     setUser(JSON.parse(userLocal));
+  //     setLogin(true);
+  //   }
+  // }
 
   useEffect(() => {
     if (Number(headerRef.current?.clientWidth) <= 850) {
