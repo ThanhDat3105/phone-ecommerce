@@ -3,7 +3,6 @@ import type { NextRequest } from "next/server";
 
 const privatePaths = [
   "/cart",
-  "/forgot-password",
   "/order-list",
   "/profile",
   "/verify-register",
@@ -11,8 +10,7 @@ const privatePaths = [
 
 const authPaths = ["/sign_in", "/sign_up"];
 export function middleware(request: NextRequest) {
-  const sessionToken = request.cookies.get("session_token")?.value;
-
+  const sessionToken = request.cookies.get("sessionToken")?.value;
   if (
     privatePaths.some((path: string) =>
       request.nextUrl.pathname.startsWith(path)

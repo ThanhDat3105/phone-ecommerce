@@ -15,15 +15,17 @@ import {
   FormMessage,
 } from "@/src/components/ui/form";
 import { Input } from "@/src/components/ui/input";
-import { userLogin } from "@/src/interface/user";
+import { LoginBodyType } from "@/src/interface/user";
 import Link from "next/link";
 import { toast } from "sonner";
+import authApiRequest from "@/src/apiRequest/auth";
 
 const formSchema = z.object({
   email: z.string().min(1).max(50).email(),
   password: z.string().min(1).max(50),
 });
 type LoginFormValues = z.infer<typeof formSchema>;
+
 export default function SignInForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -38,58 +40,21 @@ export default function SignInForm() {
     },
   });
 
-  const onSubmit = async (data: userLogin) => {
+  const onSubmit = async (data: LoginBodyType) => {
     try {
-      const result = await fetch(
-        "https://store-phone-server.vercel.app/auth/login",
-        {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then(async (res) => {
-        const payload = await res.json();
-        const data = {
-          status: res.status,
-          content: payload.content,
-        };
+      const result = await authApiRequest.login(data);
 
-        if (!res.ok) {
-          toast.error("Invalid email or password");
-          throw payload;
-        }
-
-        return data;
+      await authApiRequest.auth({
+        sessionToken: result.payload.accessToken,
       });
 
-      const resultFromNextSever = await fetch("api/auth", {
-        method: "POST",
-        body: JSON.stringify(result),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(async (res) => {
-        const payload = await res.json();
-        const data = {
-          status: res.status,
-          content: payload.content,
-        };
-
-        if (!res.ok) {
-          throw data;
-        }
-
-        return data;
-      });
+      localStorage.setItem("USER_INFO_KEY", JSON.stringify(result.payload));
 
       if (result.status === 200) {
         toast.success("Login successfully!");
         if (searchParams.get("urlBack") !== null) {
           router.push(String(searchParams.get("urlBack")));
         } else {
-          console.log("run");
           router.push("/");
         }
       }

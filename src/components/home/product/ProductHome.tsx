@@ -1,18 +1,13 @@
-import { fetchListPhoneApi } from "@/src/api/service/phone";
+import phoneApiRequest from "@/src/apiRequest/phone";
 import ListItemProduct from "@/src/components/ListItemProduct/ListItemProduct";
-import { Product } from "@/src/interface/product";
-import useSWR from "swr";
+import { PhoneResType } from "@/src/interface/product";
 
-export default function ProductHome() {
-  const dataPhoneSWR = useSWR("product/product-list", fetchListPhoneApi, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+export default async function ProductHome() {
+  const phoneList = await phoneApiRequest.fetchListPhoneApi();
 
   const filterPhoneHome = (brand: string) => {
-    const result = dataPhoneSWR.data?.data.content?.filter(
-      (ele: Product) => ele.categoryBrandMapping?.brand.name === brand
+    const result = phoneList.payload.filter(
+      (ele: PhoneResType) => ele.categoryBrandMapping?.brand.name === brand
     );
     return result;
   };

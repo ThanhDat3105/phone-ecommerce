@@ -4,15 +4,14 @@ import { Button } from "@/src/components/ui/button";
 import visa from "@/public/image/cart/visa 1.png";
 import momo from "@/public/image/cart/momo 1.png";
 
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/src/lib/redux/store";
 import { CartItem, ValueFormOrder } from "@/src/interface/product";
-import { createOrderAction } from "@/src/lib/redux/features/phoneSlice";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import orderApiRequest from "@/src/apiRequest/order";
 
 interface Props {
+  sessionToken?: string;
   cartList: CartItem[];
   formOrder: ValueFormOrder;
   payment_method: string;
@@ -21,7 +20,6 @@ interface Props {
 }
 
 export default function InfoCheckout(props: Props) {
-  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
 
   const totalAmount = props.cartList.reduce(
@@ -58,7 +56,10 @@ export default function InfoCheckout(props: Props) {
   const pay = async () => {
     try {
       if (props.cartList) {
-        const result = await dispatch(createOrderAction(props.formOrder));
+        const result = await orderApiRequest.createOrderApi(
+          props.formOrder.values,
+          String(props.sessionToken)
+        );
         if (result.payload) {
           toast.success("Order placed successfully");
           router.push("/");

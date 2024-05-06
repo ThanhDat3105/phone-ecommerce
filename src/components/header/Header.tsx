@@ -20,21 +20,25 @@ const ModalMenu = dynamic(() => import("./components/ModalMenu"), {
   loading: () => <Loading />,
 });
 
-import { toast } from "sonner";
 import { useSelector } from "react-redux";
 import { RootState } from "@/src/lib/redux/store";
-import { Product } from "@/src/interface/product";
-import { fetchListPhoneApi } from "@/src/api/service/phone";
-import { logoutApi } from "@/src/api/service/user";
+import phoneApiRequest from "@/src/apiRequest/phone";
+import { PhoneResType } from "@/src/interface/product";
+import authApiRequest from "@/src/apiRequest/auth";
+import { LoginRegisResType } from "@/src/interface/user";
+import { toast } from "sonner";
 
 export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathName = usePathname();
+  const [user, setUser] = useState<LoginRegisResType>();
   const [login, setLogin] = useState<boolean>(false);
   const [valueSearch, setValueSearch] = useState<string>("");
-  const [filterPhoneSearch, setFilterPhoneSearch] = useState<Product[]>([]);
+  const [filterPhoneSearch, setFilterPhoneSearch] = useState<PhoneResType[]>(
+    []
+  );
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const [headerOpen, setHeaderOpen] = useState<boolean>(true);
@@ -44,20 +48,19 @@ export default function Header() {
 
   let debounceSearch = useDebounce(valueSearch, 200);
 
-  const dataPhoneSWR = useSWR("product/product-list", fetchListPhoneApi, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  const dataPhoneSWR = useSWR(
+    "product/product-list",
+    phoneApiRequest.fetchListPhoneApi,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
+
+  const userLocal = localStorage.getItem("USER_INFO_KEY");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const user = localStorage.getItem("USER_INFO_KEY");
-      if (user) {
-        setLogin(true);
-      }
-    }
-
     if (Number(headerRef.current?.clientWidth) <= 850) {
       setMobile(true);
     }
@@ -76,6 +79,13 @@ export default function Header() {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (userLocal) {
+      setUser(JSON.parse(userLocal));
+      setLogin(true);
+    }
+  }, [userLocal]);
 
   useEffect(() => {
     if (pathName !== "/cart") setHeaderOpen(true);
@@ -111,8 +121,8 @@ export default function Header() {
   };
 
   const filterPhone = () => {
-    const filterPhone = dataPhoneSWR?.data?.data?.content.filter(
-      (ele: Product) => {
+    if (dataPhoneSWR.data?.payload) {
+      const filter = dataPhoneSWR.data.payload.filter((ele: PhoneResType) => {
         return (
           ele.name
             .normalize("NFD")
@@ -122,16 +132,17 @@ export default function Header() {
             .toLowerCase()
             .indexOf(valueSearch?.toLowerCase()) !== -1
         );
-      }
-    );
-
-    if (filterPhone.length > 0) setFilterPhoneSearch(filterPhone);
+      });
+      if (filter.length > 0) setFilterPhoneSearch(filter);
+    }
   };
 
   const handleLogOut = async () => {
     if (login) {
-      const userLogout = await logoutApi();
-      if (userLogout.data.statusCode === 200) {
+      const userLogout = await authApiRequest.logoutApi({
+        sessionToken: String(user?.accessToken),
+      });
+      if (userLogout.status === 200) {
         localStorage.removeItem("USER_INFO_KEY");
         setLogin(false);
         setHeight();

@@ -37,6 +37,11 @@ export default function ModalCart(props: Props) {
     }
   }, [props.show]);
 
+  const handleButtonCheckout = () => {
+    router.push("/cart");
+    props.setShow(false);
+  };
+
   return (
     <div className={`modal_cart fixed w-full z-[101] translate-x-[1540px]`}>
       <div className="container_modal w-full absolute max-w-[420px] right-0 top-0 h-screen">
@@ -72,7 +77,7 @@ export default function ModalCart(props: Props) {
           </p>
           <div className="button_checkout mt-5 flex justify-center">
             <Button
-              onClick={() => router.push("/cart")}
+              onClick={() => handleButtonCheckout()}
               className="text-xl w-full"
             >
               Go to checkout

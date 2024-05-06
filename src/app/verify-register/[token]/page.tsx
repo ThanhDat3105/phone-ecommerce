@@ -1,9 +1,7 @@
 "use client";
-import { verifyEmailAction } from "@/src/lib/redux/features/phoneSlice";
-import { AppDispatch } from "@/src/lib/redux/store";
+import authApiRequest from "@/src/apiRequest/auth";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 
 interface Props {
@@ -11,10 +9,8 @@ interface Props {
 }
 
 export default function VerifyRegister(props: Props) {
-  const dispatch = useDispatch<AppDispatch>();
-
-  const fetchVerifyEmail = () => {
-    dispatch(verifyEmailAction(props.params.token));
+  const fetchVerifyEmail = async () => {
+    await authApiRequest.verifyEmail(props.params.token);
   };
 
   useEffect(() => {

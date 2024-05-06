@@ -1,5 +1,5 @@
 import { Button } from "@/src/components/ui/button";
-import { CartItem, Product } from "@/src/interface/product";
+import { CartItem, PhoneResType } from "@/src/interface/product";
 import { formatPrice } from "@/src/utils/price";
 import { LogOut } from "lucide-react";
 import Image from "next/image";
@@ -21,7 +21,7 @@ interface Props {
   dropdownRef: RefObject<HTMLDivElement> | null;
   login: boolean;
   debounceSearch: string;
-  filterPhoneSearch: Product[];
+  filterPhoneSearch: PhoneResType[];
   pathName: string;
 }
 
@@ -101,7 +101,7 @@ export default function HeaderDesktop(props: Props) {
               className="active absolute bg-white w-[270px] left-[-40px] h-[350px] top-[146%] rounded-b-[15px] overflow-auto"
             >
               {props.filterPhoneSearch && props.filterPhoneSearch.length > 0 ? (
-                props.filterPhoneSearch?.map((ele: Product) => {
+                props.filterPhoneSearch?.map((ele: PhoneResType) => {
                   return (
                     <div
                       key={ele.id_product}
@@ -109,11 +109,7 @@ export default function HeaderDesktop(props: Props) {
                       className="item_phone py-4 transition-all duration-300 flex cursor-pointer gap-[10px] bg-white px-[5px] hover:bg-[#f5f5f5]"
                     >
                       <div className="image w-[60px] h-[60px] relative">
-                        <Image
-                          fill
-                          src={ele.thumbnail}
-                          alt={ele.name}
-                        />
+                        <Image fill src={ele.thumbnail} alt={ele.name} />
                       </div>
                       <div className="info flex flex-col justify-center">
                         <div className="name text-xs text-black font-semibold">

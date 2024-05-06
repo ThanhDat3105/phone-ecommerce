@@ -2,7 +2,7 @@
 import Combobox from "@/src/components/combobox/Combobox";
 import ItemProduct from "@/src/components/item_product/ItemProduct";
 import Pagination from "@/src/components/pagination/Pagination";
-import { Product } from "@/src/interface/product";
+import { PhoneResType } from "@/src/interface/product";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { CgMenuGridR } from "react-icons/cg";
@@ -16,26 +16,13 @@ import {
   setFilterBrand,
   setFilterType,
 } from "@/src/lib/redux/features/phoneSlice";
-import useSWR from "swr";
-import { fetchListPhoneApi } from "@/src/api/service/phone";
-import Loading from "@/src/components/loading/Loading";
+import { frameworks } from "@/src/data/mockData";
 
-const frameworks = [
-  {
-    value: "popular",
-    label: "Popular",
-  },
-  {
-    value: "lowtohigh",
-    label: "Price low to high",
-  },
-  {
-    value: "hightolow",
-    label: "Price high to low",
-  },
-];
+interface Props {
+  phoneList: PhoneResType[];
+}
 
-export default function ProductRight() {
+export default function ProductRight(props: Props) {
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const dispatch = useDispatch<AppDispatch>();
   const searchParams = useSearchParams();
@@ -44,8 +31,8 @@ export default function ProductRight() {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [hasScrolled, setHasScrolled] = useState<boolean>(false);
   const [filterPrice, setFilterPrice] = useState<string>("");
-  const [dataFilter, setDataFilter] = useState<Product[]>([]);
-  const [dataFilterBrand, setDataFilterBrand] = useState<Product[]>([]);
+  const [dataFilter, setDataFilter] = useState<PhoneResType[]>([]);
+  const [dataFilterBrand, setDataFilterBrand] = useState<PhoneResType[]>([]);
 
   const quantityItemRender = 18;
   const limitPhonePage = 5;
@@ -56,15 +43,9 @@ export default function ProductRight() {
 
   const currentPageData = dataFilter?.slice(startItemIndex, endItemIndex);
 
-  const phoneList = useSWR("product/product-list", fetchListPhoneApi, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
-
   useEffect(() => {
     if (phoneReducer.filterBrand !== "") {
-      const data = phoneList?.data?.data.content.filter((ele: Product) =>
+      const data = props.phoneList.filter((ele: PhoneResType) =>
         ele.categoryBrandMapping?.brand.name.includes(phoneReducer.filterBrand)
       );
 
@@ -77,7 +58,7 @@ export default function ProductRight() {
       dispatch(setFilterType(""));
       setCurrentPage(0);
     } else {
-      setDataFilter(phoneList?.data?.data.content);
+      setDataFilter(props.phoneList);
       setDataFilterBrand([]);
     }
   }, [phoneReducer.filterBrand]);
@@ -92,7 +73,7 @@ export default function ProductRight() {
         );
         setDataFilter(data);
       } else {
-        const data = phoneList?.data?.data.content.filter((ele: Product) =>
+        const data = props.phoneList.filter((ele: PhoneResType) =>
           ele.categoryBrandMapping.category.name.includes(
             phoneReducer.filterType
           )
@@ -120,8 +101,8 @@ export default function ProductRight() {
   useEffect(() => {
     if (searchParams.get("brand") !== null) {
       dispatch(setFilterBrand(String(searchParams.get("brand"))));
-    } else setDataFilter(phoneList?.data?.data.content);
-  }, [phoneList?.data?.data.content]);
+    } else setDataFilter(props.phoneList);
+  }, [props.phoneList]);
 
   const scrollToSection = () => {
     const destination = ref.current;
@@ -141,9 +122,9 @@ export default function ProductRight() {
         );
       } else {
         setDataFilter(
-          phoneList?.data?.data.content
+          props.phoneList
             .slice()
-            .sort((a: Product, b: Product) => a.price - b.price)
+            .sort((a: PhoneResType, b: PhoneResType) => a.price - b.price)
         );
       }
     } else if (value === "hightolow") {
@@ -153,9 +134,9 @@ export default function ProductRight() {
         );
       } else {
         setDataFilter(
-          phoneList?.data?.data.content
+          props.phoneList
             .slice()
-            .sort((a: Product, b: Product) => b.price - a.price)
+            .sort((a: PhoneResType, b: PhoneResType) => b.price - a.price)
         );
       }
     } else if (value === "popular") {
@@ -163,9 +144,7 @@ export default function ProductRight() {
         setDataFilter(dataFilterBrand.filter((item) => item.new_release));
       } else {
         setDataFilter(
-          phoneList?.data?.data.content.filter(
-            (item: Product) => item.new_release
-          )
+          props.phoneList.filter((item: PhoneResType) => item.new_release)
         );
       }
     }
@@ -183,7 +162,7 @@ export default function ProductRight() {
 
   return (
     <>
-      {phoneList?.data === undefined ? (
+      {props.phoneList.length === 0 ? (
         <div className="product_right max-[768px]:p-[10px] min-h-[800px] w-[885px] ml-auto">
           <div className="product_item grid md:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]">
             {skeletonItem()}

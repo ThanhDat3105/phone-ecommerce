@@ -21,10 +21,10 @@ import { Button } from "@/src/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/src/lib/redux/store";
-import { User } from "@/src/interface/user";
 import { toast } from "sonner";
 import { CartItem, ValueFormOrder } from "@/src/interface/product";
 import Image from "next/image";
+import { LoginRegisResType } from "@/src/interface/user";
 
 export default function CartPage() {
   const cartList = useSelector(
@@ -34,7 +34,7 @@ export default function CartPage() {
   const router = useRouter();
   const [progress, setProgress] = useState<boolean>(false);
   const [mobile, setMobile] = useState<boolean>(false);
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<LoginRegisResType>();
   const [payment_method, setPaymentMethod] = useState<string>("");
   const [formOrder, setFormOrder] = useState<ValueFormOrder>({
     values: {
@@ -69,7 +69,7 @@ export default function CartPage() {
     if (typeof window !== "undefined") {
       const userLocalStorage = localStorage.getItem("USER_INFO_KEY");
       if (userLocalStorage) {
-        const userInfoObject: User = JSON.parse(userLocalStorage);
+        const userInfoObject: LoginRegisResType = JSON.parse(userLocalStorage);
         setUser(userInfoObject);
       }
     }
@@ -185,6 +185,7 @@ export default function CartPage() {
               )}
               {progress && (
                 <InfoCheckout
+                  sessionToken={user?.accessToken}
                   cartList={cartList}
                   formOrder={formOrder}
                   setFormOrder={setFormOrder}

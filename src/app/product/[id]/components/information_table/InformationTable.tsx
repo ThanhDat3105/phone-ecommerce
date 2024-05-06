@@ -1,9 +1,9 @@
-import { Product } from "@/src/interface/product";
+import { PhoneResType } from "@/src/interface/product";
 import Description from "./description/Description";
 import Specifications from "./specifications/Specifications";
 
 interface Props {
-  info: Product | undefined;
+  info: PhoneResType | undefined;
 }
 export default function InformationTable(props: Props) {
   return (

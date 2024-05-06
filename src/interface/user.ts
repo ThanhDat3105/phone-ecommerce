@@ -1,8 +1,28 @@
 import { ProductItem } from "./product";
 
-export interface userLogin {
+export interface LoginBodyType {
   email: string;
   password: string;
+}
+
+export interface RegisterBodyType {
+  name: string;
+  email: string;
+  password: string;
+  birthday?: string;
+  address: string;
+  phone: string;
+}
+
+export interface LoginRegisResType {
+  id_user: number;
+  name: string;
+  email: string;
+  phone: string;
+  birthday: string;
+  address: string;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface Email {
@@ -44,22 +64,3 @@ export interface UserProfile {
   productItem: ProductItem[];
 }
 
-export interface UserSignIn {
-  name: string;
-  email: string;
-  password: string;
-  birthday?: string;
-  address: string;
-  phone: string;
-}
-
-export interface UserData {
-  id_user: number;
-  name: string;
-  email: string;
-  phone: string;
-  birthday: string;
-  address: string;
-  accessToken: string;
-  refreshToken: string;
-}

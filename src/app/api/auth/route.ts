@@ -1,13 +1,13 @@
 export async function POST(request: Request) {
   const res = await request.json();
 
-  const sessionToken = res.content?.accessToken;
+  const sessionToken = res.sessionToken;
 
   if (!sessionToken) {
     return Response.json({ message: "Invalid session token" }, { status: 400 });
   }
 
-  return Response.json(res.content, {
+  return Response.json(res, {
     status: 200,
     headers: {
       "Set-Cookie": `sessionToken=${sessionToken}; Path=/; HttpOnly`,

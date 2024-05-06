@@ -1,17 +1,15 @@
-"use client";
 import React from "react";
 import { news } from "@/src/data/mockData";
-import { IoIosArrowForward } from "react-icons/io";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { newsItem } from "@/src/interface/news";
+
+import Image from "next/image";
+import MenuBack from "./MenuBack";
 
 interface Props {
   params: { id: number };
 }
 
 export default function NewsPage(props: Props) {
-  const router = useRouter();
   const item = news.find((ele: newsItem) => {
     return ele.id === Number(props.params.id);
   });
@@ -21,23 +19,7 @@ export default function NewsPage(props: Props) {
       {item !== undefined && (
         <div className="new_detail bg-white py-[120px]">
           <div className="xl:w-[800px] min-[768px]:w-[700px] w-[380px]  mr-auto ml-auto">
-            <div className="menu_back mb-[20px] flex text-[#5D5D5D] tracking-wider gap-6 ">
-              <p
-                onClick={() => router.push("/")}
-                className="cursor-pointer transition-all duration-300 hover:text-black"
-              >
-                Home
-              </p>
-              <IoIosArrowForward className="cursor-pointer" />
-              <p
-                onClick={() => router.push("/news")}
-                className="cursor-pointer hover:text-black transition-all duration-300"
-              >
-                News
-              </p>
-              <IoIosArrowForward className="cursor-pointer" />
-              <p className="text-black cursor-pointer">Tin tức Apple</p>
-            </div>
+            <MenuBack />
             <div className="image xl:h-[500px]">
               <Image
                 src={item?.img?.src}

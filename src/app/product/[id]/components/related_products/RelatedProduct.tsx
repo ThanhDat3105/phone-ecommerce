@@ -1,3 +1,4 @@
+"use client";
 import ItemProduct from "@/src/components/item_product/ItemProduct";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -5,19 +6,19 @@ import { Pagination } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import { Product } from "@/src/interface/product";
 import { useEffect, useState } from "react";
+import { PhoneResType } from "@/src/interface/product";
 
 interface Props {
-  phoneList: Product[];
-  info: Product;
+  phoneList: PhoneResType[];
+  info: PhoneResType;
 }
 
 export default function RelatedProduct(props: Props) {
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [relatedProducts, setRelatedProducts] = useState<PhoneResType[]>([]);
   const isRelated = "related";
   // Hàm xáo trộn mảng
-  const shuffleArray = (array: Product[]) => {
+  const shuffleArray = (array: PhoneResType[]) => {
     let shuffledArray = array.slice();
     for (let i = shuffledArray.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -39,8 +40,8 @@ export default function RelatedProduct(props: Props) {
     );
   };
 
-  const filterRelated = (data: Product[]) => {
-    return data.filter((product: Product) => {
+  const filterRelated = (data: PhoneResType[]) => {
+    return data.filter((product: PhoneResType) => {
       return (
         product.categoryBrandMapping.brand.name ===
           props.info.categoryBrandMapping?.brand.name &&
@@ -89,7 +90,7 @@ export default function RelatedProduct(props: Props) {
             }}
           >
             {relatedProducts.length > 0 ? (
-              relatedProducts.map((filteredEle: Product) => (
+              relatedProducts.map((filteredEle: PhoneResType) => (
                 <SwiperSlide key={filteredEle.id_product} className="m-0">
                   <ItemProduct ele={filteredEle} value={isRelated} />
                 </SwiperSlide>

@@ -1,8 +1,8 @@
 "use client";
 import "./productLeft.scss";
-import { useRef, useState } from "react";
-import { Brand } from "@/src/interface/brand";
-import { Category } from "@/src/interface/category";
+import { useState } from "react";
+import { BrandResType } from "@/src/interface/brand";
+import { CategoryResType } from "@/src/interface/category";
 import { useRouter } from "next/navigation";
 import { useSetting } from "@/src/hook/useSetting";
 import { AiOutlineClose } from "react-icons/ai";
@@ -13,11 +13,13 @@ import {
   setFilterType,
 } from "@/src/lib/redux/features/phoneSlice";
 import { AppDispatch, RootState } from "@/src/lib/redux/store";
-import useSWR from "swr";
-import { fetchListBrandApi } from "@/src/api/service/brand";
-import { fetchListCategoryApi } from "@/src/api/service/category";
 
-export default function ProductLeft() {
+interface Props {
+  brandList: BrandResType[];
+  categoryList: CategoryResType[];
+}
+
+export default function ProductLeft(props: Props) {
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
@@ -56,18 +58,6 @@ export default function ProductLeft() {
     );
   };
 
-  const brandList = useSWR("brand/brand-list", fetchListBrandApi, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
-
-  const categoryList = useSWR("category/category-list", fetchListCategoryApi, {
-    revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
-
   return (
     <div
       className={`product_left z-50 h-screen xl:h-fit absolute xl:w-[20%] w-full bg-white xl:shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] rounded-[10px] pb-12 xl:!translate-x-0 xl:!opacity-[1] ${
@@ -82,8 +72,8 @@ export default function ProductLeft() {
                 <h5 className="text-lg">Brand</h5>
               </div>
               <div className="collapse_check pl-5 py-5 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden tracking-widest">
-                {brandList?.data?.data.content.length > 0 ? (
-                  brandList?.data?.data.content.map((ele: Brand) => {
+                {props.brandList?.length > 0 ? (
+                  props.brandList?.map((ele: BrandResType) => {
                     return (
                       <div key={ele.id_brand}>
                         <span
@@ -121,8 +111,8 @@ export default function ProductLeft() {
                 <h5 className="text-lg">Type</h5>
               </div>
               <div className="collapse_check pl-5 py-5 flex flex-col gap-[10px] transition-all duration-500 overflow-hidden tracking-widest">
-                {categoryList?.data?.data.content.length > 0 ? (
-                  categoryList?.data?.data.content.map((ele: Category) => {
+                {props.categoryList?.length > 0 ? (
+                  props.categoryList?.map((ele: CategoryResType) => {
                     return (
                       <div key={ele.id_category}>
                         <span

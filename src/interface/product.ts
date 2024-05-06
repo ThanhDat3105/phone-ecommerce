@@ -14,12 +14,12 @@ interface Category {
   name: string;
 }
 
-interface Color {
+export interface Color {
   hex: string;
   name: string;
 }
 
-export interface Product {
+export interface PhoneResType {
   id_product: number;
   id_categoryBrand: number;
   name: string;

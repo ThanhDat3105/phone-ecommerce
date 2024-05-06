@@ -22,7 +22,6 @@
     "@tanstack/react-table": "^8.11.3",
     "@vercel/analytics": "^1.1.2",
     "@vercel/speed-insights": "^1.0.10",
-    "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",

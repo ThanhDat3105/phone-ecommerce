@@ -198,4 +198,19 @@ const news = [
   },
 ];
 
-export { companyPhone, news };
+const frameworks = [
+  {
+    value: "popular",
+    label: "Popular",
+  },
+  {
+    value: "lowtohigh",
+    label: "Price low to high",
+  },
+  {
+    value: "hightolow",
+    label: "Price high to low",
+  },
+];
+
+export { companyPhone, news, frameworks };

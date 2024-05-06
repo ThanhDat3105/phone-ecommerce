@@ -1,6 +1,6 @@
 "use client";
 import MultiCarousel from "@/src/components/muti_carousel/MultiCarousel";
-import { Product, Storage } from "@/src/interface/product";
+import { Color, PhoneResType, Storage } from "@/src/interface/product";
 
 import { formatPrice } from "@/src/utils/price";
 import { Button } from "@/src/components/ui/button";
@@ -13,7 +13,7 @@ import { StarFill } from "@/src/components/icons/icon/StarFill";
 import { StarEmpty } from "@/src/components/icons/icon/StarEmpty";
 
 interface Props {
-  ele: Product | undefined;
+  detailPhone: PhoneResType;
 }
 
 export default function InfoDetail(props: Props) {
@@ -43,15 +43,15 @@ export default function InfoDetail(props: Props) {
 
   const handleAddToCart = () => {
     if (memoryName && color) {
-      if (props.ele) {
+      if (props.detailPhone) {
         dispatch(
           addToCart({
-            id_product: props.ele.id_product,
-            thumbnail: props.ele.thumbnail,
-            name: props.ele.name,
+            id_product: props.detailPhone.id_product,
+            thumbnail: props.detailPhone.thumbnail,
+            name: props.detailPhone.name,
             storage: memoryName,
             color: color,
-            price: props.ele.price,
+            price: props.detailPhone.price,
           })
         );
         toast.success("Add to cart successfully");
@@ -64,12 +64,12 @@ export default function InfoDetail(props: Props) {
   return (
     <div className="info_detail xl:flex gap-[75px] mb-10">
       <div className="detail_left xl:w-[50%] pt-6">
-        <MultiCarousel image={props.ele?.img} />
+        <MultiCarousel image={props.detailPhone?.img} />
       </div>
       <div className="detail_right xl:w-[50%] pt-[75px]">
         <div className="title inline-block">
           <p className="xl:text-3xl text-2xl font-semibold">
-            {props.ele?.name}
+            {props.detailPhone?.name}
           </p>
           <div className="rate flex gap-[10px] items-center py-5">
             {renderStar}
@@ -79,10 +79,10 @@ export default function InfoDetail(props: Props) {
         </div>
         <div className="price flex items-end gap-[30px] pt-[25px] pb-[40px]">
           <p className="font-semibold text-2xl">
-            {formatPrice(Number(props.ele?.price))}đ
+            {formatPrice(Number(props.detailPhone?.price))}đ
           </p>
           <p className="font-light text-base line-through">
-            {formatPrice(Number(props.ele?.original_price))}đ
+            {formatPrice(Number(props.detailPhone?.original_price))}đ
           </p>
         </div>
         <div className="memory">
@@ -90,7 +90,7 @@ export default function InfoDetail(props: Props) {
             <p>Storage</p>
           </div>
           <div className="item flex gap-[30px]">
-            {props.ele?.storage.map((ele: Storage) => {
+            {props.detailPhone?.storage.map((ele: Storage) => {
               return (
                 <Button
                   onClick={() => handleClick(ele.name)}
@@ -110,7 +110,7 @@ export default function InfoDetail(props: Props) {
             <p>Color</p>
           </div>
           <div className="item flex gap-[25px]">
-            {props.ele?.color.map((ele) => {
+            {props.detailPhone?.color.map((ele: Color) => {
               return (
                 <span
                   onClick={() => handleClickColor(ele.hex)}
