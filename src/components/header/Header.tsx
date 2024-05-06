@@ -58,7 +58,14 @@ export default function Header() {
     }
   );
 
-  const userLocal = localStorage.getItem("USER_INFO_KEY");
+  if (typeof window !== "undefined") {
+    const userLocal = localStorage.getItem("USER_INFO_KEY");
+
+    if (userLocal) {
+      setUser(JSON.parse(userLocal));
+      setLogin(true);
+    }
+  }
 
   useEffect(() => {
     if (Number(headerRef.current?.clientWidth) <= 850) {
@@ -79,13 +86,6 @@ export default function Header() {
       });
     }
   }, []);
-
-  useEffect(() => {
-    if (userLocal) {
-      setUser(JSON.parse(userLocal));
-      setLogin(true);
-    }
-  }, [userLocal]);
 
   useEffect(() => {
     if (pathName !== "/cart") setHeaderOpen(true);

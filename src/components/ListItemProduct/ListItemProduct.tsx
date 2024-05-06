@@ -4,12 +4,12 @@ import ItemProduct from "../item_product/ItemProduct";
 import { Button } from "@/src/components/ui/button";
 
 import { IoIosArrowForward } from "react-icons/io";
-import { Product } from "@/src/interface/product";
 import { useRouter } from "next/navigation";
+import { PhoneResType } from "@/src/interface/product";
 
 interface Props {
   title: string;
-  ele: Product[];
+  ele: PhoneResType[];
   brand: string;
 }
 
@@ -25,7 +25,7 @@ export default function ListItemProduct(props: Props) {
       </div>
     );
   };
-  
+
   return (
     <div>
       <div className="list_item">
@@ -37,7 +37,7 @@ export default function ListItemProduct(props: Props) {
           style={{ scrollSnapType: "x mandatory" }}
         >
           {props.ele?.length > 0 ? (
-            props.ele?.map((ele: Product) => {
+            props.ele?.map((ele: PhoneResType) => {
               return <ItemProduct key={ele.id_product} ele={ele} />;
             })
           ) : (

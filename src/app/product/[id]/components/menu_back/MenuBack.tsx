@@ -1,8 +1,13 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { IoIosArrowForward } from "react-icons/io";
+import { PhoneResType } from "@/src/interface/product";
 
-export default function MenuBack() {
+interface Props {
+  phone: PhoneResType;
+}
+
+export default function MenuBack(props: Props) {
   const router = useRouter();
   return (
     <div className="menu_back flex xl:text-base text-sm text-[#5D5D5D] tracking-wider gap-6">
@@ -16,15 +21,15 @@ export default function MenuBack() {
       <p
         onClick={() =>
           router.push(
-            `/product?brand=${phone?.categoryBrandMapping?.brand?.name}`
+            `/product?brand=${props.phone?.categoryBrandMapping?.brand?.name}`
           )
         }
         className="cursor-pointer hover:text-black transition-all duration-300"
       >
-        {phone?.categoryBrandMapping?.brand?.name}
+        {props.phone?.categoryBrandMapping?.brand?.name}
       </p>
       <IoIosArrowForward className="cursor-pointer" />
-      <p className="text-black cursor-pointer">{phone?.name}</p>
+      <p className="text-black cursor-pointer">{props.phone?.name}</p>
     </div>
   );
 }

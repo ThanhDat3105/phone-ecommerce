@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/src/components/ui/button";
-import { CartItem, Product } from "@/src/interface/product";
+import { CartItem, PhoneResType } from "@/src/interface/product";
 import { FaShoppingBag } from "react-icons/fa";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { IoMenu } from "react-icons/io5";
@@ -15,7 +15,7 @@ interface Props {
   handleBlur: () => void;
   setShowMenu: (value: boolean) => void;
   setShow: (value: boolean) => void;
-  filterPhoneSearch: Product[];
+  filterPhoneSearch: PhoneResType[];
   cartList: CartItem[];
   showMenu: boolean;
   debounceSearch: string;
@@ -72,7 +72,7 @@ export default function HeaderMobile(props: Props) {
             className="active absolute bg-white w-[270px] left-[-40px] h-[350px] top-[146%] rounded-b-[15px] overflow-auto"
           >
             {props.filterPhoneSearch && props.filterPhoneSearch.length > 0 ? (
-              props.filterPhoneSearch?.map((ele: Product) => {
+              props.filterPhoneSearch?.map((ele: PhoneResType) => {
                 return (
                   <div
                     key={ele.id_product}

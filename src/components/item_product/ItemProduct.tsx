@@ -4,11 +4,11 @@ import { formatPrice } from "@/src/utils/price";
 
 import "./itemProduct.scss";
 import { useRouter } from "next/navigation";
-import { Product } from "@/src/interface/product";
 import { useEffect, useRef, useState } from "react";
+import { PhoneResType } from "@/src/interface/product";
 
 interface Props {
-  ele: Product;
+  ele: PhoneResType;
   value?: string;
 }
 

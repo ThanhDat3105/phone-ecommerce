@@ -1,9 +1,9 @@
 import { Button } from "@/src/components/ui/button";
-import { Product } from "@/src/interface/product";
+import { PhoneResType } from "@/src/interface/product";
 import { TiArrowSortedUp } from "react-icons/ti";
 
 interface Props {
-  items: Product[] | undefined;
+  items: PhoneResType[] | undefined;
   setCurrentPage: (value: number) => void;
   totalPages: number;
   currentPage: number;
