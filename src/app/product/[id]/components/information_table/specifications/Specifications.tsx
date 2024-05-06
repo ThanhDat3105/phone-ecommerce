@@ -1,7 +1,7 @@
-import { Product } from "@/src/interface/product";
+import { PhoneResType } from "@/src/interface/product";
 
 interface Props {
-  info: Product | undefined;
+  info: PhoneResType | undefined;
 }
 
 export default function Specifications(props: Props) {
