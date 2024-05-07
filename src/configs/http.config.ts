@@ -13,6 +13,9 @@ class HttpError extends Error {
   }
 }
 
+const AUTHORIZATION_ERROR = 401;
+export const isClient = () => typeof window !== "undefined";
+
 const request = async <Response>(
   method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH",
   url: string,
@@ -45,6 +48,22 @@ const request = async <Response>(
   });
 
   const result = await res.json();
+
+  if (result.statusCode === AUTHORIZATION_ERROR) {
+    if (isClient()) {
+      try {
+        fetch("/api/auth/logout", {
+          method: "POST",
+          body: JSON.stringify({ force: true }),
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        localStorage.removeItem("USER_INFO_KEY");
+        location.href = "/sign_in";
+      }
+    }
+  }
 
   if (result.statusCode >= 300) {
     return {

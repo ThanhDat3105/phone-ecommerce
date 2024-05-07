@@ -1,9 +1,9 @@
 "use client";
 
+import "./header.scss";
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import "./header.scss";
 import Logo from "../icons/icon/Logo";
 import useDebounce from "@/src/hook/useDebounce";
 import HeaderMobile from "./components/HeaderMobile";
@@ -15,18 +15,19 @@ const ModalCart = dynamic(() => import("../modal_cart/ModalCart"), {
   ssr: false,
   loading: () => <Loading />,
 });
+
 const ModalMenu = dynamic(() => import("./components/ModalMenu"), {
   ssr: false,
   loading: () => <Loading />,
 });
 
-import { useSelector } from "react-redux";
-import { RootState } from "@/src/lib/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/src/lib/redux/store";
 import phoneApiRequest from "@/src/apiRequest/phone";
 import { PhoneResType } from "@/src/interface/product";
 import authApiRequest from "@/src/apiRequest/auth";
-import { LoginRegisResType } from "@/src/interface/user";
 import { toast } from "sonner";
+import { setLoginAction } from "@/src/lib/redux/features/phoneSlice";
 
 export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -36,7 +37,7 @@ export default function Header() {
   const isLoginReducer = useSelector(
     (state: RootState) => state.phoneReducer.login
   );
-  const [user, setUser] = useState<LoginRegisResType>();
+  const dispatch = useDispatch<AppDispatch>();
   const [login, setLogin] = useState<boolean>(false);
   const [valueSearch, setValueSearch] = useState<string>("");
   const [filterPhoneSearch, setFilterPhoneSearch] = useState<PhoneResType[]>(
@@ -79,18 +80,16 @@ export default function Header() {
         }
       });
     }
-  }, []);
 
-  useEffect(() => {
     if (typeof window !== "undefined") {
       const userLocal = localStorage.getItem("USER_INFO_KEY");
-
-      if (userLocal !== "undefined") {
-        setUser(JSON.parse(String(userLocal)));
+      if (userLocal !== null) {
         setLogin(true);
       }
     }
+  }, []);
 
+  useEffect(() => {
     if (isLoginReducer) {
       setLogin(true);
     }
@@ -148,13 +147,12 @@ export default function Header() {
 
   const handleLogOut = async () => {
     if (login) {
-      const userLogout = await authApiRequest.logoutApi({
-        sessionToken: String(user?.accessToken),
-      });
+      setHeight();
+      const userLogout = await authApiRequest.logoutFromClientToNextServer();
       if (userLogout.status === 200) {
         localStorage.removeItem("USER_INFO_KEY");
         setLogin(false);
-        setHeight();
+        dispatch(setLoginAction(false));
         toast.success("Log out successfully");
       }
     }

@@ -100,7 +100,7 @@ export const phoneSlice = createSlice({
       state.sessionToken = action.payload;
     },
 
-    setLogin: (state, action: PayloadAction<boolean>) => {
+    setLoginAction: (state, action: PayloadAction<boolean>) => {
       state.login = action.payload;
     },
   },
@@ -119,7 +119,7 @@ export const {
   setFilterBrand,
   setFilterType,
   setSessionToken,
-  setLogin,
+  setLoginAction,
 } = phoneSlice.actions;
 
 export const phoneReducer = phoneSlice.reducer;

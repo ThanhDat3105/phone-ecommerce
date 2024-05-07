@@ -30,6 +30,11 @@ export default function HeaderDesktop(props: Props) {
   const router = useRouter();
   const [debounceSearch, setDebounceSearch] = useState<string>("");
 
+  const handleButtonOrder = () => {
+    props.setHeight();
+    router.push("/order-list");
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: any) => {
       if (refSearch.current && !refSearch.current.contains(event.target)) {
@@ -181,7 +186,7 @@ export default function HeaderDesktop(props: Props) {
               <>
                 <div
                   className="px-5 py-3 flex items-center justify-between cursor-pointer bg-white text-black hover:bg-[#f5f5f5] transition-all duration-300"
-                  onClick={() => router.push("/order-list")}
+                  onClick={() => handleButtonOrder()}
                 >
                   Order list
                 </div>

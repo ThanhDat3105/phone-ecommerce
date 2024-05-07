@@ -21,7 +21,7 @@ import { toast } from "sonner";
 import authApiRequest from "@/src/apiRequest/auth";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/src/lib/redux/store";
-import { setLogin } from "@/src/lib/redux/features/phoneSlice";
+import { setLoginAction } from "@/src/lib/redux/features/phoneSlice";
 
 const formSchema = z.object({
   email: z.string().min(1).max(50).email(),
@@ -35,6 +35,7 @@ export default function SignInForm() {
   const dispatch = useDispatch<AppDispatch>();
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(formSchema),
@@ -45,6 +46,10 @@ export default function SignInForm() {
   });
 
   const onSubmit = async (data: LoginBodyType) => {
+    if (isLogin) return;
+
+    setIsLogin(true);
+
     try {
       const result = await authApiRequest.login(data);
 
@@ -56,7 +61,7 @@ export default function SignInForm() {
 
       if (result.status === 200) {
         toast.success("Login successfully!");
-        dispatch(setLogin(true));
+        dispatch(setLoginAction(true));
         if (searchParams.get("urlBack") !== null) {
           router.push(String(searchParams.get("urlBack")));
         } else {
@@ -67,6 +72,8 @@ export default function SignInForm() {
       }
     } catch (error: any) {
       console.log(error);
+    } finally {
+      setIsLogin(false);
     }
   };
   return (

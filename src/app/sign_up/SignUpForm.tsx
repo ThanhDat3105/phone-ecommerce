@@ -26,6 +26,7 @@ import { RegisterBodyType } from "@/src/interface/user";
 import authApiRequest from "@/src/apiRequest/auth";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -56,6 +57,7 @@ type registerFormValues = z.infer<typeof formSchema>;
 export default function SignUpForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [isRegister, setIsRegister] = useState<boolean>(false);
   const form = useForm<registerFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -69,6 +71,9 @@ export default function SignUpForm() {
   });
 
   const onSubmit = async (d: RegisterBodyType) => {
+    if (isRegister) return;
+
+    setIsRegister(true);
     const data = {
       ...d,
       birthday: d.birthday
@@ -102,6 +107,8 @@ export default function SignUpForm() {
       }
     } catch (error: any) {
       console.log(error);
+    } finally {
+      setIsRegister(false);
     }
   };
 

@@ -24,9 +24,17 @@ const authApiRequest = {
     http.put(`auth/reset-password/${token}`, body),
 
   logoutApi: (body: { sessionToken: string }) =>
-    http.patch("auth/logout", "", { sessionToken: body.sessionToken }),
+    http.patch("auth/logout", null, { sessionToken: body.sessionToken }),
+
+  logoutFromClientToNextServer: () =>
+    http.post("api/auth/logout", null, {
+      baseUrl: "",
+    }),
 
   verifyEmail: (email: string) => http.put(`auth/verify-email/${email}`),
+
+  fetchProfile: (body: { sessionToken: string }) =>
+    http.get("auth/profile", { sessionToken: body.sessionToken }),
 };
 
 export default authApiRequest;

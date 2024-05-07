@@ -1,37 +1,31 @@
+"use client";
+import authApiRequest from "@/src/apiRequest/auth";
 import { ProductItem } from "@/src/interface/product";
-import { UserProfile } from "@/src/interface/user";
-import { cookies } from "next/headers";
+import { LoginRegisResType, UserProfile } from "@/src/interface/user";
+import { useEffect, useState } from "react";
 
 export default async function page() {
-  const cookieStore = cookies();
-  const sessionToken = cookieStore.get("sessionToken");
-  const result = await fetch(
-    "https://store-phone-server.vercel.app/auth/profile",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${sessionToken?.value}`,
-      },
-    }
-  ).then(async (res) => {
-    const payload = await res.json();
-    const data = {
-      status: res.status,
-      content: payload.content,
-    };
+  const [user, setUser] = useState<LoginRegisResType>();
 
-    if (!res.ok) {
-      throw data;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userLocal = localStorage.getItem("USER_INFO_KEY");
+      if (userLocal) {
+        setUser(JSON.parse(userLocal));
+      }
     }
+  }, []);
 
-    return data;
+  const result = await authApiRequest.fetchProfile({
+    sessionToken: String(user?.accessToken),
   });
 
-  const data: UserProfile = result?.content;
+  console.log(result);
 
+  const data: UserProfile = result?.payload;
   return (
     <>
-      {data && (
+      {/* {data && (
         <div className="pt-[70px]">
           <p>{data.name}</p>
           <p>{data.phone}</p>
@@ -49,7 +43,7 @@ export default async function page() {
             );
           })}
         </div>
-      )}
+      )} */}
     </>
   );
 }
