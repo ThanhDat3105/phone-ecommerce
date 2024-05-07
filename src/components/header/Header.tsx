@@ -85,8 +85,8 @@ export default function Header() {
     if (typeof window !== "undefined") {
       const userLocal = localStorage.getItem("USER_INFO_KEY");
 
-      if (userLocal) {
-        setUser(JSON.parse(userLocal));
+      if (userLocal !== "undefined") {
+        setUser(JSON.parse(String(userLocal)));
         setLogin(true);
       }
     }

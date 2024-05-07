@@ -8,7 +8,8 @@ class HttpError extends Error {
   payload: any;
   constructor({ status, payload }: { status: number; payload: any }) {
     super("Http Error");
-    (this.status = status), (this.payload = payload);
+    this.status = status;
+    this.payload = payload;
   }
 }
 
@@ -44,6 +45,14 @@ const request = async <Response>(
   });
 
   const result = await res.json();
+
+  if (result.statusCode >= 300) {
+    return {
+      status: res.status,
+      payload: result,
+    };
+  }
+
   const payload: Response = result.content;
 
   const data = {

@@ -62,6 +62,8 @@ export default function SignInForm() {
         } else {
           router.push("/");
         }
+      } else {
+        toast.error("Invalid login information!");
       }
     } catch (error: any) {
       console.log(error);

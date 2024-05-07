@@ -86,12 +86,22 @@ export default function SignUpForm() {
         } else {
           router.push("/sign_in");
         }
+      } else {
+        if (result.payload.message === "Tài khoản đã tồn tại!") {
+          toast.error(`Email already exists!`);
+        }
+
+        console.log(result);
+        if (
+          result.payload.message.map((message: string) =>
+            message.includes("Tên sai định dạng!")
+          )
+        ) {
+          toast.error(`Invalid format name!`);
+        }
       }
     } catch (error: any) {
-      // if (error.response.data.message === "Email đã tồn tại") {
-      toast.error("Email already exists");
-      // }
-      console.log("Error: ", "Email already exists");
+      console.log(error);
     }
   };
 
