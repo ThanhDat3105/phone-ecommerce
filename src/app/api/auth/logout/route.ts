@@ -37,6 +37,6 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    return error;
+    console.log(error);
   }
 }

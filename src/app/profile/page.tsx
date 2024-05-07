@@ -1,28 +1,27 @@
 "use client";
-import authApiRequest from "@/src/apiRequest/auth";
-import { ProductItem } from "@/src/interface/product";
-import { LoginRegisResType, UserProfile } from "@/src/interface/user";
 import { useEffect, useState } from "react";
+import authApiRequest from "@/src/apiRequest/auth";
+import { LoginRegisResType, UserProfile } from "@/src/interface/user";
 
 export default async function page() {
-  const [user, setUser] = useState<LoginRegisResType>();
+  // const [user, setUser] = useState<LoginRegisResType>();
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const userLocal = localStorage.getItem("USER_INFO_KEY");
-      if (userLocal) {
-        setUser(JSON.parse(userLocal));
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const userLocal = localStorage.getItem("USER_INFO_KEY");
+  //     if (userLocal) {
+  //       setUser(JSON.parse(userLocal));
+  //     }
+  //   }
+  // }, []);
 
-  const result = await authApiRequest.fetchProfile({
-    sessionToken: String(user?.accessToken),
-  });
+  // const result = await authApiRequest.fetchProfile({
+  //   sessionToken: String(user?.accessToken),
+  // });
 
-  console.log(result);
+  // console.log(result);
 
-  const data: UserProfile = result?.payload;
+  // const data: UserProfile = result?.payload;
   return (
     <>
       {/* {data && (
