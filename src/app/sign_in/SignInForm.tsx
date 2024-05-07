@@ -19,6 +19,9 @@ import { LoginBodyType } from "@/src/interface/user";
 import Link from "next/link";
 import { toast } from "sonner";
 import authApiRequest from "@/src/apiRequest/auth";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/src/lib/redux/store";
+import { setLogin } from "@/src/lib/redux/features/phoneSlice";
 
 const formSchema = z.object({
   email: z.string().min(1).max(50).email(),
@@ -29,6 +32,7 @@ type LoginFormValues = z.infer<typeof formSchema>;
 export default function SignInForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -52,6 +56,7 @@ export default function SignInForm() {
 
       if (result.status === 200) {
         toast.success("Login successfully!");
+        dispatch(setLogin(true));
         if (searchParams.get("urlBack") !== null) {
           router.push(String(searchParams.get("urlBack")));
         } else {

@@ -33,6 +33,9 @@ export default function Header() {
   const headerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathName = usePathname();
+  const isLoginReducer = useSelector(
+    (state: RootState) => state.phoneReducer.login
+  );
   const [user, setUser] = useState<LoginRegisResType>();
   const [login, setLogin] = useState<boolean>(false);
   const [valueSearch, setValueSearch] = useState<string>("");
@@ -58,15 +61,6 @@ export default function Header() {
     }
   );
 
-  // if (typeof window !== "undefined") {
-  //   const userLocal = localStorage.getItem("USER_INFO_KEY");
-
-  //   if (userLocal) {
-  //     setUser(JSON.parse(userLocal));
-  //     setLogin(true);
-  //   }
-  // }
-
   useEffect(() => {
     if (Number(headerRef.current?.clientWidth) <= 850) {
       setMobile(true);
@@ -86,6 +80,21 @@ export default function Header() {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userLocal = localStorage.getItem("USER_INFO_KEY");
+
+      if (userLocal) {
+        setUser(JSON.parse(userLocal));
+        setLogin(true);
+      }
+    }
+
+    if (isLoginReducer) {
+      setLogin(true);
+    }
+  }, [isLoginReducer]);
 
   useEffect(() => {
     if (pathName !== "/cart") setHeaderOpen(true);

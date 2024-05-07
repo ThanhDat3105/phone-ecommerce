@@ -6,6 +6,7 @@ interface phoneState {
   filterBrand: string;
   filterType: string;
   sessionToken: string;
+  login: boolean;
 }
 
 export const phoneSlice = createSlice({
@@ -16,6 +17,7 @@ export const phoneSlice = createSlice({
     filterBrand: "",
     filterType: "",
     sessionToken: "",
+    login: false,
   } as phoneState,
 
   reducers: {
@@ -97,6 +99,10 @@ export const phoneSlice = createSlice({
     setSessionToken: (state, action: PayloadAction<string>) => {
       state.sessionToken = action.payload;
     },
+
+    setLogin: (state, action: PayloadAction<boolean>) => {
+      state.login = action.payload;
+    },
   },
 
   extraReducers: (builder) => {},
@@ -113,6 +119,7 @@ export const {
   setFilterBrand,
   setFilterType,
   setSessionToken,
+  setLogin,
 } = phoneSlice.actions;
 
 export const phoneReducer = phoneSlice.reducer;
