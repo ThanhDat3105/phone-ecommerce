@@ -67,10 +67,10 @@ export default function DataTableDemo() {
 
   console.log(orderList);
 
-  const fetchOrderList = async (id: number, sessionToken: string) => {
+  const fetchOrderList = async (id: number, accessToken: string) => {
     const result = await orderApiRequest.fetchOrderByIdUserApi({
       id,
-      sessionToken,
+      accessToken,
     });
 
     if (result) setOrderList(result?.payload);

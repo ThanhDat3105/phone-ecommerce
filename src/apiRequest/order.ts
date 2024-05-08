@@ -3,13 +3,13 @@ import http from "../configs/http.config";
 import { OrderList } from "../interface/order";
 
 const orderApiRequest = {
-  fetchOrderByIdUserApi: (body: { id: number; sessionToken: string }) =>
+  fetchOrderByIdUserApi: (body: { id: number; accessToken: string }) =>
     http.get<OrderList[]>(`order/find-order-user/${body.id}`, {
-      sessionToken: body.sessionToken,
+      accessToken: body.accessToken,
     }),
 
-  createOrderApi: (body: Order, sessionToken: string) =>
-    http.post("order/create-order", body, { sessionToken }),
+  createOrderApi: (body: Order, accessToken: string) =>
+    http.post("order/create-order", body, { accessToken }),
 };
 
 export default orderApiRequest;

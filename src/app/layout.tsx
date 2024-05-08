@@ -8,6 +8,7 @@ import StoreProvider from "./StoreProvider";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import "@vercel/analytics";
+import RefreshToken from "./refreshToken/page";
 
 export const metadata: Metadata = {
   title: "Phone E-Commerce",
@@ -31,7 +32,7 @@ export default function RootLayout({
   setInterval(checkDevTools, 200);
 
   const cookieStore = cookies();
-  const sessionToken = cookieStore.get("sessionToken");
+  const accessToken = cookieStore.get("accessToken");
 
   return (
     <html lang="en">
@@ -43,9 +44,10 @@ export default function RootLayout({
       </head>
       <body>
         <SpeedInsights />
-        <StoreProvider sessionToken={sessionToken?.value}>
+        <StoreProvider accessToken={accessToken?.value}>
           <Header />
           {children}
+          <RefreshToken />
           <Footer />
           <Toaster position="bottom-center" />
         </StoreProvider>

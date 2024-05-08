@@ -12,7 +12,7 @@ import Image from "next/image";
 import orderApiRequest from "@/src/apiRequest/order";
 
 interface Props {
-  sessionToken?: string;
+  accessToken?: string;
   cartList: CartItem[];
   formOrder: ValueFormOrder;
   payment_method: string;
@@ -59,7 +59,7 @@ export default function InfoCheckout(props: Props) {
       if (props.cartList) {
         const result = await orderApiRequest.createOrderApi(
           props.formOrder.values,
-          String(props.sessionToken)
+          String(props.accessToken)
         );
         if (result.payload) {
           toast.success("Order placed successfully");

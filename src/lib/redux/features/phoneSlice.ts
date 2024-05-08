@@ -5,7 +5,7 @@ interface phoneState {
   isLoading: boolean;
   filterBrand: string;
   filterType: string;
-  sessionToken: string;
+  accessToken: string;
   login: boolean;
 }
 
@@ -16,7 +16,7 @@ export const phoneSlice = createSlice({
     isLoading: true,
     filterBrand: "",
     filterType: "",
-    sessionToken: "",
+    accessToken: "",
     login: false,
   } as phoneState,
 
@@ -96,8 +96,8 @@ export const phoneSlice = createSlice({
       state.filterType = action.payload;
     },
 
-    setSessionToken: (state, action: PayloadAction<string>) => {
-      state.sessionToken = action.payload;
+    setAccessToken: (state, action: PayloadAction<string>) => {
+      state.accessToken = action.payload;
     },
 
     setLoginAction: (state, action: PayloadAction<boolean>) => {
@@ -118,7 +118,7 @@ export const {
   setCloseLoading,
   setFilterBrand,
   setFilterType,
-  setSessionToken,
+  setAccessToken,
   setLoginAction,
 } = phoneSlice.actions;
 

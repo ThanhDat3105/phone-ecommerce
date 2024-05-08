@@ -2,20 +2,20 @@
 import { useRef } from "react";
 import { Provider } from "react-redux";
 import { store, AppStore } from "@/src/lib/redux/store";
-import { setSessionToken } from "../lib/redux/features/phoneSlice";
+import { setAccessToken } from "../lib/redux/features/phoneSlice";
 
 export default function StoreProvider({
   children,
-  sessionToken,
+  accessToken,
 }: {
   children: React.ReactNode;
-  sessionToken?: string;
+  accessToken?: string;
 }) {
   const storeRef = useRef<AppStore>();
 
   if (!storeRef.current) {
     storeRef.current = store();
   }
-  storeRef.current.dispatch(setSessionToken(String(sessionToken)));
+  storeRef.current.dispatch(setAccessToken(String(accessToken)));
   return <Provider store={storeRef.current}>{children}</Provider>;
 }

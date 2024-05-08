@@ -1,16 +1,23 @@
+import { cookies } from "next/headers";
+
 export async function POST(request: Request) {
   const res = await request.json();
 
-  const sessionToken = res.sessionToken;
+  const accessToken = res.accessToken;
+  const refreshToken = res.refreshToken;
 
-  if (!sessionToken) {
-    return Response.json({ message: "Invalid session token" }, { status: 401 });
+  if (!accessToken && !refreshToken) {
+    return Response.json({ message: "Invalid access token" }, { status: 401 });
   }
 
-  return Response.json(res, {
-    status: 200,
-    headers: {
-      "Set-Cookie": `sessionToken=${sessionToken}; Path=/; HttpOnly`,
-    },
-  });
+  const cookieStore = cookies();
+  cookieStore.set("accessToken", accessToken, { httpOnly: true });
+  cookieStore.set("refreshToken", refreshToken, { httpOnly: true });
+
+  return Response.json(
+    { message: "Successfully" },
+    {
+      status: 200,
+    }
+  );
 }

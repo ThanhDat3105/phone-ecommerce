@@ -185,7 +185,7 @@ export default function CartPage() {
               )}
               {progress && (
                 <InfoCheckout
-                  sessionToken={user?.accessToken}
+                accessToken={user?.accessToken}
                   cartList={cartList}
                   formOrder={formOrder}
                   setFormOrder={setFormOrder}

@@ -3,41 +3,43 @@ import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   const res = await request.json();
+  const cookieStore = cookies();
+  const accessToken = cookieStore.get("accessToken");
 
   const force = res.force as boolean | undefined;
 
   if (force) {
+    cookieStore.delete("accessToken");
+    cookieStore.delete("refreshToken");
+
     return Response.json(
       {
         message: "Buộc đăng xuất thành công",
       },
       {
         status: 200,
-        headers: {
-          "Set-Cookie": `sessionToken=; Path=/; HttpOnly; Max-Age=0`,
-        },
       }
     );
   }
 
-  const cookieStore = cookies();
-  const sessionToken = cookieStore.get("sessionToken");
-
-  if (!sessionToken) {
-    return Response.json({ message: "Invalid session token" }, { status: 401 });
+  if (!accessToken) {
+    return Response.json({ message: "Invalid access token" }, { status: 401 });
   }
 
   try {
-    const result = await authApiRequest.logoutApi({
-      sessionToken: sessionToken.value,
+    await authApiRequest.logoutApi({
+      accessToken: accessToken.value,
     });
 
-    return Response.json(result, {
-      status: 200,
-      headers: {
-        "Set-Cookie": `sessionToken=; Path=/; HttpOnly; Max-Age=0`,
-      },
-    });
+    cookieStore.delete("accessToken");
+    cookieStore.delete("refreshToken");
+
+    return Response.json(
+      { message: "Successfully" },
+      {
+        status: 200,
+      }
+    );
   } catch (error) {
     console.log(error);
   }

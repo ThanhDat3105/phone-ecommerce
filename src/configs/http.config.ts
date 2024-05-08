@@ -1,6 +1,7 @@
 type CustomOptions = RequestInit & {
   baseUrl?: string | undefined;
-  sessionToken?: string | undefined;
+  accessToken?: string | undefined;
+  refreshToken?: string | undefined;
 };
 
 class HttpError extends Error {
@@ -12,6 +13,14 @@ class HttpError extends Error {
     this.payload = payload;
   }
 }
+
+type EntityErrorPayload = {
+  message: string;
+  errors: {
+    field: string;
+    message: string;
+  }[];
+};
 
 const AUTHORIZATION_ERROR = 401;
 export const isClient = () => typeof window !== "undefined";
@@ -25,7 +34,8 @@ const request = async <Response>(
 
   const baseHeader = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${option?.sessionToken ?? ""}`,
+    Authorization: `Bearer ${option?.accessToken ?? ""}`,
+    refreshToken: `${option?.refreshToken ?? ""}`,
   };
 
   const baseUrl =
@@ -52,7 +62,7 @@ const request = async <Response>(
   if (result.statusCode === AUTHORIZATION_ERROR) {
     if (isClient()) {
       try {
-        fetch("/api/auth/logout", {
+        await fetch("/api/auth/logout", {
           method: "POST",
           body: JSON.stringify({ force: true }),
         });
@@ -78,7 +88,6 @@ const request = async <Response>(
     status: res.status,
     payload,
   };
-
   return data;
 };
 

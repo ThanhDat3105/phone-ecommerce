@@ -54,7 +54,8 @@ export default function SignInForm() {
       const result = await authApiRequest.login(data);
 
       await authApiRequest.auth({
-        sessionToken: result.payload.accessToken,
+        accessToken: result.payload.accessToken,
+        refreshToken: result.payload.refreshToken,
       });
 
       localStorage.setItem("USER_INFO_KEY", JSON.stringify(result.payload));
