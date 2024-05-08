@@ -31,14 +31,14 @@ export default function RefreshToken() {
 
             const { accessToken, refreshToken } = res.payload;
 
-            // const newUserLocal = {
-            //   ...parseUserLocal,
-            //   accessToken,
-            //   refreshToken,
-            // };
+            const newUserLocal = {
+              ...parseUserLocal,
+              accessToken,
+              refreshToken,
+            };
 
-            // await authApiRequest.auth({ accessToken, refreshToken });
-            // localStorage.setItem("USER_INFO_KEY", JSON.stringify(newUserLocal));
+            await authApiRequest.auth({ accessToken, refreshToken });
+            localStorage.setItem("USER_INFO_KEY", JSON.stringify(newUserLocal));
           }
         }
       }
