@@ -26,10 +26,14 @@ const authApiRequest = {
   logoutApi: (body: { sessionToken: string }) =>
     http.patch("auth/logout", null, { sessionToken: body.sessionToken }),
 
-  logoutFromClientToNextServer: () =>
-    http.post("api/auth/logout", null, {
-      baseUrl: "",
-    }),
+  logoutFromClientToNextServer: (force?: boolean | undefined) =>
+    http.post(
+      "api/auth/logout",
+      { force: force },
+      {
+        baseUrl: "",
+      }
+    ),
 
   verifyEmail: (email: string) => http.put(`auth/verify-email/${email}`),
 

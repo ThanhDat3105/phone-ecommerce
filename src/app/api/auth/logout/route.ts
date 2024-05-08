@@ -3,7 +3,9 @@ import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   const res = await request.json();
+
   const force = res.force as boolean | undefined;
+
   if (force) {
     return Response.json(
       {

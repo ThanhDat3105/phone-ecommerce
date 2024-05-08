@@ -148,7 +148,9 @@ export default function Header() {
   const handleLogOut = async () => {
     if (login) {
       setHeight();
-      const userLogout = await authApiRequest.logoutFromClientToNextServer();
+      const userLogout = await authApiRequest.logoutFromClientToNextServer(
+        false
+      );
       if (userLogout.status === 200) {
         localStorage.removeItem("USER_INFO_KEY");
         setLogin(false);
