@@ -23,6 +23,8 @@ type EntityErrorPayload = {
 };
 
 const AUTHORIZATION_ERROR = 401;
+const MESSAGE_AUTHORIZATION_ERROR = "Unauthorized";
+
 export const isClient = () => typeof window !== "undefined";
 
 const request = async <Response>(
@@ -59,7 +61,10 @@ const request = async <Response>(
 
   const result = await res.json();
 
-  if (result.statusCode === AUTHORIZATION_ERROR) {
+  if (
+    result.statusCode === AUTHORIZATION_ERROR &&
+    result.message === MESSAGE_AUTHORIZATION_ERROR
+  ) {
     if (isClient()) {
       try {
         await fetch("/api/auth/logout", {

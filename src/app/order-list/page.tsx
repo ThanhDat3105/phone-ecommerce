@@ -63,9 +63,9 @@ export default function DataTableDemo() {
       toast.warning("Login to continue!");
       router.push(`/sign_in?urlBack=/order-list`);
     }
-  }, []);
 
-  console.log(orderList);
+    // router.refresh();
+  }, []);
 
   const fetchOrderList = async (id: number, accessToken: string) => {
     const result = await orderApiRequest.fetchOrderByIdUserApi({
@@ -90,6 +90,8 @@ export default function DataTableDemo() {
   };
 
   const data: OrderList[] = orderList;
+
+  console.log(data);
 
   const columns: ColumnDef<OrderList>[] = [
     {
@@ -176,7 +178,11 @@ export default function DataTableDemo() {
 
   return (
     <>
-      <div className="container_order px-[32px] h-screen bg-white">
+      <div
+        className={`container_order px-[32px] ${
+          data.length === 0 ? "h-screen" : ""
+        } bg-white`}
+      >
         <div className="w-full pt-[110px]">
           <div className="title xl:text-2xl text-lg font-bold mb-5">
             Order list
