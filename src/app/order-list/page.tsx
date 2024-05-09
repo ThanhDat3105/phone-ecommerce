@@ -91,8 +91,6 @@ export default function DataTableDemo() {
 
   const data: OrderList[] = orderList;
 
-  console.log(data);
-
   const columns: ColumnDef<OrderList>[] = [
     {
       accessorKey: "id_order",

@@ -96,7 +96,6 @@ export default function SignUpForm() {
           toast.error(`Email already exists!`);
         }
 
-        console.log(result);
         if (
           result.payload.message.map((message: string) =>
             message.includes("Tên sai định dạng!")

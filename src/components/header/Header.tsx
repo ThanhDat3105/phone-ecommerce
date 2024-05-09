@@ -153,6 +153,7 @@ export default function Header() {
       );
       if (userLogout.status === 200) {
         localStorage.removeItem("USER_INFO_KEY");
+        location.href = "/";
         setLogin(false);
         dispatch(setLoginAction(false));
         toast.success("Log out successfully");

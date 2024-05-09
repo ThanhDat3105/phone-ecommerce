@@ -9,7 +9,6 @@ export default function RefreshToken() {
     const interval = setInterval(async () => {
       if (typeof window !== "undefined") {
         const userLocal = localStorage.getItem("USER_INFO_KEY");
-
         if (userLocal) {
           const parseUserLocal = JSON.parse(userLocal);
           const accessTokenLocal = parseUserLocal.accessToken;

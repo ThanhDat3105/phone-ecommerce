@@ -22,6 +22,7 @@ import authApiRequest from "@/src/apiRequest/auth";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/src/lib/redux/store";
 import { setLoginAction } from "@/src/lib/redux/features/phoneSlice";
+import { isClient } from "@/src/configs/http.config";
 
 const formSchema = z.object({
   email: z.string().min(1).max(50).email(),
@@ -62,10 +63,13 @@ export default function SignInForm() {
         localStorage.setItem("USER_INFO_KEY", JSON.stringify(result.payload));
         toast.success("Login successfully!");
         dispatch(setLoginAction(true));
-        if (searchParams.get("urlBack") !== null) {
-          router.push(String(searchParams.get("urlBack")));
+        if (
+          searchParams.get("urlBack") !== null &&
+          searchParams.get("urlBack") !== "/"
+        ) {
+          location.href = `/${String(searchParams.get("urlBack"))}`;
         } else {
-          router.push("/");
+          location.href = "/";
         }
       } else {
         toast.error("Invalid login information!");
