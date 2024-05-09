@@ -58,9 +58,8 @@ export default function SignInForm() {
         refreshToken: result.payload.refreshToken,
       });
 
-      localStorage.setItem("USER_INFO_KEY", JSON.stringify(result.payload));
-
       if (result.status === 200) {
+        localStorage.setItem("USER_INFO_KEY", JSON.stringify(result.payload));
         toast.success("Login successfully!");
         dispatch(setLoginAction(true));
         if (searchParams.get("urlBack") !== null) {
