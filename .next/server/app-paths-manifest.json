@@ -1,9 +1,21 @@
 {
-  "/page": "app/page.js",
-  "/product/[id]/page": "app/product/[id]/page.js",
-  "/sign_in/page": "app/sign_in/page.js",
+  "/_not-found": "app/_not-found.js",
+  "/api/auth/logout/route": "app/api/auth/logout/route.js",
+  "/api/auth/refresh-token/route": "app/api/auth/refresh-token/route.js",
   "/api/auth/route": "app/api/auth/route.js",
   "/cart/page": "app/cart/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/forgot-password/page": "app/forgot-password/page.js",
+  "/news/[id]/page": "app/news/[id]/page.js",
+  "/news/page": "app/news/page.js",
   "/order-list/page": "app/order-list/page.js",
-  "/api/auth/logout/route": "app/api/auth/logout/route.js"
+  "/page": "app/page.js",
+  "/product/[id]/page": "app/product/[id]/page.js",
+  "/product/page": "app/product/page.js",
+  "/refreshToken/page": "app/refreshToken/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/reset-password/[token]/page": "app/reset-password/[token]/page.js",
+  "/sign_up/page": "app/sign_up/page.js",
+  "/sign_in/page": "app/sign_in/page.js",
+  "/verify-register/[token]/page": "app/verify-register/[token]/page.js"
 }

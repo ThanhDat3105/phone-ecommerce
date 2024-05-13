@@ -2,7 +2,6 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Metadata } from "next";
-import { cookies } from "next/headers";
 
 import StoreProvider from "./StoreProvider";
 import Header from "../components/header/Header";
@@ -31,9 +30,6 @@ export default function RootLayout({
 
   setInterval(checkDevTools, 200);
 
-  const cookieStore = cookies();
-  const accessToken = cookieStore.get("accessToken");
-
   return (
     <html lang="en">
       <head>
@@ -44,7 +40,7 @@ export default function RootLayout({
       </head>
       <body>
         <SpeedInsights />
-        <StoreProvider accessToken={accessToken?.value}>
+        <StoreProvider>
           <Header />
           {children}
           <RefreshToken />

@@ -1,11 +1,10 @@
-import { CartItem, Order, ValueFormOrder } from "@/src/interface/product";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CartItem } from "@/src/interface/product";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface phoneState {
   cartList: CartItem[];
   isLoading: boolean;
   filterBrand: string;
   filterType: string;
-  accessToken: string;
   login: boolean;
 }
 
@@ -16,7 +15,6 @@ export const phoneSlice = createSlice({
     isLoading: true,
     filterBrand: "",
     filterType: "",
-    accessToken: "",
     login: false,
   } as phoneState,
 
@@ -96,10 +94,6 @@ export const phoneSlice = createSlice({
       state.filterType = action.payload;
     },
 
-    setAccessToken: (state, action: PayloadAction<string>) => {
-      state.accessToken = action.payload;
-    },
-
     setLoginAction: (state, action: PayloadAction<boolean>) => {
       state.login = action.payload;
     },
@@ -118,7 +112,6 @@ export const {
   setCloseLoading,
   setFilterBrand,
   setFilterType,
-  setAccessToken,
   setLoginAction,
 } = phoneSlice.actions;
 

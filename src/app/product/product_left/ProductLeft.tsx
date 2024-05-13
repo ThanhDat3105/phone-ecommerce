@@ -24,7 +24,6 @@ export default function ProductLeft(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const setting = useSetting();
-  // const windowSize = useRef([window.innerWidth]);
   const [activeIdType, setActiveIdType] = useState<number>(0);
   const [activeIdBrand, setActiveIdBrand] = useState<number>(0);
 
