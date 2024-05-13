@@ -4,10 +4,10 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Metadata } from "next";
 
 import StoreProvider from "./StoreProvider";
-import Header from "../components/header/Header";
-import Footer from "../components/footer/Footer";
 import "@vercel/analytics";
 import RefreshToken from "./refreshToken/page";
+import Header from "../components/header/Header";
+import Footer from "../components/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Phone E-Commerce",

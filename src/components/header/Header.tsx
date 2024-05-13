@@ -4,21 +4,20 @@ import "./header.scss";
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import Logo from "../icons/icon/Logo";
 import useDebounce from "@/src/hook/useDebounce";
 import HeaderMobile from "./components/HeaderMobile";
 import HeaderDesktop from "./components/HeaderDesktop";
 import useSWR from "swr";
-import Loading from "../loading/Loading";
 
-const ModalCart = dynamic(() => import("../modal_cart/ModalCart"), {
-  ssr: false,
-  loading: () => <Loading />,
-});
+const ModalCart = dynamic(
+  () => import("@/src/components/modal_cart/ModalCart"),
+  {
+    ssr: false,
+  }
+);
 
 const ModalMenu = dynamic(() => import("./components/ModalMenu"), {
   ssr: false,
-  loading: () => <Loading />,
 });
 
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +27,7 @@ import { PhoneResType } from "@/src/interface/product";
 import authApiRequest from "@/src/apiRequest/auth";
 import { toast } from "sonner";
 import { setLoginAction } from "@/src/lib/redux/features/phoneSlice";
+import Logo from "@/src/components/icons/icon/Logo";
 
 export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
