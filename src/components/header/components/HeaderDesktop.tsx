@@ -8,15 +8,18 @@ import React, { RefObject, useEffect, useRef, useState } from "react";
 import { FaShoppingBag } from "react-icons/fa";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { IoMdPerson } from "react-icons/io";
+import { IoMenu } from "react-icons/io5";
 
 interface Props {
-  inputFocus: boolean;
   handleChangeSearch: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleFocus: () => void;
   handleBlur: () => void;
   setShow: (value: boolean) => void;
   handleLogOut: () => void;
   setHeight: () => void;
+  setShowMenu: (value: boolean) => void;
+  inputFocus: boolean;
+  showMenu: boolean;
   cartList: CartItem[];
   dropdownRef: RefObject<HTMLDivElement> | null;
   login: boolean;
@@ -54,7 +57,7 @@ export default function HeaderDesktop(props: Props) {
   return (
     <>
       <div className="header_menu flex gap-[55px] text-black">
-        <div className="item_menu category flex cursor-pointer relative items-center">
+        <div className="item_menu category cursor-pointer relative items-center md:inline-block hidden">
           <div
             role="button"
             onClick={() => router.push("/product")}
@@ -65,7 +68,7 @@ export default function HeaderDesktop(props: Props) {
             All Categories
           </div>
         </div>
-        <div className="item_menu relative">
+        <div className="item_menu relative md:inline-block hidden">
           <div
             onClick={() => router.push("/news")}
             role="button"
@@ -77,7 +80,7 @@ export default function HeaderDesktop(props: Props) {
           </div>
         </div>
       </div>
-      <div className="header_info flex gap-[30px]">
+      <div className="header_info flex sm:gap-8 xs:gap-4 gap-2">
         <div
           className={`header_find relative flex items-center border-b-[2px]  ${
             props.inputFocus
@@ -88,7 +91,7 @@ export default function HeaderDesktop(props: Props) {
           <input
             type="text"
             placeholder="Search Product"
-            className="input_find pl-0 text-black focus-visible:outline-none py-[10px] w-[150px]"
+            className="input_find pl-0 text-black focus-visible:outline-none py-[10px] sm:w-[150px] w-20"
             onChange={props.handleChangeSearch}
             onFocus={props.handleFocus}
             onBlur={props.handleBlur}
@@ -155,9 +158,16 @@ export default function HeaderDesktop(props: Props) {
           <Button
             onClick={() => props.setHeight()}
             size={"icon"}
-            className="button_person rounded-[50%] bg-white text-black transition-all duration-300 hover:bg-black hover:text-white"
+            className="button_person rounded-[50%] bg-white text-black transition-all duration-300 hover:bg-black hover:text-white md:flex hidden"
           >
             <IoMdPerson className="icon_person text-2xl" />
+          </Button>
+          <Button
+            onClick={() => props.setShowMenu(!props.showMenu)}
+            size={"icon"}
+            className="button_person rounded-[50%] bg-white text-black transition-all duration-300 hover:bg-black hover:text-white md:hidden"
+          >
+            <IoMenu className="text-3xl cursor-pointer" />
           </Button>
           <div
             ref={props.dropdownRef}
