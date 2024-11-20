@@ -1,4 +1,3 @@
-import React from "react";
 import ItemNews from "./item_news/ItemNews";
 
 import image1 from "@/public/image/home/news/iphone 15pm news.webp";

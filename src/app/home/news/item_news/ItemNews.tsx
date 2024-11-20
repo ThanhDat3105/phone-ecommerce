@@ -11,7 +11,12 @@ export default function ItemNews(props: Props) {
   return (
     <div className="item_news rounded-[20px] bg-[#F5F5F5] relative transition-all duration-300 cursor-pointer hover:shadow-[0_5px_10px_0_rgba(0,0,0,0.3)]">
       <div className="item_top rounded-t-[12px] relative overflow-hidden xl:max-h-[170px] h-[170px] md:max-h-[140px]">
-        <Image fill src={props.ele.image.src} alt="image_News" />
+        <Image
+          fill
+          src={props.ele.image.src}
+          alt="image_News"
+          objectFit="cover"
+        />
       </div>
       <div className="item_bottom xl:px-8 pt-5 pb-10 md:px-2 max-[428px]:px-4">
         <div className="title text-sm xl:tracking-wider md:tracking-normal pb-3 overflow-hidden text-ellipsis whitespace-nowrap">

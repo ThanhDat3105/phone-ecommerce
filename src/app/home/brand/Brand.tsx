@@ -25,13 +25,13 @@ export default function Brand() {
   return (
     <div className="brand xl:pt-[50px] pt-5">
       <div className="container_all ">
-        <div className="content flex justify-between max-[428px]:inline-block">
-          <div className="title_brand max-[428px]:pl-2">
+        <div className="content flex sm:flex-row flex-col gap-2 justify-between overflow-hidden">
+          <div className="title_brand">
             <p className="xl:text-[32px] font-normal leading-10 tracking-wider text-[#000000] opacity-[50%] md:text-2xl">
               Outstanding Brand
             </p>
           </div>
-          <div className="name_brand flex xl:gap-5 md:gap-[10px] sm:gap-[5px] gap-[10px]">
+          <div className="name_brand flex gap-3 overflow-auto">
             {brand.map((ele: any) => {
               return (
                 <div
