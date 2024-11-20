@@ -5,7 +5,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import useDebounce from "@/src/hook/useDebounce";
-import HeaderMobile from "./components/HeaderMobile";
 import HeaderDesktop from "./components/HeaderDesktop";
 import useSWR from "swr";
 
@@ -51,15 +50,15 @@ export default function Header() {
 
   let debounceSearch = useDebounce(valueSearch, 200);
 
-  // const dataPhoneSWR = useSWR(
-  //   "product/product-list",
-  //   phoneApiRequest.fetchListPhoneApi,
-  //   {
-  //     revalidateIfStale: false,
-  //     revalidateOnFocus: false,
-  //     revalidateOnReconnect: false,
-  //   }
-  // );
+  const dataPhoneSWR = useSWR(
+    "product/product-list",
+    phoneApiRequest.fetchListPhoneApi,
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  );
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -94,9 +93,9 @@ export default function Header() {
     if (pathName !== "/cart") setHeaderOpen(true);
   }, [phoneReducer.cartList]);
 
-  // useEffect(() => {
-  //   if (debounceSearch !== "") filterPhone();
-  // }, [debounceSearch]);
+  useEffect(() => {
+    if (debounceSearch !== "") filterPhone();
+  }, [debounceSearch]);
 
   const setHeight = () => {
     if (dropdownRef?.current) {
@@ -123,22 +122,22 @@ export default function Header() {
     setValueSearch(event.target?.value);
   };
 
-  // const filterPhone = () => {
-  //   if (dataPhoneSWR.data?.payload) {
-  //     const filter = dataPhoneSWR.data.payload.filter((ele: PhoneResType) => {
-  //       return (
-  //         ele.name
-  //           .normalize("NFD")
-  //           .replace(/[\u0300-\u036f]/g, "")
-  //           .replace(/đ/g, "d")
-  //           .replace(/Đ/g, "D")
-  //           .toLowerCase()
-  //           .indexOf(valueSearch?.toLowerCase()) !== -1
-  //       );
-  //     });
-  //     if (filter.length > 0) setFilterPhoneSearch(filter);
-  //   }
-  // };
+  const filterPhone = () => {
+    if (dataPhoneSWR.data?.payload) {
+      const filter = dataPhoneSWR.data.payload.filter((ele: PhoneResType) => {
+        return (
+          ele.name
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/đ/g, "d")
+            .replace(/Đ/g, "D")
+            .toLowerCase()
+            .indexOf(valueSearch?.toLowerCase()) !== -1
+        );
+      });
+      if (filter.length > 0) setFilterPhoneSearch(filter);
+    }
+  };
 
   const handleLogOut = async () => {
     if (login) {
@@ -178,18 +177,6 @@ export default function Header() {
           >
             <Logo />
           </div>
-          {/* <HeaderMobile
-            inputFocus={inputFocus}
-            handleChangeSearch={handleChangeSearch}
-            handleFocus={handleFocus}
-            handleBlur={handleBlur}
-            setShow={setShow}
-            cartList={phoneReducer.cartList}
-            filterPhoneSearch={filterPhoneSearch}
-            setShowMenu={setShowMenu}
-            showMenu={showMenu}
-            debounceSearch={debounceSearch}
-          /> */}
           <HeaderDesktop
             inputFocus={inputFocus}
             handleChangeSearch={handleChangeSearch}

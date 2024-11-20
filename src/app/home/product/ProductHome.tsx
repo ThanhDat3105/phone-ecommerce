@@ -14,7 +14,7 @@ export default async function ProductHome() {
 
   return (
     <div className="product xl:pt-[45px] pt-10 pb-[20px]">
-      <div className="container_all flex flex-col lg:gap-28 gap-16">
+      <div className="container_all flex flex-col xl:gap-28 gap-8">
         <ListItemProduct
           title="Iphone"
           brand="Apple"
