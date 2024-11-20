@@ -11,7 +11,6 @@ import Footer from "../components/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Phone E-Commerce",
-
   description: "Phone e-commerce have everything shoe you want",
   openGraph: {
     images:

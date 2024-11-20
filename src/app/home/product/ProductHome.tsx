@@ -1,5 +1,5 @@
 import phoneApiRequest from "@/src/apiRequest/phone";
-import ListItemProduct from "@/src/components/ListItemProduct/ListItemProduct";
+import ListItemProduct from "@/src/components/home/ListItemProduct/ListItemProduct";
 import { PhoneResType } from "@/src/interface/product";
 
 export default async function ProductHome() {
@@ -14,7 +14,7 @@ export default async function ProductHome() {
 
   return (
     <div className="product xl:pt-[45px] pt-10 pb-[20px]">
-      <div className="container_all flex flex-col gap-[50px]">
+      <div className="container_all flex flex-col lg:gap-28 gap-16">
         <ListItemProduct
           title="Iphone"
           brand="Apple"
