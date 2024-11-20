@@ -15,7 +15,7 @@ export default function ModalMenu(props: Props) {
   const router = useRouter();
   return (
     <div
-      className={`modal_menu transition-all duration-500 absolute w-full md:mt-[70px] mt-[60px] pt-[30px] h-screen z-50 bg-white ${
+      className={`modal_menu transition-all duration-500 absolute w-full md:mt-[70px] mt-[60px] pt-[30px] h-screen z-50 bg-white md:hidden ${
         props.showMenu ? "translate-x-0" : "translate-x-[-1000px]"
       }`}
     >

@@ -46,27 +46,22 @@ export default function Header() {
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const [show, setShow] = useState<boolean>(false);
   const [headerOpen, setHeaderOpen] = useState<boolean>(true);
-  const [mobile, setMobile] = useState<boolean>(false);
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
 
   let debounceSearch = useDebounce(valueSearch, 200);
 
-  const dataPhoneSWR = useSWR(
-    "product/product-list",
-    phoneApiRequest.fetchListPhoneApi,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
+  // const dataPhoneSWR = useSWR(
+  //   "product/product-list",
+  //   phoneApiRequest.fetchListPhoneApi,
+  //   {
+  //     revalidateIfStale: false,
+  //     revalidateOnFocus: false,
+  //     revalidateOnReconnect: false,
+  //   }
+  // );
 
   useEffect(() => {
-    if (Number(headerRef.current?.clientWidth) <= 850) {
-      setMobile(true);
-    }
-
     if (typeof window !== "undefined") {
       let presentHeight = 0;
       window.addEventListener("scroll", function () {
@@ -99,9 +94,9 @@ export default function Header() {
     if (pathName !== "/cart") setHeaderOpen(true);
   }, [phoneReducer.cartList]);
 
-  useEffect(() => {
-    if (debounceSearch !== "") filterPhone();
-  }, [debounceSearch]);
+  // useEffect(() => {
+  //   if (debounceSearch !== "") filterPhone();
+  // }, [debounceSearch]);
 
   const setHeight = () => {
     if (dropdownRef?.current) {
@@ -128,22 +123,22 @@ export default function Header() {
     setValueSearch(event.target?.value);
   };
 
-  const filterPhone = () => {
-    if (dataPhoneSWR.data?.payload) {
-      const filter = dataPhoneSWR.data.payload.filter((ele: PhoneResType) => {
-        return (
-          ele.name
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .replace(/đ/g, "d")
-            .replace(/Đ/g, "D")
-            .toLowerCase()
-            .indexOf(valueSearch?.toLowerCase()) !== -1
-        );
-      });
-      if (filter.length > 0) setFilterPhoneSearch(filter);
-    }
-  };
+  // const filterPhone = () => {
+  //   if (dataPhoneSWR.data?.payload) {
+  //     const filter = dataPhoneSWR.data.payload.filter((ele: PhoneResType) => {
+  //       return (
+  //         ele.name
+  //           .normalize("NFD")
+  //           .replace(/[\u0300-\u036f]/g, "")
+  //           .replace(/đ/g, "d")
+  //           .replace(/Đ/g, "D")
+  //           .toLowerCase()
+  //           .indexOf(valueSearch?.toLowerCase()) !== -1
+  //       );
+  //     });
+  //     if (filter.length > 0) setFilterPhoneSearch(filter);
+  //   }
+  // };
 
   const handleLogOut = async () => {
     if (login) {
@@ -183,36 +178,35 @@ export default function Header() {
           >
             <Logo />
           </div>
-          {mobile ? (
-            <HeaderMobile
-              inputFocus={inputFocus}
-              handleChangeSearch={handleChangeSearch}
-              handleFocus={handleFocus}
-              handleBlur={handleBlur}
-              setShow={setShow}
-              cartList={phoneReducer.cartList}
-              filterPhoneSearch={filterPhoneSearch}
-              setShowMenu={setShowMenu}
-              showMenu={showMenu}
-              debounceSearch={debounceSearch}
-            />
-          ) : (
-            <HeaderDesktop
-              inputFocus={inputFocus}
-              handleChangeSearch={handleChangeSearch}
-              handleFocus={handleFocus}
-              handleBlur={handleBlur}
-              dropdownRef={dropdownRef}
-              login={login}
-              setHeight={setHeight}
-              cartList={phoneReducer.cartList}
-              debounceSearch={debounceSearch}
-              setShow={setShow}
-              filterPhoneSearch={filterPhoneSearch}
-              handleLogOut={handleLogOut}
-              pathName={pathName}
-            />
-          )}
+          {/* <HeaderMobile
+            inputFocus={inputFocus}
+            handleChangeSearch={handleChangeSearch}
+            handleFocus={handleFocus}
+            handleBlur={handleBlur}
+            setShow={setShow}
+            cartList={phoneReducer.cartList}
+            filterPhoneSearch={filterPhoneSearch}
+            setShowMenu={setShowMenu}
+            showMenu={showMenu}
+            debounceSearch={debounceSearch}
+          /> */}
+          <HeaderDesktop
+            inputFocus={inputFocus}
+            handleChangeSearch={handleChangeSearch}
+            handleFocus={handleFocus}
+            handleBlur={handleBlur}
+            dropdownRef={dropdownRef}
+            login={login}
+            setHeight={setHeight}
+            cartList={phoneReducer.cartList}
+            debounceSearch={debounceSearch}
+            setShow={setShow}
+            setShowMenu={setShowMenu}
+            showMenu={showMenu}
+            filterPhoneSearch={filterPhoneSearch}
+            handleLogOut={handleLogOut}
+            pathName={pathName}
+          />
         </div>
       </div>
       <div
@@ -222,15 +216,14 @@ export default function Header() {
       {show && (
         <ModalCart show={show} setShow={setShow} handleClose={handleClose} />
       )}
-      {mobile && (
-        <ModalMenu
-          pathName={pathName}
-          handleLogOut={handleLogOut}
-          login={login}
-          showMenu={showMenu}
-          setShowMenu={setShowMenu}
-        />
-      )}
+
+      <ModalMenu
+        pathName={pathName}
+        handleLogOut={handleLogOut}
+        login={login}
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+      />
     </>
   );
 }
