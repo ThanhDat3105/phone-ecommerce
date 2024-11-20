@@ -19,7 +19,7 @@ export default function Footer() {
     <div className="footer bg-black text-white">
       <div className="container_all">
         <div className="content">
-          <div className="content_top flex justify-between pt-[35px] pb-10 xl:flex-row flex-col xl:gap-0 gap-[60px]">
+          <div className="content_top pt-[35px] pb-10 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-0 gap-14">
             <div className="left max-w-[160px]">
               <div className="logo flex gap-[12px] ">
                 <div className="image">
@@ -54,7 +54,7 @@ export default function Footer() {
                 </div>
               </div>
             </div>
-            <div className="middle xl:gap-[120px] gap-[60px] xl:flex-row flex">
+            <div className="middle xl:gap-[60px] gap-[60px] xl:flex-row flex">
               <div className="middle_item">
                 <h5>Support</h5>
                 <ul className="text-sm flex flex-col gap-[15px] text-[#d9d7d7d2] pt-[10px]">
@@ -74,7 +74,7 @@ export default function Footer() {
                 </ul>
               </div>
             </div>
-            <div className="right flex flex-col gap-[30px] min-[428px]:w-[380px]">
+            <div className="right flex flex-col gap-[30px]">
               <div className="title flex items-center gap-[20px]">
                 <HiOutlineMail className="text-2xl" />
                 <p className="text-xl">Stay up date on the latest from K15</p>
