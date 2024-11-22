@@ -60,43 +60,6 @@ export default function Header() {
     }
   );
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      let presentHeight = 0;
-      window.addEventListener("scroll", function () {
-        const scrollPosition = window.scrollY || window.pageYOffset;
-        if (scrollPosition > presentHeight) {
-          presentHeight = scrollPosition;
-          setHeaderOpen(false);
-        } else {
-          presentHeight = scrollPosition;
-          setHeaderOpen(true);
-        }
-      });
-    }
-
-    if (typeof window !== "undefined") {
-      const userLocal = localStorage.getItem("USER_INFO_KEY");
-      if (userLocal !== null) {
-        setLogin(true);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isLoginReducer) {
-      setLogin(true);
-    }
-  }, [isLoginReducer]);
-
-  useEffect(() => {
-    if (pathName !== "/cart") setHeaderOpen(true);
-  }, [phoneReducer.cartList]);
-
-  useEffect(() => {
-    if (debounceSearch !== "") filterPhone();
-  }, [debounceSearch]);
-
   const setHeight = () => {
     if (dropdownRef?.current) {
       const clientHeight = Number(dropdownRef.current.clientHeight);
@@ -161,6 +124,43 @@ export default function Header() {
       document.querySelector(".modal_cart")?.classList.add("close");
     }
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let presentHeight = 0;
+      window.addEventListener("scroll", function () {
+        const scrollPosition = window.scrollY || window.pageYOffset;
+        if (scrollPosition > presentHeight) {
+          presentHeight = scrollPosition;
+          setHeaderOpen(false);
+        } else {
+          presentHeight = scrollPosition;
+          setHeaderOpen(true);
+        }
+      });
+    }
+
+    if (typeof window !== "undefined") {
+      const userLocal = localStorage.getItem("USER_INFO_KEY");
+      if (userLocal !== null) {
+        setLogin(true);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoginReducer) {
+      setLogin(true);
+    }
+  }, [isLoginReducer]);
+
+  useEffect(() => {
+    if (pathName !== "/cart") setHeaderOpen(true);
+  }, [phoneReducer.cartList]);
+
+  useEffect(() => {
+    if (debounceSearch !== "") filterPhone();
+  }, [debounceSearch]);
 
   return (
     <>
