@@ -16,9 +16,9 @@ export default async function ItemProduct(props: Props) {
       style={{ scrollSnapAlign: "start", textDecoration: "none" }}
     >
       <div
-        className={`item cursor-pointer text-black bg-[#FFFFFF] rounded-[20px] xl:shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] xl:hover:shadow-[0_5px_10px_0_rgba(0,0,0,0.3)] shadow-[0_5px_10px_0_rgba(0,0,0,0.09)] transition-all duration-300 xl:px-7 px-3 xl:pb-[30px] pb-5 xl:mb-0 xl:max-w-none md:max-w-[300px] mb-7 xl:mx-0 mx-2 xl:hover:scale-[1.03]`}
+        className={`item cursor-pointer text-black bg-[#FFFFFF] rounded-[20px] xl:shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] xl:hover:shadow-[0_5px_10px_0_rgba(0,0,0,0.3)] shadow-[0_5px_10px_0_rgba(0,0,0,0.09)] transition-all duration-300 xl:px-7 px-3 xl:pb-[30px] pb-5 xl:mb-0 xl:max-w-none max-w-[265px] mb-7 mx-auto xl:hover:scale-[1.03]`}
       >
-        <div className="relative xl:w-[210px] w-[170px] xl:h-[275px] h-[200px]">
+        <div className="relative mx-auto xl:w-[210px] w-[170px] xl:h-[275px] h-[200px]">
           <Image
             fill
             src={props.ele?.thumbnail}
