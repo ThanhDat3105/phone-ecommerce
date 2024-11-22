@@ -1,18 +1,17 @@
 "use client";
-import "./productLeft.scss";
+
 import { useState } from "react";
 import { BrandResType } from "@/src/interface/brand";
 import { CategoryResType } from "@/src/interface/category";
 import { useRouter } from "next/navigation";
 import { useSetting } from "@/src/hook/useSetting";
-import { AiOutlineClose } from "react-icons/ai";
-import { Button } from "@/src/components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setFilterBrand,
   setFilterType,
 } from "@/src/lib/redux/features/phoneSlice";
 import { AppDispatch, RootState } from "@/src/lib/redux/store";
+import "./productLeft.scss";
 
 interface Props {
   brandList: BrandResType[];
@@ -59,7 +58,7 @@ export default function ProductLeft(props: Props) {
 
   return (
     <div
-      className={`product_left z-50 h-screen xl:h-fit absolute xl:w-[20%] w-full bg-white xl:shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] rounded-[10px] pb-12 xl:!translate-x-0 xl:!opacity-[1] ${
+      className={`product_left z-50 xl:h-fit xl:w-[25%] xl:relative absolute xl:shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] rounded-[10px] pb-12 xl:!translate-x-0 xl:!opacity-[1] ${
         setting.isOpen ? "active" : ""
       }`}
     >

@@ -174,10 +174,7 @@ export default function ProductRight(props: Props) {
           </div>
         </div>
       ) : (
-        <div
-          ref={ref}
-          className="product_right max-[768px]:p-[10px] min-h-[800px] w-[885px] ml-auto"
-        >
+        <div ref={ref} className="product_right xl:w-[75%] w-full">
           <div className="filter_phone">
             <div className="min-[1280px]:hidden">
               <div className="total_phone flex justify-between items-center">
@@ -201,7 +198,7 @@ export default function ProductRight(props: Props) {
                 {dataFilter?.length} Products
               </p>
             </div>
-            <div className="max-[1200px]:hidden total_phone flex justify-between items-center">
+            <div className="xl:flex hidden total_phone justify-between items-center">
               <p className="text-base tracking-wider text-[#AAAAAA] font-medium">
                 {dataFilter?.length} Products
               </p>
@@ -217,13 +214,13 @@ export default function ProductRight(props: Props) {
             </div>
           </div>
           {currentPageData?.length > 0 ? (
-            <div className="product_item grid md:grid-cols-3 grid-cols-2 xl:gap-[30px] gap-4 xl:pt-[50px]">
+            <div className="product_item grid md:grid-cols-3 xs:grid-cols-2 grid-cols-1 xl:gap-[30px] gap-4 pt-[50px]">
               {currentPageData?.map((ele) => {
                 return <ItemProduct key={ele.id_product} ele={ele} />;
               })}
             </div>
           ) : (
-            <div className="relative">
+            <div className="relative h-screen">
               <Image
                 src={notFound.src}
                 alt="Not Found"
