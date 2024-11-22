@@ -60,7 +60,7 @@ export default function Pagination(props: Props) {
           <TiArrowSortedUp className="text-4xl rotate-[-90deg]" />
         </Button>
       </div>
-      <div className="number_pagination flex gap-[60px]">{number}</div>
+      <div className="number_pagination flex xs:gap-16 gap-3">{number}</div>
       <div className="button_next mr-4 flex">
         <Button
           onClick={() => {

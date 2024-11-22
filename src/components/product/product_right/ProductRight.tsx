@@ -230,7 +230,7 @@ export default function ProductRight(props: Props) {
               />
             </div>
           )}
-          <div className="pt-20">
+          <div className="md:pt-20 pt-10">
             {totalPages > 1 && (
               <Pagination
                 items={currentPageData}
