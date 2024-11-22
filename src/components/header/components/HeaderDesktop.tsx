@@ -3,6 +3,7 @@ import { CartItem, PhoneResType } from "@/src/interface/product";
 import { formatPrice } from "@/src/utils/price";
 import { LogOut } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { RefObject, useEffect, useRef, useState } from "react";
 import { FaShoppingBag } from "react-icons/fa";
@@ -36,6 +37,10 @@ export default function HeaderDesktop(props: Props) {
   const handleButtonOrder = () => {
     props.setHeight();
     router.push("/order-list");
+  };
+
+  const handleNavigateToDetail = () => {
+    setDebounceSearch("");
   };
 
   useEffect(() => {
@@ -111,10 +116,12 @@ export default function HeaderDesktop(props: Props) {
               {props.filterPhoneSearch && props.filterPhoneSearch.length > 0 ? (
                 props.filterPhoneSearch?.map((ele: PhoneResType) => {
                   return (
-                    <div
+                    <Link
+                      style={{ textDecoration: "none" }}
+                      className="item_phone  py-4 transition-all duration-300 flex cursor-pointer gap-[10px] bg-white px-[5px] hover:bg-[#f5f5f5]"
                       key={ele.id_product}
-                      onClick={() => router.push(`/product/${ele.id_product}`)}
-                      className="item_phone py-4 transition-all duration-300 flex cursor-pointer gap-[10px] bg-white px-[5px] hover:bg-[#f5f5f5]"
+                      href={`/product/${ele.id_product}`}
+                      onClick={handleNavigateToDetail}
                     >
                       <div className="image w-[60px] h-[60px] relative">
                         <Image fill src={ele.thumbnail} alt={ele.name} />
@@ -129,7 +136,7 @@ export default function HeaderDesktop(props: Props) {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   );
                 })
               ) : (
