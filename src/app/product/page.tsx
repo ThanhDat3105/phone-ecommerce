@@ -10,7 +10,7 @@ export default async function ProductPage() {
   const phoneList = await phoneApiRequest.fetchListPhoneApi();
 
   return (
-    <div className="filter xl:pt-[130px] min-[768px]:pt-[80px] pt-[70px] bg-white pb-[130px]">
+    <div className="filter xl:pt-[130px] min-[768px]:pt-[80px] pt-[70px] bg-white md:pb-28 pb-20">
       <div className="container_all xl:!px-[10px] !p-0">
         <div className="content xl:flex gap-10">
           {brandList?.payload &&
