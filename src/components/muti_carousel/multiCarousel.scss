@@ -1,19 +1,33 @@
-.productCarousel {
-  .carousel {
-    .thumbs-wrapper {
-      .thumbs {
-        display: flex;
-        justify-content: center;
+.image-gallery {
+  .image-gallery-content {
+    .image-gallery-slide-wrapper {
+      .image-gallery-swipe {
+        .image-gallery-slides {
+          .image-gallery-slide {
+            img {
+              height: 500px;
+
+              @media (max-width: 428px) {
+                height: 300px;
+              }
+            }
+          }
+        }
       }
     }
-  }
 
-  .carousel-slider {
-    .slider-wrapper {
-      .slider {
-        .slide.selected {
-          img {
-            border-radius: 12px;
+    .image-gallery-thumbnails-wrapper {
+      .image-gallery-thumbnails {
+        .image-gallery-thumbnails-container {
+          .image-gallery-thumbnail.active {
+            border: 2px solid black;
+          }
+
+          .image-gallery-thumbnail {
+            &:hover {
+              border: 2px solid black;
+              transition: border 0.2s ease-in-out;
+            }
           }
         }
       }

@@ -1,8 +1,9 @@
-import RelatedProduct from "./components/related_products/RelatedProduct";
-import InformationTable from "./components/information_table/InformationTable";
-import InfoDetail from "./components/info_detail/InfoDetail";
+
 import phoneApiRequest from "@/src/apiRequest/phone";
-import MenuBack from "./components/menu_back/MenuBack";
+import InfoDetail from "@/src/components/detail_phone/info_detail/InfoDetail";
+import InformationTable from "@/src/components/detail_phone/information_table/InformationTable";
+import MenuBack from "@/src/components/detail_phone/menu_back/MenuBack";
+import RelatedProduct from "@/src/components/detail_phone/related_products/RelatedProduct";
 
 interface Props {
   params: { id: number };
