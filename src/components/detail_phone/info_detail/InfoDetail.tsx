@@ -4,7 +4,7 @@ import { Color, PhoneResType, Storage } from "@/src/interface/product";
 
 import { formatPrice } from "@/src/utils/price";
 import { Button } from "@/src/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/src/lib/redux/store";
@@ -20,6 +20,12 @@ export default function InfoDetail(props: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const [memoryName, setMemoryName] = useState<string>();
   const [color, setColor] = useState<string>();
+  const [images, setImages] = useState<
+    {
+      original: string;
+      thumbnail: string;
+    }[]
+  >([]);
 
   const renderStar = Array.from({ length: 5 }, (_, index) =>
     index < 4 ? (
@@ -61,10 +67,25 @@ export default function InfoDetail(props: Props) {
     }
   };
 
+  useEffect(() => {
+    const data: {
+      original: string;
+      thumbnail: string;
+    }[] = [];
+
+    if (props.detailPhone.img) {
+      props.detailPhone.img.forEach((img) => {
+        data.push({ original: img.url, thumbnail: img.url });
+      });
+
+      setImages(data);
+    }
+  }, []);
+
   return (
     <div className="info_detail xl:flex gap-[75px] mb-10">
       <div className="detail_left xl:w-[50%] pt-6">
-        <MultiCarousel image={props.detailPhone?.img} />
+        <MultiCarousel images={images} />
       </div>
       <div className="detail_right xl:w-[50%] pt-[75px]">
         <div className="title inline-block">
@@ -136,30 +157,30 @@ export default function InfoDetail(props: Props) {
               <li>
                 Old collection Renew: Discount up to 2 million (Depending on old
                 device model, Does not include payment via online portal,
-                purchased together) See details
+                purchased together)
               </li>
               <li>
                 Refund if cheaper somewhere else (Within 7 days; only applicable
-                at supermarkets) See details
+                at supermarkets)
               </li>
               <li>
                 Refund 200,000 VND for HOME CREDIT credit card holders when
-                paying for orders from 5,000,000 VND (See details)
+                paying for orders from 5,000,000 VND
               </li>
               <li>
                 Enter code VNPAYTGDD to get a discount from 50,000 VND to
                 200,000 VND (Applicable depending on order value) when paying
-                via VNPAY-QR (See details)
+                via VNPAY-QR
               </li>
               <li>
                 Enter code VNPAYTAO to get an instant discount of 200K for
                 orders from 15 Million, only applies to VNPAY-QR payment at the
-                store (See details)
+                store
               </li>
               <li>
                 Enter code ZLPIP15 for an instant discount of 300K for orders
                 from 20 Million, only applicable for payment via ZALOPAY Wallet
-                at the store (See details)
+                at the store
               </li>
             </ul>
           </div>

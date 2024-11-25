@@ -70,11 +70,12 @@ export default function RelatedProduct(props: Props) {
         </div>
         <div className="item">
           <Swiper
+            slidesPerView={1}
             pagination={false}
             modules={[Pagination]}
             className="mySwiper !pb-10 !px-[10px]"
             breakpoints={{
-              300: {
+              640: {
                 slidesPerView: 2,
                 spaceBetween: 20,
               },
