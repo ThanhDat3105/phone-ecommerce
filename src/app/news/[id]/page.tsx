@@ -1,9 +1,8 @@
-import React from "react";
 import { news } from "@/src/data/mockData";
 import { newsItem } from "@/src/interface/news";
 
 import Image from "next/image";
-import MenuBack from "./MenuBack";
+import MenuBack from "../../../components/news/MenuBack";
 
 interface Props {
   params: { id: number };
@@ -18,15 +17,14 @@ export default function NewsPage(props: Props) {
     <>
       {item !== undefined && (
         <div className="new_detail bg-white py-[120px]">
-          <div className="xl:w-[800px] min-[768px]:w-[700px] w-[380px]  mr-auto ml-auto">
+          <div className="lg:w-[60%] xl:w-[50%] mx-auto px-5">
             <MenuBack />
-            <div className="image xl:h-[500px]">
+            <div className="image sm:h-[500px] h-[200px] w-full relative">
               <Image
                 src={item?.img?.src}
                 alt="img"
-                className="w-full h-full rounded-[20px]"
-                width={800}
-                height={500}
+                className="rounded-[20px]"
+                fill
               />
             </div>
             <div className="content rounded-[20px] mt-[50px] border-[1px] border-[#D5D5D5] p-10 flex flex-col gap-[20px]">
