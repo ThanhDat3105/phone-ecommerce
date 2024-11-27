@@ -188,9 +188,6 @@ img {
   display: none;
 }
 
-.loadingSkeleton {
-}
-
 .skeleton {
   position: relative;
   overflow: hidden;
