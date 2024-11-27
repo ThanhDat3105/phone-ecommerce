@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import useDebounce from "@/src/hook/useDebounce";
 import HeaderDesktop from "./components/HeaderDesktop";
 import useSWR from "swr";
+import Cookies from "js-cookie";
 
 const ModalCart = dynamic(
   () => import("@/src/components/modal_cart/ModalCart"),
@@ -25,7 +26,6 @@ import phoneApiRequest from "@/src/apiRequest/phone";
 import { PhoneResType } from "@/src/interface/product";
 import authApiRequest from "@/src/apiRequest/auth";
 import { toast } from "sonner";
-import { setLoginAction } from "@/src/lib/redux/features/phoneSlice";
 import Logo from "@/src/components/icons/icon/Logo";
 
 export default function Header() {
@@ -33,9 +33,6 @@ export default function Header() {
   const headerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathName = usePathname();
-  const isLoginReducer = useSelector(
-    (state: RootState) => state.phoneReducer.login
-  );
   const dispatch = useDispatch<AppDispatch>();
   const [login, setLogin] = useState<boolean>(false);
   const [valueSearch, setValueSearch] = useState<string>("");
@@ -109,10 +106,8 @@ export default function Header() {
         false
       );
       if (userLogout.status === 200) {
-        localStorage.removeItem("USER_INFO_KEY");
         location.href = "/";
         setLogin(false);
-        dispatch(setLoginAction(false));
         toast.success("Log out successfully");
       }
     }
@@ -137,22 +132,13 @@ export default function Header() {
           presentHeight = scrollPosition;
           setHeaderOpen(true);
         }
+
+        if (scrollPosition === 0) {
+          setHeaderOpen(true);
+        }
       });
     }
-
-    if (typeof window !== "undefined") {
-      const userLocal = localStorage.getItem("USER_INFO_KEY");
-      if (userLocal !== null) {
-        setLogin(true);
-      }
-    }
   }, []);
-
-  useEffect(() => {
-    if (isLoginReducer) {
-      setLogin(true);
-    }
-  }, [isLoginReducer]);
 
   useEffect(() => {
     if (pathName !== "/cart") setHeaderOpen(true);
@@ -161,6 +147,16 @@ export default function Header() {
   useEffect(() => {
     if (debounceSearch !== "") filterPhone();
   }, [debounceSearch]);
+
+  useEffect(() => {
+    const token = Cookies.get("accessToken");
+
+    if (token) {
+      setLogin(true);
+    } else {
+      setLogin(false);
+    }
+  }, []);
 
   return (
     <>

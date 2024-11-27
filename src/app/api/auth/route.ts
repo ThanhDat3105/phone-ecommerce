@@ -11,8 +11,8 @@ export async function POST(request: Request) {
   }
 
   const cookieStore = cookies();
-  cookieStore.set("accessToken", accessToken, { httpOnly: true });
-  cookieStore.set("refreshToken", refreshToken, { httpOnly: true });
+  cookieStore.set("accessToken", accessToken);
+  cookieStore.set("refreshToken", refreshToken);
 
   return Response.json(
     { message: "Successfully" },

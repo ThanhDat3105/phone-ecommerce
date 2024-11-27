@@ -14,14 +14,6 @@ class HttpError extends Error {
   }
 }
 
-type EntityErrorPayload = {
-  message: string;
-  errors: {
-    field: string;
-    message: string;
-  }[];
-};
-
 const AUTHORIZATION_ERROR = 401;
 const MESSAGE_AUTHORIZATION_ERROR = "Unauthorized";
 
