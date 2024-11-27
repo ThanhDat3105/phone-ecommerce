@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import { FaFacebookF, FaGoogle, FaGithub } from "react-icons/fa6";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -21,8 +20,7 @@ import { toast } from "sonner";
 import authApiRequest from "@/src/apiRequest/auth";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/src/lib/redux/store";
-import { setLoginAction } from "@/src/lib/redux/features/phoneSlice";
-import { isClient } from "@/src/configs/http.config";
+import Cookies from "js-cookie";
 
 const formSchema = z.object({
   email: z.string().min(1).max(50).email(),
@@ -31,10 +29,8 @@ const formSchema = z.object({
 type LoginFormValues = z.infer<typeof formSchema>;
 
 export default function SignInForm() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-
+  const path = Cookies.get("prevPath");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
@@ -60,14 +56,10 @@ export default function SignInForm() {
       });
 
       if (result.status === 200) {
-        localStorage.setItem("USER_INFO_KEY", JSON.stringify(result.payload));
         toast.success("Login successfully!");
-        dispatch(setLoginAction(true));
-        if (
-          searchParams.get("urlBack") !== null &&
-          searchParams.get("urlBack") !== "/"
-        ) {
-          location.href = `/${String(searchParams.get("urlBack"))}`;
+
+        if (path) {
+          location.href = `/${path}`;
         } else {
           location.href = "/";
         }
