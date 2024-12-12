@@ -65,13 +65,14 @@ export default function SignInForm() {
         } else {
           location.href = "/";
         }
-
-        setIsLoading(false);
       } else {
         toast.error("Invalid login information!");
       }
+
+      setIsLoading(false);
     } catch (error: any) {
       console.log(error);
+      setIsLoading(false);
     } finally {
       setIsLogin(false);
     }
