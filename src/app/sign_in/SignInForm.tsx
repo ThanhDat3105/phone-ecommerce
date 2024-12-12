@@ -29,8 +29,8 @@ const formSchema = z.object({
 type LoginFormValues = z.infer<typeof formSchema>;
 
 export default function SignInForm() {
-  const dispatch = useDispatch<AppDispatch>();
   const path = Cookies.get("prevPath");
+  Cookies.remove("prevPath");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
