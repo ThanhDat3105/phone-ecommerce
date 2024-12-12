@@ -86,11 +86,8 @@ export default function SignUpForm() {
 
       if (result.status === 201) {
         toast.success("Please check your email!");
-        if (searchParams.get("urlBack") !== null) {
-          router.push(String(searchParams.get("urlBack")));
-        } else {
-          router.push("/sign_in");
-        }
+
+        router.push("/sign_in");
       } else {
         if (result.payload.message === "Tài khoản đã tồn tại!") {
           toast.error(`Email already exists!`);

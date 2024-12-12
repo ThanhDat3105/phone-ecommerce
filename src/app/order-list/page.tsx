@@ -61,7 +61,7 @@ export default function DataTableDemo() {
       }
     } else {
       toast.warning("Login to continue!");
-      router.push(`/sign_in?urlBack=/order-list`);
+      router.push(`/sign_in`);
     }
 
     // router.refresh();
