@@ -105,7 +105,6 @@ export default function CartPage() {
         setProgress(true);
       } else {
         toast.warning("Login to continue");
-        router.push(`/sign_in?urlBack=/cart`);
       }
     }
   };

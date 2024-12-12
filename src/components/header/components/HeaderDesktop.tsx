@@ -185,7 +185,7 @@ export default function HeaderDesktop(props: Props) {
                 <div
                   className="login px-5 py-3 cursor-pointer bg-white text-black hover:bg-[#f5f5f5] transition-all duration-300"
                   onClick={() => {
-                    router.push("/sign_in?urlBack=/"), props.setHeight();
+                    router.push("/sign_in"), props.setHeight();
                   }}
                 >
                   Login

@@ -31,17 +31,11 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="google-site-verification"
-          content="dvbj-BDiGyW0ZmpZ84d4tA0-xfgwo8SzH3QV6QwjsNw"
-        />
-      </head>
       <body>
         <SpeedInsights />
         <StoreProvider>
           <Header />
-          {children}
+          <div className="min-h-[100vh]">{children}</div>
           <RefreshToken />
           <Footer />
           <Toaster position="bottom-center" />
