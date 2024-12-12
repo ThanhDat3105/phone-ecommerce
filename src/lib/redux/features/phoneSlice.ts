@@ -11,7 +11,7 @@ export const phoneSlice = createSlice({
   name: "phone",
   initialState: {
     cartList: [],
-    isLoading: true,
+    isLoading: false,
     filterBrand: "",
     filterType: "",
   } as phoneState,
@@ -80,7 +80,7 @@ export const phoneSlice = createSlice({
       }
     },
 
-    setCloseLoading: (state, action: PayloadAction<any>) => {
+    setLoading: (state, action: PayloadAction<any>) => {
       state.isLoading = action.payload;
     },
 
@@ -103,7 +103,7 @@ export const {
   increaseQuantity,
   decreaseQuantity,
   deleteCart,
-  setCloseLoading,
+  setLoading,
   setFilterBrand,
   setFilterType,
 } = phoneSlice.actions;

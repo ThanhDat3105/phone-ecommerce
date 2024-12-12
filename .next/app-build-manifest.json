@@ -26,7 +26,8 @@
     "/sign_in/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/sign_in/page.js"
+      "static/chunks/app/sign_in/page.js",
+      "static/css/app/sign_in/page.css"
     ],
     "/order-list/page": [
       "static/chunks/webpack.js",
