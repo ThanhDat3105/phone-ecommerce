@@ -40,6 +40,7 @@ import { useRouter } from "next/navigation";
 import { LoginRegisResType } from "@/src/interface/user";
 import { CartItem } from "@/src/interface/product";
 import orderApiRequest from "@/src/apiRequest/order";
+import Cookies from "js-cookie";
 
 export default function DataTableDemo() {
   const router = useRouter();
@@ -51,30 +52,6 @@ export default function DataTableDemo() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-
-  useEffect(() => {
-    const getUserLocalStorage = localStorage.getItem("USER_INFO_KEY");
-    if (getUserLocalStorage) {
-      const user: LoginRegisResType = JSON.parse(getUserLocalStorage);
-      if (user) {
-        fetchOrderList(user.id_user, user.accessToken);
-      }
-    } else {
-      toast.warning("Login to continue!");
-      router.push(`/sign_in?urlBack=/order-list`);
-    }
-
-    // router.refresh();
-  }, []);
-
-  const fetchOrderList = async (id: number, accessToken: string) => {
-    const result = await orderApiRequest.fetchOrderByIdUserApi({
-      id,
-      accessToken,
-    });
-
-    if (result) setOrderList(result?.payload);
-  };
 
   const viewDetail = async (id: number) => {
     setDataDetail(orderList.find((item: OrderList) => item.id_order === id));
@@ -173,6 +150,30 @@ export default function DataTableDemo() {
       rowSelection,
     },
   });
+
+  const fetchOrderList = async (id: number, accessToken: string) => {
+    const result = await orderApiRequest.fetchOrderByIdUserApi({
+      id,
+      accessToken,
+    });
+
+    if (result) setOrderList(result?.payload);
+  };
+
+  useEffect(() => {
+    const token = Cookies.get("accessToken");
+
+    if (!token) {
+      toast.warning("Login to continue!");
+      return;
+    }
+
+    const user: LoginRegisResType = JSON.parse(token);
+
+    if (user) {
+      fetchOrderList(user.id_user, user.accessToken);
+    }
+  }, []);
 
   return (
     <>
