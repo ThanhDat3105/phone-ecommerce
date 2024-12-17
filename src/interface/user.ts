@@ -64,3 +64,10 @@ export interface UserProfile {
   productItem: ProductItem[];
 }
 
+export interface UserTokenInterface {
+  email: string;
+  exp: number;
+  iat: number;
+  id_user: number;
+  name: string;
+}

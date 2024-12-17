@@ -35,5 +35,6 @@ export default function RefreshToken() {
 
     return () => clearInterval(interval);
   }, []);
+  
   return null;
 }

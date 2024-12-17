@@ -21,9 +21,13 @@ export function middleware(request: NextRequest) {
       pathName = pathName.split("/").join("");
     }
 
-    response.cookies.set("prevPath", pathName);
+    const response = NextResponse.redirect(new URL("/sign_in", request.url));
 
-    NextResponse.redirect(new URL(`/sign_in`, request.url));
+    response.cookies.set("prevPath", pathName, {
+      httpOnly: true,
+      path: "/",
+      maxAge: 60 * 60 * 24,
+    });
 
     return response;
   }
@@ -43,8 +47,6 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/cart",
-    "/product",
-    "/news",
     "/forgot-password",
     "/order-list",
     "/profile",

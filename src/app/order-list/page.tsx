@@ -37,10 +37,11 @@ import { formatPrice } from "@/src/utils/price";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { LoginRegisResType } from "@/src/interface/user";
+import { LoginRegisResType, UserTokenInterface } from "@/src/interface/user";
 import { CartItem } from "@/src/interface/product";
 import orderApiRequest from "@/src/apiRequest/order";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 export default function DataTableDemo() {
   const router = useRouter();
@@ -164,14 +165,14 @@ export default function DataTableDemo() {
     const token = Cookies.get("accessToken");
 
     if (!token) {
-      // toast.warning("Login to continue!");
+      toast.warning("Login to continue!");
       return;
     }
 
-    const user: LoginRegisResType = JSON.parse(token);
+    const decoded: UserTokenInterface = jwtDecode(token);
 
-    if (user) {
-      fetchOrderList(user.id_user, user.accessToken);
+    if (decoded) {
+      fetchOrderList(decoded.id_user, token);
     }
   }, []);
 
