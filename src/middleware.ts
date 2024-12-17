@@ -21,13 +21,14 @@ export function middleware(request: NextRequest) {
       pathName = pathName.split("/").join("");
     }
 
-    response.cookies.set("prevPath", pathName);
+    const response = NextResponse.redirect(new URL(`/sign_in`, request.url));
 
-    NextResponse.redirect(new URL(`/sign_in`, request.url));
+    response.cookies.set("prevPath", pathName);
 
     return response;
   }
 
+  // Logged in, block /sign_in and /sign_up
   if (
     authPaths.some((path: string) =>
       request.nextUrl.pathname.startsWith(path)
