@@ -178,7 +178,7 @@ export default function HeaderDesktop(props: Props) {
           </Button>
           <div
             ref={props.dropdownRef}
-            className="dropdown_user absolute h-0 overflow-hidden w-[150px] top-[140%] rounded-b-[5px] right-[50%] translate-x-[50%] transition-all duration-300"
+            className="dropdown_user md:block hidden absolute h-0 overflow-hidden w-[150px] top-[140%] rounded-b-[5px] right-[50%] translate-x-[50%] transition-all duration-300"
           >
             {!props.login ? (
               <>

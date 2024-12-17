@@ -20,20 +20,20 @@ const ModalMenu = dynamic(() => import("./components/ModalMenu"), {
   ssr: false,
 });
 
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/src/lib/redux/store";
+import { useSelector } from "react-redux";
+import { RootState } from "@/src/lib/redux/store";
 import phoneApiRequest from "@/src/apiRequest/phone";
 import { PhoneResType } from "@/src/interface/product";
 import authApiRequest from "@/src/apiRequest/auth";
 import { toast } from "sonner";
 import Logo from "@/src/components/icons/icon/Logo";
+import Loading from "@/src/app/loading";
 
 export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathName = usePathname();
-  const dispatch = useDispatch<AppDispatch>();
   const [login, setLogin] = useState<boolean>(false);
   const [valueSearch, setValueSearch] = useState<string>("");
   const [filterPhoneSearch, setFilterPhoneSearch] = useState<PhoneResType[]>(
@@ -44,6 +44,7 @@ export default function Header() {
   const [headerOpen, setHeaderOpen] = useState<boolean>(true);
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const phoneReducer = useSelector((state: RootState) => state.phoneReducer);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   let debounceSearch = useDebounce(valueSearch, 200);
 
@@ -101,6 +102,7 @@ export default function Header() {
 
   const handleLogOut = async () => {
     if (login) {
+      setIsLoading(true);
       setHeight();
       const userLogout = await authApiRequest.logoutFromClientToNextServer(
         false
@@ -109,6 +111,7 @@ export default function Header() {
         location.href = "/";
         setLogin(false);
         toast.success("Log out successfully");
+        setIsLoading(false);
       }
     }
   };
@@ -160,6 +163,7 @@ export default function Header() {
 
   return (
     <>
+      {isLoading && <Loading />}
       <div
         ref={headerRef}
         className={`header transition-all duration-300 fixed w-full !z-[100] bg-white drop-shadow-md ${

@@ -13,6 +13,11 @@ interface Props {
 
 export default function ModalMenu(props: Props) {
   const router = useRouter();
+
+  const navigate = (path: string) => {
+    router.push(path);
+    props.setShowMenu(false);
+  };
   return (
     <div
       className={`modal_menu transition-all duration-500 absolute w-full md:mt-[70px] mt-[60px] pt-[30px] h-screen z-50 bg-white md:hidden ${
@@ -24,7 +29,7 @@ export default function ModalMenu(props: Props) {
           <div className="item_menu category flex cursor-pointer relative items-center">
             <div
               role="button"
-              onClick={() => router.push("/product")}
+              onClick={() => navigate("/product")}
               className={`text-base ${
                 props.pathName === "/product" ? "font-bold" : "font-normal"
               }`}
@@ -34,7 +39,7 @@ export default function ModalMenu(props: Props) {
           </div>
           <div className="item_menu relative">
             <div
-              onClick={() => router.push("/news")}
+              onClick={() => navigate("/news")}
               role="button"
               className={`text-base ${
                 props.pathName === "/news" ? "font-bold" : "font-normal"
@@ -50,17 +55,13 @@ export default function ModalMenu(props: Props) {
               <>
                 <div
                   className="cursor-pointer font-normal text-base bg-white text-black hover:opacity-80 transition-all duration-300 mb-[20px]"
-                  onClick={() => {
-                    router.push("/sign_in");
-                  }}
+                  onClick={() => navigate("/sign_in")}
                 >
                   Login
                 </div>
                 <div
                   className="bg-white text-black font-normal text-base cursor-pointer hover:opacity-80 transition-all duration-300"
-                  onClick={() => {
-                    router.push("/sign_up");
-                  }}
+                  onClick={() => navigate("/sign_up")}
                 >
                   Register
                 </div>
@@ -69,7 +70,7 @@ export default function ModalMenu(props: Props) {
               <>
                 <div
                   className="flex items-center font-normal text-base justify-between cursor-pointer bg-white text-black hover:opacity-80 transition-all duration-300 mb-[20px]"
-                  onClick={() => router.push("/order-list")}
+                  onClick={() => navigate("/order-list")}
                 >
                   Order list
                 </div>
