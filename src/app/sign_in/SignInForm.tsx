@@ -29,7 +29,6 @@ type LoginFormValues = z.infer<typeof formSchema>;
 
 export default function SignInForm() {
   const path = Cookies.get("prevPath");
-  Cookies.remove("prevPath");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -62,6 +61,7 @@ export default function SignInForm() {
 
         if (path) {
           location.href = `/${path}`;
+          Cookies.remove("prevPath");
         } else {
           location.href = "/";
         }
