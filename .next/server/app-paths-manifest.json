@@ -1,7 +1,7 @@
 {
   "/page": "app/page.js",
-  "/sign_in/page": "app/sign_in/page.js",
   "/order-list/page": "app/order-list/page.js",
+  "/sign_in/page": "app/sign_in/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/not-found": "app/not-found.js"
+  "/cart/page": "app/cart/page.js"
 }

@@ -164,7 +164,7 @@ export default function DataTableDemo() {
     const token = Cookies.get("accessToken");
 
     if (!token) {
-      toast.warning("Login to continue!");
+      // toast.warning("Login to continue!");
       return;
     }
 
