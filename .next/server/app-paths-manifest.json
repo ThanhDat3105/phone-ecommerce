@@ -2,6 +2,5 @@
   "/sign_in/page": "app/sign_in/page.js",
   "/cart/page": "app/cart/page.js",
   "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/order-list/page": "app/order-list/page.js"
 }

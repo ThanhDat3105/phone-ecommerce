@@ -29,6 +29,7 @@ type LoginFormValues = z.infer<typeof formSchema>;
 
 export default function SignInForm() {
   const path = Cookies.get("prevPath");
+  Cookies.remove("prevPath");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -64,13 +65,14 @@ export default function SignInForm() {
         } else {
           location.href = "/";
         }
-
-        setIsLoading(false);
       } else {
         toast.error("Invalid login information!");
       }
+
+      setIsLoading(false);
     } catch (error: any) {
       console.log(error);
+      setIsLoading(false);
     } finally {
       setIsLogin(false);
     }
