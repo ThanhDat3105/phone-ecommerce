@@ -178,14 +178,14 @@ export default function HeaderDesktop(props: Props) {
           </Button>
           <div
             ref={props.dropdownRef}
-            className="dropdown_user absolute h-0 overflow-hidden w-[150px] top-[140%] rounded-b-[5px] right-[50%] translate-x-[50%] transition-all duration-300"
+            className="dropdown_user md:block hidden absolute h-0 overflow-hidden w-[150px] top-[140%] rounded-b-[5px] right-[50%] translate-x-[50%] transition-all duration-300"
           >
             {!props.login ? (
               <>
                 <div
                   className="login px-5 py-3 cursor-pointer bg-white text-black hover:bg-[#f5f5f5] transition-all duration-300"
                   onClick={() => {
-                    router.push("/sign_in?urlBack=/"), props.setHeight();
+                    router.push("/sign_in"), props.setHeight();
                   }}
                 >
                   Login

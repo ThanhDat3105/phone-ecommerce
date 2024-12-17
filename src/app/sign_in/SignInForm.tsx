@@ -18,9 +18,8 @@ import { LoginBodyType } from "@/src/interface/user";
 import Link from "next/link";
 import { toast } from "sonner";
 import authApiRequest from "@/src/apiRequest/auth";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/src/lib/redux/store";
 import Cookies from "js-cookie";
+import Loading from "../loading";
 
 const formSchema = z.object({
   email: z.string().min(1).max(50).email(),
@@ -29,10 +28,11 @@ const formSchema = z.object({
 type LoginFormValues = z.infer<typeof formSchema>;
 
 export default function SignInForm() {
-  const dispatch = useDispatch<AppDispatch>();
   const path = Cookies.get("prevPath");
+  Cookies.remove("prevPath");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(formSchema),
@@ -48,6 +48,8 @@ export default function SignInForm() {
     setIsLogin(true);
 
     try {
+      setIsLoading(true);
+
       const result = await authApiRequest.login(data);
 
       await authApiRequest.auth({
@@ -66,95 +68,104 @@ export default function SignInForm() {
       } else {
         toast.error("Invalid login information!");
       }
+
+      setIsLoading(false);
     } catch (error: any) {
       console.log(error);
+      setIsLoading(false);
     } finally {
       setIsLogin(false);
     }
   };
   return (
-    <Form {...form}>
-      <form className="space-y-8 w-full" onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="flex flex-col justify-center">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem className="mb-5">
-                <FormControl>
-                  <Input
-                    type="text"
-                    id="email"
-                    placeholder="Enter your email"
-                    className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <div className="relative">
+    <>
+      {isLoading && <Loading />}
+      <Form {...form}>
+        <form
+          className="space-y-8 w-full"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <div className="flex flex-col justify-center">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="mb-5">
+                  <FormControl>
                     <Input
-                      type={showPassword ? "text" : "password"}
-                      id="password"
-                      placeholder="Enter your password"
+                      type="text"
+                      id="email"
+                      placeholder="Enter your email"
                       className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
                       {...field}
                     />
-                    {showPassword ? (
-                      <FaRegEyeSlash
-                        onClick={() => setShowPassword(false)}
-                        className="absolute right-[5%] translate-y-[-50%] top-[50%] !m-0 cursor-pointer"
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="relative">
+                      <Input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        placeholder="Enter your password"
+                        className=" rounded-[15px] h-[60px] w-full focus-visible:!shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none"
+                        {...field}
                       />
-                    ) : (
-                      <FaRegEye
-                        onClick={() => setShowPassword(true)}
-                        className="absolute right-[5%] translate-y-[-50%] top-[50%] !m-0 cursor-pointer"
-                      />
-                    )}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="forgot_password flex justify-end cursor-pointer">
-          <Link
-            href="/forgot-password"
-            className="text-xl tracking-wider text-[#5D5D5D]"
+                      {showPassword ? (
+                        <FaRegEyeSlash
+                          onClick={() => setShowPassword(false)}
+                          className="absolute right-[5%] translate-y-[-50%] top-[50%] !m-0 cursor-pointer"
+                        />
+                      ) : (
+                        <FaRegEye
+                          onClick={() => setShowPassword(true)}
+                          className="absolute right-[5%] translate-y-[-50%] top-[50%] !m-0 cursor-pointer"
+                        />
+                      )}
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="forgot_password flex justify-end cursor-pointer">
+            <Link
+              href="/forgot-password"
+              className="text-xl tracking-wider text-[#5D5D5D]"
+            >
+              Forgot password ?
+            </Link>
+          </div>
+          <p className="text-lg tracking-wider text-[#5D5D5D] pt-[10px] text-center">
+            Don’t have an accout yet ?
+            <Link href="/sign_up" className="text-black">
+              <b className="cursor-pointer ml-2">Register</b>
+            </Link>
+          </p>
+          <Button
+            className="w-full h-[60px] text-xl font-medium tracking-wider rounded-[60px] text-white bg-black border-solid border-[1px] border-black hover:opacity-95"
+            type="submit"
           >
-            Forgot password ?
-          </Link>
-        </div>
-        <p className="text-lg tracking-wider text-[#5D5D5D] pt-[10px] text-center">
-          Don’t have an accout yet ?
-          <Link href="/sign_up" className="text-black">
-            <b className="cursor-pointer ml-2">Register</b>
-          </Link>
-        </p>
-        <Button
-          className="w-full h-[60px] text-xl font-medium tracking-wider rounded-[60px] text-white bg-black border-solid border-[1px] border-black hover:opacity-95"
-          type="submit"
-        >
-          Login
-        </Button>
-        <p className="text-2xl tracking-wider text-[#5D5D5D] pt-[10px] text-center">
-          --- or ---
-        </p>
-        <div className="button_signIn flex items-center justify-center gap-[100px]">
-          <FaFacebookF className="rounded-full w-[60px] h-[60px] p-[15px] border-[1px] border-solid shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] cursor-pointer" />
-          <FaGoogle className="rounded-full w-[60px] h-[60px] p-[15px] border-[1px] border-solid shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] cursor-pointer" />
-          <FaGithub className="rounded-full w-[60px] h-[60px] p-[15px] border-[1px] border-solid shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] cursor-pointer" />
-        </div>
-      </form>
-    </Form>
+            Login
+          </Button>
+          <p className="text-2xl tracking-wider text-[#5D5D5D] pt-[10px] text-center">
+            --- or ---
+          </p>
+          <div className="button_signIn flex items-center justify-center gap-[100px]">
+            <FaFacebookF className="rounded-full w-[60px] h-[60px] p-[15px] border-[1px] border-solid shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] cursor-pointer" />
+            <FaGoogle className="rounded-full w-[60px] h-[60px] p-[15px] border-[1px] border-solid shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] cursor-pointer" />
+            <FaGithub className="rounded-full w-[60px] h-[60px] p-[15px] border-[1px] border-solid shadow-[0_5px_10px_0_rgb(0,0,0,0.2)] cursor-pointer" />
+          </div>
+        </form>
+      </Form>
+    </>
   );
 }
